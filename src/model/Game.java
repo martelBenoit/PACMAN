@@ -1,6 +1,8 @@
 package model;
 
 import java.util.ArrayList;
+import control.*;
+import view.GameFrame;
 
 public class Game {
 
@@ -12,7 +14,13 @@ public class Game {
     private int numberOfLives;
     private Maze maze;
 
+    private Controller control;
+
+    private GameFrame gameFrame;
+
     public Game(int lives) {
+
+        this.control = new Controller(this);
         this.initialNumberOfLives = lives;
     }
 
@@ -30,6 +38,8 @@ public class Game {
         //this.level = 1;
         this.score = 0;
 
+        this.gameFrame = new GameFrame(this.control);
+        this.gameFrame.showIt();
         // TODO : Boucle principale
     }
 
@@ -40,5 +50,9 @@ public class Game {
         if (this.score > highScores.get(0)) {
             // Mettre le score au bon endroit et réarranger la liste des highscores
         }
+    }
+
+    public Controller getController(){
+        return control;
     }
 }

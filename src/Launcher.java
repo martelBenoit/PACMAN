@@ -1,6 +1,10 @@
+import model.Game;
+
 public class Launcher {
 
     public static void main(String[] args){
-        System.out.println("OUI");
+        Game game = new Game(5);
+        game.startGame();
+
     }
 }

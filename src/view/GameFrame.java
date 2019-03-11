@@ -17,5 +17,19 @@ public class GameFrame extends JFrame {
         this.pack();
     }
 
+    /**
+     * Method that displays the window
+     */
+    public void showIt(){
+        this.setVisible(true);
+    }
+
+    /**
+     * A method to hide the window
+     */
+    public void hideIt(){
+        this.setVisible(false);
+    }
+
 
 }
