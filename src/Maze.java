@@ -9,6 +9,8 @@ public class Maze {
     private int ghostSpeed;
 
     private ArrayList<Tile> tiles;
+    private ArrayList<Character> characters;
+    private ArrayList<Pill> pills;
 
     public Maze(int powerTime, int fruitValue, int pillValue, int regenerationTime, int ghostSpeed){
 
@@ -30,7 +32,6 @@ public class Maze {
     }
 
 
-
     public int getRegenerationTime() {
         return regenerationTime;
     }
@@ -41,7 +42,6 @@ public class Maze {
     }
 
 
-
     public ArrayList<Tile> getTiles() {
         return tiles;
     }
@@ -49,6 +49,14 @@ public class Maze {
 
     public int getPowerTime() {
         return powerTime;
+    }
+
+    public ArrayList<Pill> getPills() {
+        return pills;
+    }
+
+    public ArrayList<Character> getCharacter() {
+        return characters;
     }
 
 
