@@ -1,3 +1,5 @@
+package model;
+
 public class FruitPill extends Pill{
 
     public FruitPill(Tile tile) {

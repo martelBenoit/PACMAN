@@ -1,6 +1,8 @@
+package model;
+
 public abstract class Character {
 
-    private Tile tile;
+    protected Tile tile;
 
     public Tile getTile(){
         return this.tile;

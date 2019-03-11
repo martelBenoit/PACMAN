@@ -1,6 +1,8 @@
+package model;
+
 /**
- * Class Tile.
- * This class allows to create tile of Maze
+ * Class model.Tile.
+ * This class allows to create tile of model.Maze
  */
 public class Tile {
 

@@ -1,3 +1,5 @@
+package model;
+
 public class Pacman extends Character {
 
     private boolean hasPower;
@@ -20,7 +22,7 @@ public class Pacman extends Character {
         this.tile = tile;
     }
 
-    public boolean setHasPower(Boolean power){
+    public void setHasPower(Boolean power){
         power = this.hasPower;
     }
 
