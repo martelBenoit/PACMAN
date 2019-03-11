@@ -1,9 +1,30 @@
 public class Pacman extends Character {
 
-    private boolean hasPower
+    private boolean hasPower;
+
+    public Pacman(Tile tile){
+        this.tile = tile;
+    }
+
+    public boolean eatPill(){
+        return false;
+    }
+
+    public boolean eatGhost(){
+        return false;
+    }
 
     @Override
-    public Tile move(Tile nTile) {
-        return null;
+    public void move(Tile tile) {
+
+        this.tile = tile;
+    }
+
+    public boolean setHasPower(Boolean power){
+        power = this.hasPower;
+    }
+
+    public boolean getHasPower(){
+        return this.hasPower;
     }
 }

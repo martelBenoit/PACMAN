@@ -26,5 +26,7 @@ public class Tile {
 
     }
 
-
+    public boolean isWall() {
+        return isWall;
+    }
 }

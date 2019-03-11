@@ -1,6 +1,6 @@
 public abstract class Character {
 
-    private Tile tile;
+    protected Tile tile;
 
     public Tile getTile(){
         return this.tile;
@@ -10,7 +10,7 @@ public abstract class Character {
         return false;
     }
 
-    public abstract Tile move(Tile nTile);
+    public abstract void move(Tile nTile);
 
 
 }
