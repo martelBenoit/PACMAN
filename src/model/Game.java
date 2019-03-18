@@ -30,16 +30,14 @@ public class Game {
 
     }
 
-    // increaseLevel() ?
-    // increaseScore() ?
 
     public void startGame() {
         this.isLost = false;
         //this.level = 1;
         this.score = 0;
 
-        this.gameFrame = new GameFrame(this.control);
-        this.gameFrame.showIt();
+       // this.gameFrame = new GameFrame(this.control);
+        //this.gameFrame.showIt();
         // TODO : Boucle principale
     }
 
@@ -55,4 +53,10 @@ public class Game {
     public Controller getController(){
         return control;
     }
+
+
+    public Maze getMaze(){
+        return this.maze;
+    }
 }
+
