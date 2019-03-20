@@ -1,9 +1,7 @@
 package model;
 
 import java.util.ArrayList;
-import control.*;
 import view.GameFrame;
-import java.util.concurrent.TimeUnit;
 
 public class Game {
 
@@ -15,13 +13,11 @@ public class Game {
     private int numberOfLives;
     private Maze maze;
 
-    private Controller control;
 
     private GameFrame gameFrame;
 
     public Game(int lives) {
 
-        this.control = new Controller(this);
         this.initialNumberOfLives = lives;
         this.generateMaze(10, 50, 20, 10, 5);
     }
@@ -48,7 +44,7 @@ public class Game {
         //this.level = 1;
         this.score = 0;
 
-        this.gameFrame = new GameFrame(this.control);
+        this.gameFrame = new GameFrame();
         this.gameFrame.showIt();
         
         // Boucle principale
@@ -80,7 +76,4 @@ public class Game {
         }
     }
 
-    public Controller getController(){
-        return control;
-    }
 }

@@ -1,18 +1,15 @@
 package view;
 
 import javax.swing.*;
-import control.*;
 import java.awt.event.*;
 import java.awt.*;
 
 public class GameFrame extends JFrame {
 
-    private Controller control;
     private static GameFrame GameFrameSingleton;
 	private boolean upPressed, downPressed, leftPressed, rightPressed, directionChanged = false;
 
-    public GameFrame(Controller control){
-        this.control = control;
+    public GameFrame(){
 
         this.setTitle("Pacman");
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -23,10 +20,10 @@ public class GameFrame extends JFrame {
         this.pack();
     }
     
-    public static GameFrame getGameFrame(Controller control)
+    public static GameFrame getGameFrame()
     {
         if(GameFrameSingleton == null) {
-            GameFrameSingleton = new GameFrame(control);
+            GameFrameSingleton = new GameFrame();
         }
         GameFrameSingleton.setVisible(true);
         return GameFrameSingleton;
