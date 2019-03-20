@@ -7,7 +7,7 @@ public abstract class Character{
         return this.tile;
     }
 
-    public abstract boolean move(Tile nextTile);
+    public abstract void move(Tile nextTile);
 
     public void setTile(Tile tile) {
         this.tile = tile;

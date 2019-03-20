@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.sql.Array;
 import java.util.ArrayList;
 
 public class Maze {
@@ -21,15 +22,17 @@ public class Maze {
     
     private Pacman pacman;
 
-    private Figure[][] figures;
-
     private ArrayList<Tile> tiles;
     private ArrayList<Ghost> ghosts;
     private ArrayList<Pill> pills;
 
     public Maze(int mazeNumber){
         this.pathMaze = "lib/maze"+mazeNumber+".maze";
+        this.tiles = new ArrayList<Tile>();
+        this.pills = new ArrayList<Pill>();
+        this.ghosts = new ArrayList<Ghost>();
         this.createMaze();
+        this.pacman = new Pacman(getRandomTile());
     }
 
     private void createMaze(){
@@ -44,7 +47,6 @@ public class Maze {
             String[] param = line.split(",");
             this.nbXTiles = Integer.parseInt(param[0]);
             this.nbYTiles = Integer.parseInt(param[1]);
-            figures = new Figure[nbXTiles][nbYTiles];
 
             GameFrame gameFrame = GameFrame.getGameFrame();
             this.tile_size = gameFrame.WIDTH/this.nbXTiles;
@@ -63,18 +65,24 @@ public class Maze {
 
                     tmpx = j*this.tile_size;
                     tmpy = i*this.tile_size;
-                    Tile tile;
+                    Tile newTile;
+                    Pill newPill;
                     switch (str) {
+                        case "2" :
+                            newTile = new Tile(this.tile_size, tmpx, tmpy, false);
+                            newPill = new PowerPill(newTile, Color.WHITE);
+                            this.tiles.add(newTile);
+                            this.pills.add(newPill);
+                            break;
                         case "1" :
-                            setFigure(i,j,new Tile(this.tile_size, tmpx, tmpy, true));
+                            newTile = new Tile(this.tile_size, tmpx, tmpy, true);
+                            this.tiles.add(newTile);
                             break;
                         case "0" :
-                            tile = new Tile(this.tile_size, tmpx, tmpy,false);
-                            setFigure(i,j,new NormalPill(tile));
-                            break;
-                        case "2" :
-                            tile = new Tile(this.tile_size, tmpx, tmpy,false);
-                            setFigure(i,j,new PowerPill(tile,Color.WHITE));
+                            newTile = new Tile(this.tile_size, tmpx, tmpy, false);
+                            newPill = new NormalPill(newTile);
+                            this.tiles.add(newTile);
+                            this.pills.add(newPill);
                             break;
 
                     }
@@ -88,6 +96,20 @@ public class Maze {
         catch (Exception e){
             System.out.println(e.toString());
         }
+    }
+
+    /**
+     * Get a random tile which isn't a wall in the maze
+     *
+     * @return A random tile, which isn't a wall
+     */
+    public Tile getRandomTile() {
+        ArrayList<Tile> tilesAvailable = new ArrayList<Tile>();
+
+        for(Tile t : this.tiles) {
+
+        }
+        return null;
     }
 
 
@@ -143,24 +165,31 @@ public class Maze {
 		return this.pacman;
 	}
 
-    // A FAIRE
-    public Tile getTile(Direction direction){
+    // TODO
+    public Tile getTile(Character c, Direction direction){
+        switch(direction) {
+            case UP:
+                break;
+            case DOWN:
+                break;
+            case LEFT:
+                break;
+            case RIGHT:
+                break;
+            default:
+                break;
+        }
         return null;
-    }
-
-    public void setFigure (int i, int j, Figure f) {
-
-        this.figures[i][j] = f;
     }
 
     public void draw () {
 
-        for(int y = 0; y < figures[0].length; y++){
-            for(int x = 0; x < figures.length; x++){
-                if (figures[x][y]!=null) {
-                    figures[x][y].draw();
-                }
-            }
+        for(Tile t: this.tiles) {
+            t.draw();
+        }
+
+        for(Pill p: this.pills) {
+            p.draw();
         }
 
     }
