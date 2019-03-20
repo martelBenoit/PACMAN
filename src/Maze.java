@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Maze {
 
@@ -105,11 +106,31 @@ public class Maze {
      */
     public Tile getRandomTile() {
         ArrayList<Tile> tilesAvailable = new ArrayList<Tile>();
+        ArrayList<PowerPill> powerPills = new ArrayList<PowerPill>();
+
+        for(Pill p : this.pills) {
+            if (p.getClass().getSimpleName().equals("PowerPill")) {
+               powerPills.add((PowerPill) (p));
+            }
+        }
 
         for(Tile t : this.tiles) {
-
+            if (!t.isWall()) {
+                boolean valide = true;
+                for (PowerPill p : powerPills) {
+                    if (p.getTile() == t) {
+                        valide = false;
+                    }
+                }
+                if (valide) {
+                    tilesAvailable.add(t);
+                }
+            }
         }
-        return null;
+
+        Random rd = new Random();
+        int x = rd.nextInt(tilesAvailable.size());
+        return tilesAvailable.get(x);
     }
 
 
