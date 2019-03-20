@@ -1,10 +1,8 @@
-package view;
+package main.view;
 
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import main.Character;

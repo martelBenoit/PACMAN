@@ -1,7 +1,7 @@
 package main;
 
 
-import view.GameFrame;
+import main.view.GameFrame;
 
 public class Pacman extends Character {
 

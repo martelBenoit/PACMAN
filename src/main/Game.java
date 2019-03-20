@@ -3,7 +3,7 @@ package main;
 import java.util.ArrayList;
 import java.util.Random;
 
-import view.GameFrame;
+import main.view.GameFrame;
 
 public class Game {
 

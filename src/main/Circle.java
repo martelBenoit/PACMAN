@@ -1,6 +1,6 @@
 package main;
 
-import view.GameFrame;
+import main.view.GameFrame;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;

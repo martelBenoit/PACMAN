@@ -1,6 +1,6 @@
 package main;
 
-import view.GameFrame;
+import main.view.GameFrame;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
