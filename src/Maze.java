@@ -1,5 +1,6 @@
 import view.GameFrame;
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -62,13 +63,18 @@ public class Maze {
 
                     tmpx = j*this.tile_size;
                     tmpy = i*this.tile_size;
+                    Tile tile;
                     switch (str) {
                         case "1" :
                             setFigure(i,j,new Tile(this.tile_size, tmpx, tmpy, true));
                             break;
                         case "0" :
-                            Tile tile = new Tile(this.tile_size, tmpx, tmpy,false);
-                            //setFigure(i,j,new(Pill));
+                            tile = new Tile(this.tile_size, tmpx, tmpy,false);
+                            setFigure(i,j,new NormalPill(tile));
+                            break;
+                        case "2" :
+                            tile = new Tile(this.tile_size, tmpx, tmpy,false);
+                            setFigure(i,j,new PowerPill(tile,Color.WHITE));
                             break;
 
                     }

@@ -1,6 +1,10 @@
+import java.awt.*;
+
 public class NormalPill extends Pill{
 
     public NormalPill(Tile tile) {
-        this.setTile(tile);
+        super(tile,Color.WHITE);
+
     }
+
 }
