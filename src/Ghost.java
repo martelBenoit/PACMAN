@@ -9,9 +9,7 @@ public class Ghost extends Character {
         this.setDirection(Direction.LEFT);
 	}
 
-    public void move() {
-		
-		Tile nextTile = getTile(this.getRandomDirection());
+    public boolean move(Tile nextTile) {
 		
 		boolean facingWall = true;
 		
@@ -21,17 +19,15 @@ public class Ghost extends Character {
 			if(!nextTile.isWall()) {
 				this.setTile(nextTile);
 				facingWall = false;
+				return true;
 			}
+			return false;
 		}
 		//If the ghost didn't move, change his direction and move it
 		if(facingWall) {
-			Direction newDirection = this.getDirection();
-			while(newDirection == this.getDirection()) {
-				newDirection = getRandomDirection();
-			}
-			this.setDirection(newDirection);
-			this.move();
+			return false;
 		}
+		return false;
     }
     
     /**

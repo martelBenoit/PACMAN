@@ -16,44 +16,45 @@ public class Pacman extends Character {
     }
 
     @Override
-    public void move() {
-		Tile nextTile;
+    public boolean move(Tile nextTile) {
         switch(this.getDirection()) {
 			case UP:
-				nextTile = getTile(Direction.UP);
 				// Checks if the tile exists (not out of the maze)
 				if(nextTile != null) {
 					// Checks if the tile isn't a wall
 					if(!nextTile.isWall()) {
 						this.setTile(nextTile);
+						return true;
 					}
 				}
 				break;
 			case DOWN:
-				nextTile = getTile(Direction.DOWN);
 				if(nextTile != null) {
 					if(!nextTile.isWall()) {
 						this.setTile(nextTile);
+						return true;
 					}
 				}
 				break;
 			case LEFT:
-				nextTile = getTile(Direction.LEFT);
 				if(nextTile != null) {
 					if(!nextTile.isWall()) {
 						this.setTile(nextTile);
+						return true;
 					}
 				}
 				break;
 			case RIGHT:
-				nextTile = getTile(Direction.RIGHT);
 				if(nextTile != null) {
 					if(!nextTile.isWall()) {
 						this.setTile(nextTile);
+						return true;
 					}
 				}
 				break;
 		}
+		return false;
+
     }
 
 

@@ -6,12 +6,12 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class GameFrame extends JFrame {
+public class GameFrame{
 
     public static final int WIDTH = 700, HEIGHT = 700;
+    private JFrame frame;
     private CanvasPane canvas;
     private Graphics2D graphic;
-    private Color backgroundColor;
     private Image canvasImage;
     private ArrayList<Object> objects;
     private HashMap<Object, ShapeDescription> shapes;
@@ -19,26 +19,28 @@ public class GameFrame extends JFrame {
     private static GameFrame instance;
 	private boolean upPressed, downPressed, leftPressed, rightPressed, directionChanged = false;
 
-    public GameFrame(){
+    private GameFrame(){
 
-        this.setTitle("Pacman");
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.setResizable(false);
-        this.setPreferredSize(new Dimension(750,900));
-        this.addKeyListener(new KeyboardListener());
+        frame = new JFrame();
+        frame.setTitle("Pacman");
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setResizable(false);
+        frame.setPreferredSize(new Dimension(750,900));
+        frame.addKeyListener(new KeyboardListener());
 
         JPanel pan = new JPanel();
         pan.setBackground(Color.BLACK);
         canvas = new CanvasPane();
         canvas.setPreferredSize(new Dimension(700,700));
-        this.setContentPane(pan);
+        frame.setContentPane(pan);
         pan.add(canvas);
-        this.pack();
+        frame.pack();
 
         objects = new ArrayList<Object>();
         shapes = new HashMap<Object, ShapeDescription>();
 
         canvas.setFocusable(true);
+        this.setVisible(true);
     }
     
     public static GameFrame getGameFrame()
@@ -56,11 +58,10 @@ public class GameFrame extends JFrame {
             Dimension size = canvas.getSize();
             canvasImage = canvas.createImage(size.width, size.height);
             graphic = (Graphics2D)canvasImage.getGraphics();
-            graphic.setColor(backgroundColor);
             graphic.fillRect(0, 0, size.width, size.height);
             graphic.setColor(Color.black);
         }
-        this.setVisible(visible);
+        frame.setVisible(visible);
     }
 
 
@@ -105,7 +106,7 @@ public class GameFrame extends JFrame {
     private void erase()
     {
         Color original = graphic.getColor();
-        graphic.setColor(backgroundColor);
+        graphic.setColor(Color.black);
         Dimension size = canvas.getSize();
         graphic.fill(new Rectangle(0, 0, size.width, size.height));
         graphic.setColor(original);

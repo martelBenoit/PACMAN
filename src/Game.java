@@ -17,13 +17,20 @@ public class Game {
     public Game(int lives) {
 
         this.initialNumberOfLives = lives;
-        this.generateMaze(10, 50, 20, 10, 5);
+        this.gameFrame = GameFrame.getGameFrame();
+        this.maze = new Maze(2);
+        this.maze.draw();
+        this.gameFrame.redraw();
+       // this.generateMaze(10, 50, 20, 10, 5);
+
 
     }
 
     public void generateMaze(int powerTime, int fruitValue, int pillValue, int regenerationTime, int ghostSpeed) {
-        this.maze = new Maze(powerTime, fruitValue, pillValue, regenerationTime, ghostSpeed);
-        this.level++; // this.increaseLevel() ?
+       // this.maze = new Maze(powerTime, fruitValue, pillValue, regenerationTime, ghostSpeed);
+        this.maze = new Maze(2);
+        this.gameFrame.redraw();
+        //this.level++; // this.increaseLevel() ?
 
     }
     
@@ -43,8 +50,7 @@ public class Game {
         //this.level = 1;
         this.score = 0;
 
-        this.gameFrame = new GameFrame();
-        this.gameFrame.showIt();
+
         
         // Boucle principale
 		//while (this.getNumberOfLives() > 0 && this.getMaze().getPills().size() > 0) { //(this.maps.getNbGom() > 0) && (this.pacman.getLife() > 0)
@@ -62,7 +68,7 @@ public class Game {
 				gameFrame.resetMove();
 			}
 			
-			this.getMaze().getPacman().move();
+			//this.getMaze().getPacman().move();
 		}
     }
 

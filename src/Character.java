@@ -1,4 +1,4 @@
-public abstract class Character {
+public abstract class Character{
 
     protected Tile tile;
     private Direction direction;
@@ -7,7 +7,7 @@ public abstract class Character {
         return this.tile;
     }
 
-    public abstract void move();
+    public abstract boolean move(Tile nextTile);
 
     public void setTile(Tile tile) {
         this.tile = tile;
@@ -22,8 +22,5 @@ public abstract class Character {
 		return this.direction;
 	}
 
-    // A FAIRE
-    public Tile getTile(Direction direction){
-        return null;
-    }
+
 }

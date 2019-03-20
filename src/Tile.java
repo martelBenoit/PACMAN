@@ -1,8 +1,12 @@
+import view.GameFrame;
+
+import java.awt.*;
+
 /**
  * Class Tile.
  * This class allows to create tile of Maze
  */
-public class Tile {
+public class Tile extends Figure {
 
     /**
      * The x position of the tile
@@ -14,20 +18,44 @@ public class Tile {
      */
     private int y;
 
-    private boolean isWall = false;
+    private int size;
 
-    public Tile(int x, int y, boolean wall){
+    private Color color;
 
-        assert(x >= 0 && y >= 0) : "x or y < 0";
+    private boolean isWall;
 
+    public Tile(int size, int x, int y, boolean wall){
+
+        super(size,size,x,y);
+
+        this.size = size;
         this.x = x;
         this.y = y;
         this.isWall = wall;
+
+        if(isWall)
+            color = Color.BLUE;
+        else
+            color = Color.BLACK;
+
 
     }
 
     public boolean isWall() {
         return isWall;
+    }
+
+    protected void draw() {
+        GameFrame gameFrame = GameFrame.getGameFrame();
+        gameFrame.draw(this, getColor(), new Rectangle(getX(), getY(), getWidth(), getHeight()));
+    }
+
+    public Color getColor(){
+        return this.color;
+    }
+
+    public int getSize(){
+        return this.size;
     }
 
 
