@@ -21,4 +21,9 @@ public abstract class Character {
 	public Direction getDirection() {
 		return this.direction;
 	}
+
+    // A FAIRE
+    public Tile getTile(Direction direction){
+        return null;
+    }
 }

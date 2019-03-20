@@ -17,11 +17,12 @@ public class Pacman extends Character {
 
     @Override
     public void move() {
+		Tile nextTile;
         switch(this.getDirection()) {
 			case UP:
-				Tile nextTile = getTile(Direction.UP);
+				nextTile = getTile(Direction.UP);
 				// Checks if the tile exists (not out of the maze)
-				if(nextTile) {
+				if(nextTile != null) {
 					// Checks if the tile isn't a wall
 					if(!nextTile.isWall()) {
 						this.setTile(nextTile);
@@ -29,24 +30,24 @@ public class Pacman extends Character {
 				}
 				break;
 			case DOWN:
-				Tile nextTile = getTile(Direction.DOWN);
-				if(nextTile) {
+				nextTile = getTile(Direction.DOWN);
+				if(nextTile != null) {
 					if(!nextTile.isWall()) {
 						this.setTile(nextTile);
 					}
 				}
 				break;
 			case LEFT:
-				Tile nextTile = getTile(Direction.LEFT);
-				if(nextTile) {
+				nextTile = getTile(Direction.LEFT);
+				if(nextTile != null) {
 					if(!nextTile.isWall()) {
 						this.setTile(nextTile);
 					}
 				}
 				break;
 			case RIGHT:
-				Tile nextTile = getTile(Direction.RIGHT);
-				if(nextTile) {
+				nextTile = getTile(Direction.RIGHT);
+				if(nextTile != null) {
 					if(!nextTile.isWall()) {
 						this.setTile(nextTile);
 					}
@@ -54,6 +55,7 @@ public class Pacman extends Character {
 				break;
 		}
     }
+
 
     public void setHasPower(Boolean power){
         power = this.hasPower;

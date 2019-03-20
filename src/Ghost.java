@@ -16,7 +16,7 @@ public class Ghost extends Character {
 		boolean facingWall = true;
 		
 		// Checks if the tile exists (not out of the maze)
-		if(nextTile) {
+		if(nextTile != null) {
 			// Checks if the tile isn't a wall
 			if(!nextTile.isWall()) {
 				this.setTile(nextTile);

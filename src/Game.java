@@ -18,6 +18,7 @@ public class Game {
 
         this.initialNumberOfLives = lives;
         this.generateMaze(10, 50, 20, 10, 5);
+
     }
 
     public void generateMaze(int powerTime, int fruitValue, int pillValue, int regenerationTime, int ghostSpeed) {
