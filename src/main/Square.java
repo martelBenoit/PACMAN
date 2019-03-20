@@ -8,9 +8,7 @@ import java.awt.*;
 public class Square extends Figure
 {
 
-
     public Square(int size, int x, int y, Color color) {
-
         super(size, size, x, y, color);
     }
 

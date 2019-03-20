@@ -26,19 +26,8 @@ public class Game {
         this.maze.draw();
         this.gameFrame.redraw();
 
-
-       // this.generateMaze(10, 50, 20, 10, 5);
-
-
     }
 
-    public void generateMaze(int powerTime, int fruitValue, int pillValue, int regenerationTime, int ghostSpeed) {
-       // this.maze = new main.Maze(powerTime, fruitValue, pillValue, regenerationTime, ghostSpeed);
-        this.maze = new Maze(2);
-        this.gameFrame.redraw();
-        //this.level++; // this.increaseLevel() ?
-
-    }
     
     public int getNumberOfLives() {
 		return this.numberOfLives;
@@ -82,6 +71,7 @@ public class Game {
                 // Checks if the tile isn't a wall
                 if(!nextTilePacman.isWall()) {
                     pacman.move(nextTilePacman);
+                    gameFrame.redraw();
                 }
             }
 

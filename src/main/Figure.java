@@ -46,13 +46,18 @@ public abstract class Figure
 }
 
 
-    public void centerImage(int newWidth, int newHeight){
+    protected void centerImage(int newWidth, int newHeight){
 
         int diffY = (this.height-newHeight)/2;
         int diffX = (this.width-newWidth)/2;
 
         this.x = this.x+diffX;
         this.y = this.y+diffY;
+    }
+
+    protected void changePosition(int x, int y){
+        this.x = x;
+        this.y = y;
     }
 
 

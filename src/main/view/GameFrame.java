@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import main.Character;
 
-
 public class GameFrame{
 
     public static final int WIDTH = 700, HEIGHT = 700;
@@ -71,7 +70,6 @@ public class GameFrame{
     public void drawCharacter(Character c){
         characters.remove(c);
         characters.add(c);
-        graphic.drawImage(c.getImage(), c.getX(), c.getY(), c.getWidthImage(), c.getHeightImage(), null);
     }
 
 
@@ -183,6 +181,7 @@ public class GameFrame{
         	    case KeyEvent.VK_UP:
 					upPressed = true;
 					directionChanged = true;
+					System.out.println("UP");
 					break;
         	    case KeyEvent.VK_DOWN:
 					downPressed = true;
@@ -205,7 +204,6 @@ public class GameFrame{
     {
         public void paint(Graphics g) {
             g.drawImage(canvasImage, 0, 0, null);
-            Graphics2D g2d = (Graphics2D)g;
             for(Character c: characters) {
                 int x = c.getX();
                 int y = c.getY();

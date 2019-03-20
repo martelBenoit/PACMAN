@@ -1,8 +1,6 @@
 package main;
 
 
-import main.view.GameFrame;
-
 public class Pacman extends Character {
 
     private boolean hasPower;
@@ -24,6 +22,7 @@ public class Pacman extends Character {
     @Override
     public void move(Tile nextTile) {
 		this.setTile(nextTile);
+		this.draw();
 	}
 
 

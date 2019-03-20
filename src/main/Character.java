@@ -35,15 +35,14 @@ public abstract class Character extends Figure{
 
     }
 
-
-    public Tile getTile(){
-        return this.tile;
-    }
-
     public abstract void move(Tile nextTile);
 
     public void setTile(Tile tile) {
         this.tile = tile;
+        this.changePosition(this.tile.getX(),this.tile.getY());
+        centerImage(destWidth,destHeight);
+        System.out.println("oui");
+
     }
     
     public void setDirection(Direction d) {
@@ -81,6 +80,7 @@ public abstract class Character extends Figure{
         gameFrame.drawCharacter(this);
     }
 
+
     private static BufferedImage rotateImage(BufferedImage image, double angle) {
 
         double rads = Math.toRadians(angle);
@@ -106,20 +106,5 @@ public abstract class Character extends Figure{
         return rotated;
     }
 
-    private static BufferedImage mirrorImage(BufferedImage image) {
-        BufferedImage mimg = new BufferedImage(image.getWidth() * 2, image.getHeight(), BufferedImage.TYPE_INT_ARGB);
-        for (int i=0;i<image.getWidth();i++)
-            for (int j=0;j<image.getHeight()/2;j++)
-            {
-                int tmp = image.getRGB(i, j);
-                mimg.setRGB(i, j, image.getRGB(i, image.getHeight()-j-1));
-                mimg.setRGB(i, image.getHeight()-j-1, tmp);
-            }
-
-
-
-
-        return mimg;
-    }
 
 }
