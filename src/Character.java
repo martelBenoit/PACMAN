@@ -1,5 +1,3 @@
-package model;
-
 public abstract class Character {
 
     protected Tile tile;

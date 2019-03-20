@@ -1,5 +1,3 @@
-package model;
-
 public class Pacman extends Character {
 
     private boolean hasPower;

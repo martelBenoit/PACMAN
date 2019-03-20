@@ -1,5 +1,3 @@
-package model;
-
 public class Ghost extends Character {
 
     private boolean isAlive;
