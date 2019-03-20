@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Ghost extends Character {
 
     private boolean isAlive;
@@ -9,7 +11,7 @@ public class Ghost extends Character {
 
     public void move() {
 		
-		Tile nextTile = getTile(this.getDirection());
+		Tile nextTile = getTile(this.getRandomDirection());
 		
 		boolean facingWall = true;
 		
@@ -38,8 +40,9 @@ public class Ghost extends Character {
      * @return A random direction
      */
     public Direction getRandomDirection() {
-		int x = random.nextInt(Direction.length);
-        return Direction[x];
+    	Random rd = new Random();
+		int x = rd.nextInt(Direction.values().length);
+        return Direction.values()[x];
 	}
 
     public void setAlive(boolean alive) {
