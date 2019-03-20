@@ -1,3 +1,5 @@
+package main;
+
 import view.GameFrame;
 
 import java.awt.*;
@@ -21,7 +23,6 @@ public class Square extends Figure
 
     protected void draw() {
         GameFrame gameFrame = GameFrame.getGameFrame();
-        System.out.println(gameFrame +" "+getX()+" "+getY()+" "+getHeight()+" "+getWidth());
         gameFrame.draw(this, getColor(), new Rectangle(getX(), getY(), getWidth(), getHeight()));
     }
 

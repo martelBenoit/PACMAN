@@ -1,8 +1,14 @@
+package main;
+
+
+import view.GameFrame;
+
 public class Pacman extends Character {
 
     private boolean hasPower;
 
-    public Pacman(Tile tile){
+    public Pacman(Tile tile, String pathImage){
+    	super(tile,pathImage);
         this.tile = tile;
         this.setDirection(Direction.LEFT);
     }
@@ -28,4 +34,8 @@ public class Pacman extends Character {
     public boolean getHasPower(){
         return this.hasPower;
     }
+
+
+
+
 }

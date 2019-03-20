@@ -3,8 +3,12 @@ package view;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.util.ArrayList;
 import java.util.HashMap;
+import main.Character;
+
 
 public class GameFrame{
 
@@ -15,6 +19,7 @@ public class GameFrame{
     private Image canvasImage;
     private ArrayList<Object> objects;
     private HashMap<Object, ShapeDescription> shapes;
+    private ArrayList<Character> characters;
 
     private static GameFrame instance;
 	private boolean upPressed, downPressed, leftPressed, rightPressed, directionChanged = false;
@@ -29,15 +34,16 @@ public class GameFrame{
         frame.addKeyListener(new KeyboardListener());
 
         JPanel pan = new JPanel();
-        pan.setBackground(Color.BLACK);
+        pan.setBackground(Color.black);
         canvas = new CanvasPane();
         canvas.setPreferredSize(new Dimension(700,700));
         frame.setContentPane(pan);
         pan.add(canvas);
         frame.pack();
 
-        objects = new ArrayList<Object>();
-        shapes = new HashMap<Object, ShapeDescription>();
+        objects = new ArrayList<>();
+        shapes = new HashMap<>();
+        characters = new ArrayList<>();
 
         canvas.setFocusable(true);
         this.setVisible(true);
@@ -64,6 +70,12 @@ public class GameFrame{
         frame.setVisible(visible);
     }
 
+    public void drawCharacter(Character c){
+        characters.remove(c);
+        characters.add(c);
+        graphic.drawImage(c.getImage(), c.getX(), c.getY(), c.getWidthImage(), c.getHeightImage(), null);
+    }
+
 
     public void draw(Object referenceObject, Color color, Shape shape)
     {
@@ -77,17 +89,16 @@ public class GameFrame{
     {
         objects.remove(referenceObject);   // just in case it was already there
         shapes.remove(referenceObject);
+        characters.remove(referenceObject);
     }
 
 
     public void wait(int milliseconds)
     {
-        try
-        {
+        try {
             Thread.sleep(milliseconds);
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             // ignoring exception at the moment
         }
     }
@@ -98,6 +109,7 @@ public class GameFrame{
         for(Object shape : objects) {
             shapes.get(shape).draw(graphic);
         }
+
 
         canvas.repaint();
         wait(125);
@@ -190,11 +202,20 @@ public class GameFrame{
         }
 	}
 
+
     private class CanvasPane extends JPanel
     {
-        public void paint(Graphics g)
-        {
+        public void paint(Graphics g) {
             g.drawImage(canvasImage, 0, 0, null);
+            Graphics2D g2d = (Graphics2D)g;
+            for(Character c: characters) {
+                int x = c.getX();
+                int y = c.getY();
+                int width = c.getWidthImage();
+                int height = c.getHeightImage();
+                g.drawImage(c.getImage(), x, y, width, height,null);
+
+            }
         }
     }
 
@@ -203,15 +224,12 @@ public class GameFrame{
         private Shape shape;
         private Color color;
 
-        public ShapeDescription(Shape shape, Color color)
-        {
-
+        public ShapeDescription(Shape shape, Color color) {
             this.shape = shape;
             this.color = color;
         }
 
-        public void draw(Graphics2D graphic)
-        {
+        public void draw(Graphics2D graphic) {
             graphic.setColor(color);
             graphic.fill(shape);
         }

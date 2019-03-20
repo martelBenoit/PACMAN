@@ -1,11 +1,12 @@
-import java.util.Random;
+package main;
+
 
 public class Ghost extends Character {
 
     private boolean isAlive;
     
-    public Ghost(Tile tile) {
-		this.tile = tile;
+    public Ghost(Tile tile,String pathImage) {
+        super(tile,pathImage);
         this.setDirection(Direction.LEFT);
 	}
 
@@ -20,4 +21,5 @@ public class Ghost extends Character {
     public boolean isAlive() {
         return isAlive;
     }
+
 }

@@ -1,3 +1,5 @@
+package main;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -23,13 +25,15 @@ public class Game {
         this.maze = new Maze(2);
         this.maze.draw();
         this.gameFrame.redraw();
+
+
        // this.generateMaze(10, 50, 20, 10, 5);
 
 
     }
 
     public void generateMaze(int powerTime, int fruitValue, int pillValue, int regenerationTime, int ghostSpeed) {
-       // this.maze = new Maze(powerTime, fruitValue, pillValue, regenerationTime, ghostSpeed);
+       // this.maze = new main.Maze(powerTime, fruitValue, pillValue, regenerationTime, ghostSpeed);
         this.maze = new Maze(2);
         this.gameFrame.redraw();
         //this.level++; // this.increaseLevel() ?
@@ -52,22 +56,19 @@ public class Game {
         //this.level = 1;
         this.score = 0;
 
-
-        Maze maze = this.getMaze();
-
         
         // Boucle principale
 		//while (this.getNumberOfLives() > 0 && this.getMaze().getPills().size() > 0) { //(this.maps.getNbGom() > 0) && (this.pacman.getLife() > 0)
 		while(true) {
 			if(gameFrame.hasChangedDirection()) {
 				if (gameFrame.isUpPressed()) {
-					maze.getPacman().setDirection(Direction.UP);
+                    this.getMaze().getPacman().setDirection(Direction.UP);
 				} else if (gameFrame.isDownPressed()) {
-                    maze.getPacman().setDirection(Direction.DOWN);
+                    this.getMaze().getPacman().setDirection(Direction.DOWN);
 				} else if (gameFrame.isLeftPressed()) {
-                    maze.getPacman().setDirection(Direction.LEFT);
+                    this.getMaze().getPacman().setDirection(Direction.LEFT);
 				} else if (gameFrame.isRightPressed()) {
-                    maze.getPacman().setDirection(Direction.RIGHT);
+                    this.getMaze().getPacman().setDirection(Direction.RIGHT);
 				}
 				gameFrame.resetMove();
 			}

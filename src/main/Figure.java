@@ -1,3 +1,5 @@
+package main;
+
 import view.GameFrame;
 
 import java.awt.*;
@@ -40,7 +42,17 @@ public abstract class Figure
 
 
     public int getX() {
-        return x;
+    return x;
+}
+
+
+    public void centerImage(int newWidth, int newHeight){
+
+        int diffY = (this.height-newHeight)/2;
+        int diffX = (this.width-newWidth)/2;
+
+        this.x = this.x+diffX;
+        this.y = this.y+diffY;
     }
 
 
@@ -82,14 +94,6 @@ public abstract class Figure
         erase();
         this.width = width;
         this.height = height;
-        draw();
-        invariant();
-    }
-
-
-    public void setColor(Color color)
-    {
-        this.color = color;
         draw();
         invariant();
     }

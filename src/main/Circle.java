@@ -1,3 +1,5 @@
+package main;
+
 import view.GameFrame;
 
 import java.awt.*;

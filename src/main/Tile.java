@@ -1,10 +1,12 @@
+package main;
+
 import view.GameFrame;
 
 import java.awt.*;
 
 /**
- * Class Tile.
- * This class allows to create tile of Maze
+ * Class main.Tile.
+ * This class allows to create tile of main.Maze
  */
 public class Tile extends Figure {
 
