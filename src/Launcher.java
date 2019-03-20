@@ -1,11 +1,11 @@
-import model.Game;
-
+import control.Controller;
 public class Launcher {
 
     public static void main(String[] args){
-        Game game = new Game(5);
+        Controller control = new Controller();
 
-        game.startGame();
+
+        //game.startGame();
 
     }
 }

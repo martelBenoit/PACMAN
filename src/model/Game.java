@@ -2,7 +2,6 @@ package model;
 
 import java.util.ArrayList;
 import control.*;
-import view.GameFrame;
 
 public class Game {
 
@@ -16,11 +15,9 @@ public class Game {
 
     private Controller control;
 
-    private GameFrame gameFrame;
 
     public Game(int lives) {
 
-        this.control = new Controller(this);
         this.initialNumberOfLives = lives;
     }
 
