@@ -2,12 +2,12 @@ package view;
 
 import java.awt.*;
 
-public class Pill extends Figure {
+public class PillFigure extends Figure {
 
     private Figure[] figures;
 
 
-    public Pill(int size, int x, int y, Color color) {
+    public PillFigure(int size, int x, int y, Color color) {
         super(size, size, x, y, color);
         this.figures = new Figure[2];
         this.figures[0] = new Square(size, x, y, Color.black);

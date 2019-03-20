@@ -3,8 +3,8 @@ package control;
 import view.GameFrame;
 import view.Figure;
 import view.MazeGenerate;
-import view.Pill;
-import view.Wall;
+import view.PillFigure;
+import view.WallFigure;
 
 import java.awt.*;
 import java.io.BufferedReader;
@@ -64,10 +64,10 @@ public class ReadMaze {
                     tmpy = i*this.tile_size;
                     switch (str) {
                         case "1" :
-                            this.theMaze.setFigure(i,j,new Wall(this.tile_size, tmpx, tmpy, Color.blue));
+                            this.theMaze.setFigure(i,j,new WallFigure(this.tile_size, tmpx, tmpy, Color.blue));
                             break;
                         case "0" :
-                            this.theMaze.setFigure(i,j,new Pill(this.tile_size, tmpx, tmpy,Color.white));
+                            this.theMaze.setFigure(i,j,new PillFigure(this.tile_size, tmpx, tmpy,Color.white));
                             break;
 
                     }
