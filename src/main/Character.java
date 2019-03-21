@@ -12,7 +12,8 @@ import java.io.IOException;
 public abstract class Character extends Figure{
 
     protected Tile tile;
-    protected BufferedImage image = null;
+    protected BufferedImage image_op = null;
+    protected BufferedImage image_cl = null;
     protected BufferedImage imageActual = null;
     private Direction direction;
     private Direction wantedDirection;
@@ -20,18 +21,19 @@ public abstract class Character extends Figure{
     private int destWidth;
     private int destHeight;
 
-    public Character(Tile tile, String pathImage){
+    public Character(Tile tile, String nameImage){
 
         super(tile.getSize(),tile.getSize(),tile.getX(),tile.getY());
 
         try{
-            image = ImageIO.read(new File(pathImage));
-            imageActual = image;
+            image_op = ImageIO.read(new File("lib/"+nameImage+"_open.png"));
+            image_cl = ImageIO.read(new File("lib/"+nameImage+"_close.png"));
+            imageActual = image_op;
         } catch (IOException ex){
             System.out.println(ex.getMessage());
         }
-        destWidth =  (int)(image.getWidth() * tile.getSize()/image.getWidth()*0.75);
-        destHeight = (int)(image.getHeight() * tile.getSize()/image.getHeight()*0.75);
+        destWidth =  (int)(image_op.getWidth() * tile.getSize()/ image_op.getWidth()*0.75);
+        destHeight = (int)(image_op.getHeight() * tile.getSize()/ image_op.getHeight()*0.75);
         centerImage(destWidth,destHeight);
         this.direction = Direction.LEFT;
         this.wantedDirection = Direction.LEFT;
@@ -57,13 +59,13 @@ public abstract class Character extends Figure{
     public void setDirection(Direction d) {
 		this.direction = d;
 		if(this.direction == Direction.UP)
-		    imageActual = rotateImage(image,270);
+		    this.imageActual = rotateImage(image_op,270);
         else if(this.direction == Direction.DOWN)
-            imageActual = rotateImage(image,90);
+            this.imageActual = rotateImage(image_op,90);
         else if(this.direction == Direction.LEFT)
-            imageActual = rotateImage(image,180);
+            this.imageActual = rotateImage(image_op,180);
         else
-            imageActual = image;
+            this.imageActual = image_op;
 	}
 
     public Direction getWantedDirection() {

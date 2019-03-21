@@ -36,7 +36,7 @@ public class Maze {
         this.createMaze();
         Tile tile = getRandomTile();
         System.out.println(tile.getX()+" "+tile.getY());
-        this.pacman = new Pacman(getRandomTile(),"lib/pacman.png");
+        this.pacman = new Pacman(getRandomTile(),"pacman");
     }
 
     private void createMaze(){
