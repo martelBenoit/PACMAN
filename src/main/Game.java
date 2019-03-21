@@ -83,8 +83,8 @@ public class Game {
                 }
 
                 // Eat Pill on the case
-               Pill pillToRemove = null;
-               for(Tile t: maze.getTiles()) {
+                Pill pillToRemove = null;
+                for(Tile t: maze.getTiles()) {
                    if (t == nextTilePacman) {
                        for(Pill p: maze.getPills()) {
                            if (p.getTile() == t) {
@@ -98,8 +98,8 @@ public class Game {
                            }
                        }
                    }
-               }
-               if(pillToRemove != null) {
+                }
+                if(pillToRemove != null) {
 
                    Tile t = pillToRemove.getTile();
                    pillToRemove.setTile(null);
@@ -108,44 +108,37 @@ public class Game {
                         pacman.setHasPower(true);
                    }
                    maze.getPills().remove(pillToRemove);
-               }
+                }
 
                 // Move GHOSTS
                 for (Ghost g : maze.getGhosts()) {
-                    Tile nextTile = maze.getTile(g, g.getDirection());
-                    boolean changeDirection = false;
-                    // Checks if the tile exists (not out of the maze)
-                    if (nextTile == null) {
-                        changeDirection = true;
-                    } else {
-                        // Checks if the tile isn't a wall
-                        if (nextTile.isWall()) {
-                            changeDirection = true;
+                    ArrayList<Tile> tilesAround = maze.getTilesAround(g);
+                    if(g.getLastTile() != null) {
+                        if (tilesAround.size() == 1) {
+                            g.setLastTile(g.getTile());
+                            g.move(tilesAround.get(0));
                         } else {
-                            g.move(nextTile);
-                            changeDirection = false;
+                            tilesAround.remove(g.getLastTile());
+                            Random rd = new Random();
+                            int x = rd.nextInt(tilesAround.size());
+                            Tile newTile = tilesAround.get(x);
+                            g.setLastTile(g.getTile());
+                            g.move(newTile);
                         }
-                    }
-
-                    if (changeDirection) {
-                        Direction currentDirection = g.getDirection();
-                        Direction newDirection = currentDirection;
-                        while (newDirection == currentDirection) {
-                            newDirection = getRandomDirection();
-                        }
-                        nextTile = maze.getTile(g, newDirection);
-                        g.move(nextTile);
                     }
                 }
 
                 gameFrame.redraw();
-                gameFrame.wait(50);
+                gameFrame.wait(100);
             }
 
 		    System.out.println("LEVEL UP !");
             this.level+=1;
             gameFrame.setLevel(this.level);
 		    pacman.erase();
+		    for(Ghost g: maze.getGhosts()) {
+		        g.erase();
+            }
 		    this.maze = new Maze(1);
 
 
@@ -155,6 +148,26 @@ public class Game {
 
 		System.out.println("GAME OVER !");
 		this.endGame();
+    }
+
+
+    public Direction inverseDirection(Direction d) {
+        Direction ret = null;
+        switch(d) {
+            case UP:
+                ret = Direction.DOWN;
+                break;
+            case DOWN:
+                ret = Direction.UP;
+                break;
+            case LEFT:
+                ret = Direction.RIGHT;
+                break;
+            case RIGHT:
+                ret = Direction.LEFT;
+                break;
+        }
+        return ret;
     }
 
     /**
