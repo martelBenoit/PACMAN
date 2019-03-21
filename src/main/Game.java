@@ -52,26 +52,37 @@ public class Game {
 		while(true) {
 			if(gameFrame.hasChangedDirection()) {
 				if (gameFrame.isUpPressed()) {
-                    pacman.setDirection(Direction.UP);
+                    pacman.setWantedDirection(Direction.UP);
 				} else if (gameFrame.isDownPressed()) {
-                    pacman.setDirection(Direction.DOWN);
+                    pacman.setWantedDirection(Direction.DOWN);
 				} else if (gameFrame.isLeftPressed()) {
-                    pacman.setDirection(Direction.LEFT);
+                    pacman.setWantedDirection(Direction.LEFT);
 				} else if (gameFrame.isRightPressed()) {
-                    pacman.setDirection(Direction.RIGHT);
+                    pacman.setWantedDirection(Direction.RIGHT);
 				}
 				gameFrame.resetMove();
 			}
 
 
 			// Move PACMAN
-			Tile nextTilePacman = maze.getTile(pacman,pacman.getDirection());
+			Tile nextTilePacman = maze.getTile(pacman,pacman.getWantedDirection());
+			boolean moved = false;
             // Checks if the tile exists (not out of the maze)
             if(nextTilePacman != null) {
                 // Checks if the tile isn't a wall
                 if(!nextTilePacman.isWall()) {
                     pacman.move(nextTilePacman);
-                    gameFrame.redraw();
+                    moved = true;
+                    pacman.setDirection(pacman.getWantedDirection());
+                }
+            }
+            if (!moved) {
+                nextTilePacman = maze.getTile(pacman,pacman.getDirection());
+                if(nextTilePacman != null) {
+                    // Checks if the tile isn't a wall
+                    if(!nextTilePacman.isWall()) {
+                        pacman.move(nextTilePacman);
+                    }
                 }
             }
 
@@ -105,7 +116,9 @@ public class Game {
                     g.move(nextTile);
                 }
             }
-			gameFrame.wait(300);
+
+            gameFrame.redraw();
+			gameFrame.wait(100);
 		}
     }
 

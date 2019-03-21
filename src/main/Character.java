@@ -15,6 +15,7 @@ public abstract class Character extends Figure{
     protected BufferedImage image = null;
     protected BufferedImage imageActual = null;
     private Direction direction;
+    private Direction wantedDirection;
 
     private int destWidth;
     private int destHeight;
@@ -32,6 +33,8 @@ public abstract class Character extends Figure{
         destWidth =  (int)(image.getWidth() * tile.getSize()/image.getWidth()*0.75);
         destHeight = (int)(image.getHeight() * tile.getSize()/image.getHeight()*0.75);
         centerImage(destWidth,destHeight);
+        this.direction = Direction.LEFT;
+        this.wantedDirection = Direction.LEFT;
 
     }
 
@@ -48,6 +51,10 @@ public abstract class Character extends Figure{
         return tile;
     }
 
+    public void setWantedDirection(Direction wantedDirection) {
+        this.wantedDirection = wantedDirection;
+    }
+
     public void setDirection(Direction d) {
 		this.direction = d;
 		if(this.direction == Direction.UP)
@@ -58,11 +65,13 @@ public abstract class Character extends Figure{
             imageActual = rotateImage(image,180);
         else
             imageActual = image;
-
-		System.out.println("Changement de direction : " + d);
 	}
-	
-	public Direction getDirection() {
+
+    public Direction getWantedDirection() {
+        return wantedDirection;
+    }
+
+    public Direction getDirection() {
 		return this.direction;
 	}
 

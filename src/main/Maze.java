@@ -191,7 +191,6 @@ public class Maze {
 
     public Tile getTile(Character c, Direction direction){
         Tile characterTile = c.getTile();
-        System.out.println(characterTile.getX());
         switch(direction) {
             case UP:
                 for(Tile t: tiles) {
@@ -210,7 +209,6 @@ public class Maze {
                 break;
             case LEFT:
                 for(Tile t: tiles) {
-                    System.out.println(t.getX());
                     if(t.getX() == characterTile.getX()-this.tile_size && t.getY() == characterTile.getY()) {
                         return t;
                     }
