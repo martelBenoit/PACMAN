@@ -1,7 +1,7 @@
 package main;
 
-import java.util.ArrayList;
-import java.util.Random;
+import java.io.*;
+import java.util.*;
 
 import main.view.GameFrame;
 
@@ -18,6 +18,7 @@ public class Game {
 
     public Game(int lives) {
 
+        loadHighScores();
         this.initialNumberOfLives = lives;
         this.numberOfLives = initialNumberOfLives;
         this.gameFrame = GameFrame.getGameFrame();
@@ -95,6 +96,9 @@ public class Game {
                                pillToRemove = p;
                                score+=maze.getPillValue();
                                gameFrame.setScore(score);
+                               if(score >= this.highScores.get(0)) {
+                                   gameFrame.setHighScore(score);
+                               }
                            }
                        }
                    }
@@ -146,7 +150,7 @@ public class Game {
             this.level+=1;
             gameFrame.setLevel(this.level);
 		    pacman.erase();
-		    this.maze = new Maze(1);
+		    this.maze = new Maze(2);
 
 
             this.maze.draw();
@@ -171,10 +175,58 @@ public class Game {
     public void endGame() {
         //this.isLost = true;
 
-        // If the score is greater than the lowest high score
-        if (this.score > highScores.get(0)) {
-            // Mettre le score au bon endroit et réarranger la liste des highscores
+        this.highScores.add(score);
+        Collections.sort(this.highScores);
+        saveHighScores();
+
+    }
+
+    private void loadHighScores(){
+        this.highScores = new ArrayList<>();
+        try{
+            InputStream flux=new FileInputStream("lib/highscores.pac");
+            InputStreamReader lecture=new InputStreamReader(flux);
+            BufferedReader buff=new BufferedReader(lecture);
+            String line;
+            if((line=buff.readLine())!= null){
+                String[] scores = line.split(",");
+                for(String score : scores){
+                    this.highScores.add(Integer.parseInt(score));
+                }
+            }
+            buff.close();
+
+            if(this.highScores.size()==0){
+                this.highScores.add(0);
+            }
+            Collections.sort(this.highScores);
+        }
+        catch (Exception e){
+            System.out.println(e.toString());
+        }
+
+
+
+    }
+
+    private void saveHighScores(){
+        try{
+            PrintWriter writer = new PrintWriter("lib/highscores.pac");
+
+            String highScores = ""+this.highScores.get(0);
+            for(int i = 1; i<this.highScores.size(); i++){
+                highScores = highScores+","+this.highScores.get(i);
+            }
+
+            writer.close();
+
+        }
+        catch(Exception e){
+            System.out.println("High scores not save !");
+            System.out.println(e.getMessage());
         }
     }
+
+
 
 }

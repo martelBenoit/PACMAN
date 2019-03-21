@@ -10,7 +10,8 @@ import main.Character;
 
 public class GameFrame{
 
-    public static final int WIDTH = 700, HEIGHT = 700;
+    public static final int WIDTH = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+    public static final int HEIGHT = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight();
     private JFrame frame;
     private CanvasPane canvas;
     private Graphics2D graphic;
@@ -19,13 +20,18 @@ public class GameFrame{
     private HashMap<Object, ShapeDescription> shapes;
     private ArrayList<Character> characters;
 
+    private JPanel pan = new JPanel();
+    private JPanel panUp = new JPanel();
+
     private JLabel level;
     private JLabel score;
+    private JLabel highScore;
 
     private Font font;
 
     private static GameFrame instance;
 	private boolean upPressed, downPressed, leftPressed, rightPressed, directionChanged = false;
+
 
     private GameFrame(){
 
@@ -33,13 +39,13 @@ public class GameFrame{
         frame.setTitle("Pacman");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setResizable(false);
-        frame.setPreferredSize(new Dimension(750,900));
+        frame.setPreferredSize(new Dimension(WIDTH,HEIGHT));
 
-        JPanel pan = new JPanel();
-        JPanel panUp = new JPanel();
+
         panUp.setLayout(new GridLayout(1,2));
         this.level = new JLabel();
         this.score = new JLabel();
+        this.highScore = new JLabel();
 
         try {
            this.font  = Font.createFont(Font.TRUETYPE_FONT, new File("lib/VCR_OSD_MONO_1.001.ttf")).deriveFont(Font.PLAIN, 40);
@@ -50,21 +56,26 @@ public class GameFrame{
 
         this.level.setFont(this.font);
         this.score.setFont(this.font);
+        this.highScore.setFont(this.font);
 
         this.level.setText("LEVEL 1");
         this.level.setForeground(Color.WHITE);
 
-        this.score.setText("SCORE 0");
+        this.score.setText("0");
         this.score.setForeground(Color.WHITE);
-        this.score.setHorizontalAlignment(SwingConstants.RIGHT);
+        this.score.setHorizontalAlignment(SwingConstants.LEFT);
+
+        this.highScore.setText("HIGH 0");
+        this.highScore.setForeground(Color.WHITE);
+        this.highScore.setHorizontalAlignment(SwingConstants.RIGHT);
+
         panUp.setBackground(Color.BLACK);
-        panUp.setPreferredSize(new Dimension(700,50));
         pan.setBackground(Color.black);
         canvas = new CanvasPane();
-        canvas.setPreferredSize(new Dimension(700,700));
+        canvas.setPreferredSize(new Dimension(WIDTH,HEIGHT));
         frame.setContentPane(pan);
-        panUp.add(this.level);
         panUp.add(this.score);
+        panUp.add(this.highScore);
         pan.add(panUp);
         pan.add(canvas);
         frame.pack();
@@ -85,8 +96,13 @@ public class GameFrame{
     }
 
     public void setScore(int score){
-        this.score.setText("SCORE "+score);
+        this.score.setText(""+score);
         this.score.validate();
+    }
+
+    public void setHighScore(int highScore){
+        this.highScore.setText("HIGH "+highScore);
+        this.highScore.validate();
     }
 
     public static GameFrame getGameFrame()
@@ -108,6 +124,15 @@ public class GameFrame{
             graphic.setColor(Color.black);
         }
         frame.setVisible(visible);
+    }
+
+    public void setDimensionPan(Dimension dim){
+        System.out.println(this.pan.getSize().width);
+        this.pan.setPreferredSize(dim);
+        this.pan.revalidate();
+        this.panUp.setPreferredSize(dim);
+        this.panUp.revalidate();
+        System.out.println(this.pan.getSize().width);
     }
 
     public void drawCharacter(Character c){
@@ -153,6 +178,7 @@ public class GameFrame{
         canvas.repaint();
         wait(125);
     }
+
 
     private void erase()
     {

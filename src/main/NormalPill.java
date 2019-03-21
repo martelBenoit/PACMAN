@@ -6,6 +6,6 @@ public class NormalPill extends Pill{
 
     public NormalPill(Tile tile) {
 
-        super(tile,Color.WHITE,5);
+        super(tile,Color.WHITE,7);
     }
 }

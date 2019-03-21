@@ -63,21 +63,25 @@ public class Maze {
 
             // On récupère la taille de la fenêtre pour adapter la taille des cases du tableau
             GameFrame gameFrame = GameFrame.getGameFrame();
-            this.tile_size = gameFrame.WIDTH/this.nbXTiles;
+            this.tile_size = (int)((gameFrame.WIDTH-gameFrame.HEIGHT)/1.1/this.nbXTiles);
+
+            int deltaX = (gameFrame.WIDTH-this.nbXTiles*this.tile_size)/2;
+            gameFrame.setDimensionPan(new Dimension(this.nbXTiles*this.tile_size,60));
+
 
             int i = 0;
             // On lit toute les lignes du fichier
             while ((line=br.readLine())!=null){
 
                 int j = 0;                   // La colonne de la map
-                int tmpx = 0;                // Variable utilisée pour stocké la position en x d'une figure
+                int tmpx = 0;               // Variable utilisée pour stocké la position en x d'une figure
                 int tmpy = 0;                // Variable utilisée pour stocké la position en y d'une figure
 
                 param = line.split(",");
 
                 for (String str : param) {
 
-                    tmpx = j*this.tile_size;
+                    tmpx = deltaX+j*this.tile_size;
                     tmpy = i*this.tile_size;
                     Tile newTile;
                     Pill newPill;
@@ -88,11 +92,15 @@ public class Maze {
                             this.tiles.add(newTile);
                             this.pills.add(newPill);
                             break;
-                        case "F" :  // Si c'est une case avec une gomme dessus
+                        case "F" :  // Si c'est une case avec un fruit dessus
                             newTile = new Tile(this.tile_size, tmpx, tmpy, false);
                             newPill = new FruitPill(newTile,Color.RED);
                             this.tiles.add(newTile);
                             this.pills.add(newPill);
+                            break;
+                        case "E" :  // Si c'est une case avec rien
+                            newTile = new Tile(this.tile_size, tmpx, tmpy, false);
+                            this.tiles.add(newTile);
                             break;
                         case "#" :  // Si c'est un mur
                             newTile = new Tile(this.tile_size, tmpx, tmpy, true);
