@@ -12,6 +12,8 @@ public class GameFrame{
 
     public static final int WIDTH = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth();
     public static final int HEIGHT = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+    //public static final int WIDTH = 1000;
+    //public static final int HEIGHT = 1000;
     private JFrame frame;
     private CanvasPane canvas;
     private Graphics2D graphic;
@@ -43,10 +45,6 @@ public class GameFrame{
         frame.setResizable(false);
         frame.setPreferredSize(new Dimension(WIDTH,HEIGHT));
         frame.setContentPane(pan);
-        frame.setDefaultLookAndFeelDecorated(true);
-        frame.setExtendedState(Frame.MAXIMIZED_BOTH);
-
-        //pan.setLayout(new BoxLayout(pan,BoxLayout.PAGE_AXIS));
 
         JPanel panMain = new JPanel();
         panMain.setLayout(new BoxLayout(panMain,BoxLayout.Y_AXIS));
@@ -166,7 +164,6 @@ public class GameFrame{
         this.panUp.revalidate();
         this.panDown.setPreferredSize(new Dimension(width,40));
         this.panDown.revalidate();
-        frame.setDefaultLookAndFeelDecorated(true);
         frame.setExtendedState(Frame.MAXIMIZED_BOTH);
     }
 
@@ -208,7 +205,6 @@ public class GameFrame{
         for(Object shape : objects) {
             shapes.get(shape).draw(graphic);
         }
-
 
         canvas.repaint();
         wait(125);

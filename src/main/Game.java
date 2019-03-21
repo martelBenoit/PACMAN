@@ -52,6 +52,7 @@ public class Game {
 
             Maze maze = this.getMaze();
             Pacman pacman = maze.getPacman();
+
 		    while(maze.getPills().size() > 0 && this.getNumberOfLives() > 0) {
 
 		        pacmanEaten = false;
@@ -159,20 +160,23 @@ public class Game {
                 }
             }
 
-		    System.out.println("LEVEL UP !");
-            this.level+=1;
-            gameFrame.setLevel(this.level);
-		    pacman.erase();
-		    for(Ghost g: maze.getGhosts()) {
-		        g.erase();
+		    if(numberOfLives > 0) {
+                this.level += 1;
+                gameFrame.setLevel(this.level);
+                pacman.erase();
+                for (Ghost g : maze.getGhosts()) {
+                    g.erase();
+                }
             }
-		    this.maze = new Maze(2);
 
+		}
 
+		if(numberOfLives > 0) {
+            this.maze = new Maze(2);
             this.maze.draw();
             gameFrame.redraw();
-		}
-		this.endGame();
+        }
+
     }
 
     public void endGame() {
@@ -250,10 +254,11 @@ public class Game {
             PrintWriter writer = new PrintWriter("lib/highscores.pac");
 
             String highScores = ""+this.highScores.get(0);
-            for(int i = 1; i<this.highScores.size(); i++){
+
+            for(int i = 1; i<this.highScores.size()-1; i++){
                 highScores = highScores+","+this.highScores.get(i);
             }
-
+            writer.print(highScores);
             writer.close();
 
         }
