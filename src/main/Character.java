@@ -1,7 +1,6 @@
 package main;
 
 import main.view.GameFrame;
-
 import java.awt.image.BufferedImage;
 
 public abstract class Character extends Figure{

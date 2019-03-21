@@ -3,6 +3,7 @@ package main.view;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,6 +33,8 @@ public class GameFrame{
     private JLabel lives;
 
     private Font font;
+
+    private Boolean gameOver = false;
 
     private static GameFrame instance;
 	private boolean upPressed, downPressed, leftPressed, rightPressed, directionChanged = false;
@@ -210,6 +213,11 @@ public class GameFrame{
         wait(125);
     }
 
+    public void drawGameOver(){
+        this.gameOver = true;
+        redraw();
+    }
+
 
     private void erase()
     {
@@ -312,7 +320,16 @@ public class GameFrame{
                 g.drawImage(c.getImage(), x, y, width, height,null);
 
             }
+
+            if(gameOver){
+                g.setColor(Color.RED);
+                g.setFont(font.deriveFont(Font.PLAIN,100));
+                int x = canvas.getWidth()/2 - (int) g.getFontMetrics().getStringBounds("GAME OVER",g).getWidth()/2;
+                g.drawString("GAME OVER",x,(canvas.getHeight()/2));
+            }
         }
+
+
     }
 
     private class ShapeDescription

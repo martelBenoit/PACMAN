@@ -181,6 +181,7 @@ public class Game {
 
     public void endGame() {
         int sizeHighScores = this.highScores.size();
+        gameFrame.drawGameOver();
         if(score > this.highScores.get(sizeHighScores-1)){
             if(sizeHighScores < 10)
                 this.highScores.add(score);
