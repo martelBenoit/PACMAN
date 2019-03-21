@@ -46,16 +46,26 @@ public class Maze {
             InputStreamReader ipsr=new InputStreamReader(ips);
             BufferedReader br=new BufferedReader(ipsr);
 
-
+            // Lecture de la dimension du plateau
             String line = br.readLine();
             String[] param = line.split(",");
             this.nbXTiles = Integer.parseInt(param[0]);
             this.nbYTiles = Integer.parseInt(param[1]);
 
+            // Lecture des données propre au plateau
+            line = br.readLine();
+            param = line.split(",");
+            this.pillValue = Integer.parseInt(param[0]);
+            this.fruitValue = Integer.parseInt(param[1]);
+            this.powerTime = Integer.parseInt(param[2]);
+            this.regenerationTime = Integer.parseInt(param[3]);
+            this.ghostSpeed = Integer.parseInt(param[4]);
+
+            // On récupère la taille de la fenêtre pour adapter la taille des cases du tableau
             GameFrame gameFrame = GameFrame.getGameFrame();
             this.tile_size = gameFrame.WIDTH/this.nbXTiles;
-            int i = 0;
 
+            int i = 0;
             // On lit toute les lignes du fichier
             while ((line=br.readLine())!=null){
 
@@ -72,17 +82,23 @@ public class Maze {
                     Tile newTile;
                     Pill newPill;
                     switch (str) {
-                        case "P" :
+                        case "P" : // Si c'est une PowerPill
                             newTile = new Tile(this.tile_size, tmpx, tmpy, false);
                             newPill = new PowerPill(newTile, Color.WHITE);
                             this.tiles.add(newTile);
                             this.pills.add(newPill);
                             break;
-                        case "#" :
+                        case "F" :  // Si c'est une case avec une gomme dessus
+                            newTile = new Tile(this.tile_size, tmpx, tmpy, false);
+                            newPill = new FruitPill(newTile,Color.RED);
+                            this.tiles.add(newTile);
+                            this.pills.add(newPill);
+                            break;
+                        case "#" :  // Si c'est un mur
                             newTile = new Tile(this.tile_size, tmpx, tmpy, true);
                             this.tiles.add(newTile);
                             break;
-                        case "_" :
+                        case "_" :  // Si c'est une case avec une gomme dessus
                             newTile = new Tile(this.tile_size, tmpx, tmpy, false);
                             newPill = new NormalPill(newTile);
                             this.tiles.add(newTile);
@@ -104,23 +120,21 @@ public class Maze {
 
     /**
      * Get a random tile which isn't a wall in the maze and doesn't contain a powerPill
-     *
      * @return A random tile, which isn't a wall and doesn't contain a powerPill
      */
     public Tile getRandomTile() {
         ArrayList<Tile> tilesAvailable = new ArrayList<>();
-        ArrayList<PowerPill> powerPills = new ArrayList<>();
-
+        ArrayList<Pill> pills = new ArrayList<>();
         for(Pill p : this.pills) {
-            if (p.getClass().getSimpleName().equals("main.PowerPill")) {
-               powerPills.add((PowerPill) (p));
+            if (p instanceof PowerPill || p instanceof FruitPill) {
+               pills.add(p);
             }
         }
 
         for(Tile t : this.tiles) {
             if (!t.isWall()) {
                 boolean valide = true;
-                for (PowerPill p : powerPills) {
+                for (Pill p : pills) {
                     if (p.getTile() == t) {
                         valide = false;
                     }
@@ -136,17 +150,6 @@ public class Maze {
         return tilesAvailable.get(x);
     }
 
-
-    public Maze(int powerTime, int fruitValue, int pillValue, int regenerationTime, int ghostSpeed){
-
-        this.powerTime = powerTime;
-        this.fruitValue = fruitValue;
-        this.pillValue = pillValue;
-        this.regenerationTime = regenerationTime;
-        this.ghostSpeed = ghostSpeed;
-
-
-    }
 
     public int getFruitValue() {
         return fruitValue;
@@ -239,12 +242,5 @@ public class Maze {
         this.getPacman().draw();
 
     }
-
-    public void drawPills () {
-        for(Pill p: this.pills) {
-            p.draw();
-        }
-    }
-
 
 }

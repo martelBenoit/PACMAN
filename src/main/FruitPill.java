@@ -6,7 +6,7 @@ public class FruitPill extends Pill{
 
     public FruitPill(Tile tile, Color color) {
 
-        super(tile,color,4);
+        super(tile,color,3);
 
     }
 }

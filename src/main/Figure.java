@@ -74,26 +74,13 @@ public abstract class Figure
         return color;
     }
 
-
-    public void setSize(int width, int height) {
-        assert width >= 0 && height >= 0 : "Wrong dimensions";
-        erase();
-        this.width = width;
-        this.height = height;
-        draw();
-        invariant();
-    }
-
-
     protected abstract void draw();
-
 
     protected void erase()
     {
         GameFrame gameFrame = GameFrame.getGameFrame();
         gameFrame.erase(this);
     }
-
 
     protected void invariant() {
         assert width >= 0 && height >= 0 : "Invariant violated: wrong dimensions";

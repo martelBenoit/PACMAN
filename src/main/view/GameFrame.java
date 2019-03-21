@@ -89,8 +89,6 @@ public class GameFrame{
         this.score.validate();
     }
 
-
-    
     public static GameFrame getGameFrame()
     {
         if(instance == null) {

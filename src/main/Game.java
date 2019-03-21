@@ -88,8 +88,12 @@ public class Game {
                    if (t == nextTilePacman) {
                        for(Pill p: maze.getPills()) {
                            if (p.getTile() == t) {
+                               if( p instanceof FruitPill)
+                                   score+=maze.getFruitValue();
+                               else
+                                   score+=maze.getPillValue();
                                pillToRemove = p;
-                               score+=10;
+                               score+=maze.getPillValue();
                                gameFrame.setScore(score);
                            }
                        }
