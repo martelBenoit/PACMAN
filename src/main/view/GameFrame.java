@@ -37,7 +37,10 @@ public class GameFrame{
         frame.setPreferredSize(new Dimension(750,900));
 
         JPanel pan = new JPanel();
+        JPanel panUp = new JPanel();
+        panUp.setLayout(new GridLayout(1,2));
         this.level = new JLabel();
+        this.score = new JLabel();
 
         try {
            this.font  = Font.createFont(Font.TRUETYPE_FONT, new File("lib/VCR_OSD_MONO_1.001.ttf")).deriveFont(Font.PLAIN, 40);
@@ -47,15 +50,23 @@ public class GameFrame{
         }
 
         this.level.setFont(this.font);
+        this.score.setFont(this.font);
 
         this.level.setText("LEVEL 1");
         this.level.setForeground(Color.WHITE);
 
+        this.score.setText("SCORE 0");
+        this.score.setForeground(Color.WHITE);
+        this.score.setHorizontalAlignment(SwingConstants.RIGHT);
+        panUp.setBackground(Color.BLACK);
+        panUp.setPreferredSize(new Dimension(700,50));
         pan.setBackground(Color.black);
         canvas = new CanvasPane();
         canvas.setPreferredSize(new Dimension(700,700));
         frame.setContentPane(pan);
-        pan.add(level);
+        panUp.add(this.level);
+        panUp.add(this.score);
+        pan.add(panUp);
         pan.add(canvas);
         frame.pack();
 
@@ -71,6 +82,12 @@ public class GameFrame{
 
     public void setLevel(int level){
         this.level.setText("LEVEL "+level);
+        this.level.validate();
+    }
+
+    public void setScore(int score){
+        this.score.setText("SCORE "+level);
+        this.score.validate();
     }
 
 
