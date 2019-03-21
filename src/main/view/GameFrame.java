@@ -3,6 +3,7 @@ package main.view;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import main.Character;
@@ -18,6 +19,11 @@ public class GameFrame{
     private HashMap<Object, ShapeDescription> shapes;
     private ArrayList<Character> characters;
 
+    private JLabel level;
+    private JLabel score;
+
+    private Font font;
+
     private static GameFrame instance;
 	private boolean upPressed, downPressed, leftPressed, rightPressed, directionChanged = false;
 
@@ -30,10 +36,36 @@ public class GameFrame{
         frame.setPreferredSize(new Dimension(750,900));
 
         JPanel pan = new JPanel();
+        JPanel panUp = new JPanel();
+        panUp.setLayout(new GridLayout(1,2));
+        this.level = new JLabel();
+        this.score = new JLabel();
+
+        try {
+           this.font  = Font.createFont(Font.TRUETYPE_FONT, new File("lib/VCR_OSD_MONO_1.001.ttf")).deriveFont(Font.PLAIN, 40);
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        this.level.setFont(this.font);
+        this.score.setFont(this.font);
+
+        this.level.setText("LEVEL 1");
+        this.level.setForeground(Color.WHITE);
+
+        this.score.setText("SCORE 0");
+        this.score.setForeground(Color.WHITE);
+        this.score.setHorizontalAlignment(SwingConstants.RIGHT);
+        panUp.setBackground(Color.BLACK);
+        panUp.setPreferredSize(new Dimension(700,50));
         pan.setBackground(Color.black);
         canvas = new CanvasPane();
         canvas.setPreferredSize(new Dimension(700,700));
         frame.setContentPane(pan);
+        panUp.add(this.level);
+        panUp.add(this.score);
+        pan.add(panUp);
         pan.add(canvas);
         frame.pack();
 
@@ -46,6 +78,18 @@ public class GameFrame{
 
         canvas.addKeyListener(new KeyboardListener());
     }
+
+    public void setLevel(int level){
+        this.level.setText("LEVEL "+level);
+        this.level.validate();
+    }
+
+    public void setScore(int score){
+        this.score.setText("SCORE "+score);
+        this.score.validate();
+    }
+
+
     
     public static GameFrame getGameFrame()
     {

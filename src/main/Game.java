@@ -87,26 +87,28 @@ public class Game {
                     }
                 }
 
-                // Eat Pill on the case
-                Pill pillToRemove = null;
-                for (Tile t : maze.getTiles()) {
-                    if (t == nextTilePacman) {
-                        for (Pill p : maze.getPills()) {
-                            if (p.getTile() == t) {
-                                pillToRemove = p;
-                            }
-                        }
-                    }
-                }
-                if (pillToRemove != null) {
-                    Tile t = pillToRemove.getTile();
-                    pillToRemove.erase();
-                    t.draw();
-                    if (pillToRemove.getClass().getSimpleName().equals("PowerPill")) {
-                        pacman.setHasPower(true);
-                    }
-                    maze.getPills().remove(pillToRemove);
-                }
+            // Eat Pill on the case
+            Pill pillToRemove = null;
+           for(Tile t: maze.getTiles()) {
+               if (t == nextTilePacman) {
+                   for(Pill p: maze.getPills()) {
+                       if (p.getTile() == t) {
+                           pillToRemove = p;
+                           score+=10;
+                           gameFrame.setScore(score);
+                       }
+                   }
+               }
+           }
+           if(pillToRemove != null) {
+               Tile t = pillToRemove.getTile();
+               pillToRemove.setTile(null);
+               t.draw();
+               if(pillToRemove.getClass().getSimpleName().equals("PowerPill")) {
+                    pacman.setHasPower(true);
+               }
+               maze.getPills().remove(pillToRemove);
+           }
 
                 // Move GHOSTS
                 for (Ghost g : maze.getGhosts()) {
