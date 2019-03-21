@@ -100,9 +100,9 @@ public class Maze {
     }
 
     /**
-     * Get a random tile which isn't a wall in the maze
+     * Get a random tile which isn't a wall in the maze and doesn't contain a powerPill
      *
-     * @return A random tile, which isn't a wall
+     * @return A random tile, which isn't a wall and doesn't contain a powerPill
      */
     public Tile getRandomTile() {
         ArrayList<Tile> tilesAvailable = new ArrayList<Tile>();
