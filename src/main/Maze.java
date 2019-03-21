@@ -1,11 +1,12 @@
-import view.GameFrame;
+package main;
+
+import main.view.GameFrame;
 
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -13,7 +14,7 @@ public class Maze {
 
     private String pathMaze;
     private int nbXTiles, nbYTiles;
-    private int tile_size = 40;
+    private int tile_size;
 
     private int powerTime;
     private int fruitValue;
@@ -33,7 +34,9 @@ public class Maze {
         this.pills = new ArrayList<Pill>();
         this.ghosts = new ArrayList<Ghost>();
         this.createMaze();
-        this.pacman = new Pacman(getRandomTile());
+        Tile tile = getRandomTile();
+        System.out.println(tile.getX()+" "+tile.getY());
+        this.pacman = new Pacman(getRandomTile(),"lib/pacman.png");
     }
 
     private void createMaze(){
@@ -109,7 +112,7 @@ public class Maze {
         ArrayList<PowerPill> powerPills = new ArrayList<PowerPill>();
 
         for(Pill p : this.pills) {
-            if (p.getClass().getSimpleName().equals("PowerPill")) {
+            if (p.getClass().getSimpleName().equals("main.PowerPill")) {
                powerPills.add((PowerPill) (p));
             }
         }
@@ -212,6 +215,8 @@ public class Maze {
         for(Pill p: this.pills) {
             p.draw();
         }
+
+        this.getPacman().draw();
 
     }
 

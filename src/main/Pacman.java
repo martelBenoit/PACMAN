@@ -1,8 +1,12 @@
+package main;
+
+
 public class Pacman extends Character {
 
     private boolean hasPower;
 
-    public Pacman(Tile tile){
+    public Pacman(Tile tile, String pathImage){
+    	super(tile,pathImage);
         this.tile = tile;
         this.setDirection(Direction.LEFT);
     }
@@ -18,6 +22,7 @@ public class Pacman extends Character {
     @Override
     public void move(Tile nextTile) {
 		this.setTile(nextTile);
+		this.draw();
 	}
 
 
@@ -28,4 +33,8 @@ public class Pacman extends Character {
     public boolean getHasPower(){
         return this.hasPower;
     }
+
+
+
+
 }

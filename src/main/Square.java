@@ -1,4 +1,6 @@
-import view.GameFrame;
+package main;
+
+import main.view.GameFrame;
 
 import java.awt.*;
 
@@ -6,9 +8,7 @@ import java.awt.*;
 public class Square extends Figure
 {
 
-
     public Square(int size, int x, int y, Color color) {
-
         super(size, size, x, y, color);
     }
 
@@ -21,7 +21,6 @@ public class Square extends Figure
 
     protected void draw() {
         GameFrame gameFrame = GameFrame.getGameFrame();
-        System.out.println(gameFrame +" "+getX()+" "+getY()+" "+getHeight()+" "+getWidth());
         gameFrame.draw(this, getColor(), new Rectangle(getX(), getY(), getWidth(), getHeight()));
     }
 
