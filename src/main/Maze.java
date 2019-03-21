@@ -29,13 +29,13 @@ public class Maze {
     private ArrayList<Pill> pills;
 
     public Maze(int mazeNumber){
-        this.pathMaze = "lib/maze"+mazeNumber+".maze";
-        this.tiles = new ArrayList<Tile>();
-        this.pills = new ArrayList<Pill>();
-        this.ghosts = new ArrayList<Ghost>();
+
+        this.pathMaze = "lib/"+mazeNumber+".maze";
+        this.tiles = new ArrayList<>();
+        this.pills = new ArrayList<>();
+        this.ghosts = new ArrayList<>();
         this.createMaze();
         Tile tile = getRandomTile();
-        System.out.println(tile.getX()+" "+tile.getY());
         this.pacman = new Pacman(getRandomTile(),"pacman");
     }
 
@@ -72,17 +72,17 @@ public class Maze {
                     Tile newTile;
                     Pill newPill;
                     switch (str) {
-                        case "2" :
+                        case "P" :
                             newTile = new Tile(this.tile_size, tmpx, tmpy, false);
                             newPill = new PowerPill(newTile, Color.WHITE);
                             this.tiles.add(newTile);
                             this.pills.add(newPill);
                             break;
-                        case "1" :
+                        case "#" :
                             newTile = new Tile(this.tile_size, tmpx, tmpy, true);
                             this.tiles.add(newTile);
                             break;
-                        case "0" :
+                        case "_" :
                             newTile = new Tile(this.tile_size, tmpx, tmpy, false);
                             newPill = new NormalPill(newTile);
                             this.tiles.add(newTile);
@@ -108,8 +108,8 @@ public class Maze {
      * @return A random tile, which isn't a wall and doesn't contain a powerPill
      */
     public Tile getRandomTile() {
-        ArrayList<Tile> tilesAvailable = new ArrayList<Tile>();
-        ArrayList<PowerPill> powerPills = new ArrayList<PowerPill>();
+        ArrayList<Tile> tilesAvailable = new ArrayList<>();
+        ArrayList<PowerPill> powerPills = new ArrayList<>();
 
         for(Pill p : this.pills) {
             if (p.getClass().getSimpleName().equals("main.PowerPill")) {
