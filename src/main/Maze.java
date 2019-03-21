@@ -241,5 +241,11 @@ public class Maze {
 
     }
 
+    public void drawPills () {
+        for(Pill p: this.pills) {
+            p.draw();
+        }
+    }
+
 
 }

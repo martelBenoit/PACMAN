@@ -1,5 +1,6 @@
 package main;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -86,6 +87,22 @@ public class Game {
                 }
             }
 
+            // Eat Pill on the case
+            Pill pillToRemove = null;
+           for(Tile t: maze.getTiles()) {
+               if (t == nextTilePacman) {
+                   for(Pill p: maze.getPills()) {
+                       if (p.getTile() == t) {
+                           pillToRemove = p;
+                       }
+                   }
+               }
+           }
+           if(pillToRemove != null) {
+               Tile t = pillToRemove.getTile();
+               pillToRemove.setTile(null);
+               t.draw();
+           }
 
             // Move GHOSTS
 			for(Ghost g : maze.getGhosts()) {
