@@ -37,6 +37,10 @@ public class Maze {
         this.createMaze();
         Tile tile = getRandomTile();
         this.pacman = new Pacman(getRandomTile(),"pacman");
+        for (int i = 0; i < 4 ; i++) {
+            Ghost g = new Ghost(getRandomTile(), "ghost");
+            this.ghosts.add(g);
+        }
     }
 
     private void createMaze(){
@@ -237,6 +241,30 @@ public class Maze {
         return null;
     }
 
+    public ArrayList<Tile> getTilesAround(Character c) {
+
+        Tile characterTile = c.getTile();
+        ArrayList<Tile> ret = new ArrayList<Tile>();
+        for(Tile t: tiles) {
+            if(!t.isWall()) {
+                if (t.getX() >= characterTile.getX() - this.tile_size && t.getX() <= characterTile.getX() + this.tile_size) {
+                    if(t.getX() == characterTile.getX()) {
+                        if(t.getY() >= characterTile.getY()-this.tile_size && t.getY() <= characterTile.getY()+this.tile_size) {
+                            if(t.getY() != characterTile.getY()) {
+                                ret.add(t);
+                            }
+                        }
+                    }
+                    else {
+                        if(t.getY() == characterTile.getY()) {
+                            ret.add(t);
+                        }
+                    }
+                }
+            }
+        }
+        return ret;
+    }
     public void draw () {
 
         for(Tile t: this.tiles) {
