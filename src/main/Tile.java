@@ -21,8 +21,9 @@ public class Tile extends Figure {
     private int y;
 
     private int size;
-
     private Color color;
+    private boolean pacmanSpawn;
+    private boolean ghostSpawn;
 
     private boolean isWall;
 
@@ -34,11 +35,29 @@ public class Tile extends Figure {
         this.x = x;
         this.y = y;
         this.isWall = wall;
+        this.pacmanSpawn = false;
+        this.ghostSpawn = false;
 
         if(isWall)
             color = Color.BLUE;
         else
             color = Color.BLACK;
+    }
+
+    public boolean isGhostSpawn() {
+        return ghostSpawn;
+    }
+
+    public boolean isPacmanSpawn() {
+        return pacmanSpawn;
+    }
+
+    public void setGhostSpawn(boolean ghostSpawn) {
+        this.ghostSpawn = ghostSpawn;
+    }
+
+    public void setPacmanSpawn(boolean pacmanSpawn) {
+        this.pacmanSpawn = pacmanSpawn;
     }
 
     public boolean isWall() {

@@ -22,7 +22,7 @@ public class Game {
         this.initialNumberOfLives = lives;
         this.numberOfLives = initialNumberOfLives;
         this.gameFrame = GameFrame.getGameFrame();
-        this.maze = new Maze(1);
+        this.maze = new Maze(3);
         this.maze.draw();
         this.gameFrame.redraw();
 
@@ -40,14 +40,16 @@ public class Game {
     public void startGame() {
         this.level = 1;
         this.score = 0;
+        boolean pacmanEaten = false;
 
         // Boucle principale
 		while (this.getNumberOfLives() > 0) {
 
             Maze maze = this.getMaze();
             Pacman pacman = maze.getPacman();
-
 		    while(maze.getPills().size() > 0 && this.getNumberOfLives() > 0) {
+
+		        pacmanEaten = false;
 
 		        // Change Pacman direction
                 if (gameFrame.hasChangedDirection()) {
@@ -136,17 +138,20 @@ public class Game {
                     }
                 }
 
-                // Check if pacman got eaten by a ghost
-                for(Ghost g: maze.getGhosts()) { // TODO: Créer méthode pour perdre une vie, et factoriser ce code
-                    if (g.getTile() == pacman.getTile()) {
+                // Check if pacman is eaten by a ghost
+                for(Ghost g: maze.getGhosts()) {
+                    if (g.getTile() == pacman.getTile() || (g.getLastTile() == pacman.getTile() && g.getTile() == pacman.getLastTile())) {
                         this.loseLife();
-                    }
-                    else if(g.getLastTile() == pacman.getTile() && g.getTile() == pacman.getLastTile()) {
-                        this.loseLife();
+                        pacmanEaten = true;
                     }
                 }
                 gameFrame.redraw();
-                gameFrame.wait(100);
+                if(pacmanEaten) {
+                    gameFrame.wait(2000);
+                }
+                else {
+                    gameFrame.wait(100);
+                }
             }
 
 		    System.out.println("LEVEL UP !");
@@ -156,7 +161,7 @@ public class Game {
 		    for(Ghost g: maze.getGhosts()) {
 		        g.erase();
             }
-		    this.maze = new Maze(1);
+		    this.maze = new Maze(3);
 
 
             this.maze.draw();
@@ -175,8 +180,23 @@ public class Game {
 
     public void loseLife() {
         this.numberOfLives--;
+        Tile pacmanSpawnTile = null;
+        Tile ghostSpawnTile = null;
+        for(Tile t: this.getMaze().getTiles()) {
+            if (t.isPacmanSpawn()) {
+                pacmanSpawnTile = t;
+            }
+            else if(t.isGhostSpawn()) {
+                ghostSpawnTile = t;
+            }
+        }
         if(numberOfLives > 0) {
-            this.getMaze().getPacman().setTile(maze.getRandomTile());
+            this.getMaze().getPacman().setTile(pacmanSpawnTile == null ? maze.getRandomTile() : pacmanSpawnTile);
+            this.getMaze().getPacman().setDirection(Direction.LEFT);
+            this.getMaze().getPacman().setWantedDirection(Direction.LEFT);
+            for(Ghost g : this.getMaze().getGhosts()) {
+                g.setTile(ghostSpawnTile == null ? maze.getRandomTile() : ghostSpawnTile);
+            }
         }
         else {
             this.endGame();

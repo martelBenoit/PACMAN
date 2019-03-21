@@ -35,9 +35,21 @@ public class Maze {
         this.pills = new ArrayList<>();
         this.ghosts = new ArrayList<>();
         this.createMaze();
-        this.pacman = new Pacman(getRandomTile());
+
+        Tile pacmanSpawnTile = null;
+        Tile ghostSpawnTile = null;
+
+        for(Tile t: tiles) {
+            if (t.isGhostSpawn()) {
+                ghostSpawnTile = t;
+            }
+            else if (t.isPacmanSpawn()) {
+                pacmanSpawnTile = t;
+            }
+        }
+        this.pacman = new Pacman(pacmanSpawnTile == null ? getRandomTile() : pacmanSpawnTile);
         for (int i = 0; i < 4 ; i++) {
-            Ghost g = new Ghost(getRandomTile());
+            Ghost g = new Ghost(ghostSpawnTile == null ? getRandomTile() : ghostSpawnTile);
             this.ghosts.add(g);
         }
     }
@@ -103,6 +115,16 @@ public class Maze {
                             break;
                         case "E" :  // Si c'est une case avec rien
                             newTile = new Tile(this.tile_size, tmpx, tmpy, false);
+                            this.tiles.add(newTile);
+                            break;
+                        case "S" :  // Si c'est le spawn de Pacman
+                            newTile = new Tile(this.tile_size, tmpx, tmpy, false);
+                            newTile.setPacmanSpawn(true);
+                            this.tiles.add(newTile);
+                            break;
+                        case "G" :  // Si c'est le spawn des fantomes
+                            newTile = new Tile(this.tile_size, tmpx, tmpy, false);
+                            newTile.setGhostSpawn(true);
                             this.tiles.add(newTile);
                             break;
                         case "#" :  // Si c'est un mur
