@@ -42,8 +42,10 @@ public abstract class Character extends Figure{
 
     public void setTile(Tile tile) {
         this.tile = tile;
-        this.changePosition(this.tile.getX(),this.tile.getY());
-        centerImage(destWidth,destHeight);
+        if(tile != null) {
+            this.changePosition(this.tile.getX(), this.tile.getY());
+            centerImage(destWidth, destHeight);
+        }
     }
 
     public Tile getTile() {
