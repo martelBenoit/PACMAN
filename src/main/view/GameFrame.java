@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 import java.io.File;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import main.Character;
@@ -86,7 +85,7 @@ public class GameFrame{
     }
 
     public void setScore(int score){
-        this.score.setText("SCORE "+level);
+        this.score.setText("SCORE "+score);
         this.score.validate();
     }
 

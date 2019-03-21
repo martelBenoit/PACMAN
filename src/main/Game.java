@@ -95,6 +95,8 @@ public class Game {
                    for(Pill p: maze.getPills()) {
                        if (p.getTile() == t) {
                            pillToRemove = p;
+                           score+=10;
+                           gameFrame.setScore(score);
                        }
                    }
                }
