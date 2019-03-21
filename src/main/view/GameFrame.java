@@ -3,6 +3,8 @@ package main.view;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import main.Character;
@@ -18,6 +20,11 @@ public class GameFrame{
     private HashMap<Object, ShapeDescription> shapes;
     private ArrayList<Character> characters;
 
+    private JLabel level;
+    private JLabel score;
+
+    private Font font;
+
     private static GameFrame instance;
 	private boolean upPressed, downPressed, leftPressed, rightPressed, directionChanged = false;
 
@@ -30,10 +37,25 @@ public class GameFrame{
         frame.setPreferredSize(new Dimension(750,900));
 
         JPanel pan = new JPanel();
+        this.level = new JLabel();
+
+        try {
+           this.font  = Font.createFont(Font.TRUETYPE_FONT, new File("lib/VCR_OSD_MONO_1.001.ttf")).deriveFont(Font.PLAIN, 40);
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        this.level.setFont(this.font);
+
+        this.level.setText("LEVEL 1");
+        this.level.setForeground(Color.WHITE);
+
         pan.setBackground(Color.black);
         canvas = new CanvasPane();
         canvas.setPreferredSize(new Dimension(700,700));
         frame.setContentPane(pan);
+        pan.add(level);
         pan.add(canvas);
         frame.pack();
 
@@ -46,6 +68,12 @@ public class GameFrame{
 
         canvas.addKeyListener(new KeyboardListener());
     }
+
+    public void setLevel(int level){
+        this.level.setText("LEVEL "+level);
+    }
+
+
     
     public static GameFrame getGameFrame()
     {
