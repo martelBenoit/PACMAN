@@ -47,7 +47,7 @@ public class Game {
             Maze maze = this.getMaze();
             Pacman pacman = maze.getPacman();
 
-		    while(maze.getPills().size() > 0) {
+		    while(maze.getPills().size() > 0 && this.getNumberOfLives() > 0) {
 
 		        // Change Pacman direction
                 if (gameFrame.hasChangedDirection()) {
@@ -71,6 +71,7 @@ public class Game {
                 if (nextTilePacman != null) {
                     // Checks if the tile isn't a wall
                     if (!nextTilePacman.isWall()) {
+                        pacman.setLastTile(pacman.getTile());
                         pacman.move(nextTilePacman);
                         moved = true;
                         pacman.setDirection(pacman.getWantedDirection());
@@ -80,6 +81,7 @@ public class Game {
                     nextTilePacman = maze.getTile(pacman, pacman.getDirection());
                     if (nextTilePacman != null) {
                         if (!nextTilePacman.isWall()) {
+                            pacman.setLastTile(pacman.getTile());
                             pacman.move(nextTilePacman);
                         }
                     }
@@ -133,6 +135,16 @@ public class Game {
                         }
                     }
                 }
+
+                // Check if pacman got eaten by a ghost
+                for(Ghost g: maze.getGhosts()) { // TODO: Créer méthode pour perdre une vie, et factoriser ce code
+                    if (g.getTile() == pacman.getTile()) {
+                        this.loseLife();
+                    }
+                    else if(g.getLastTile() == pacman.getTile() && g.getTile() == pacman.getLastTile()) {
+                        this.loseLife();
+                    }
+                }
                 gameFrame.redraw();
                 gameFrame.wait(100);
             }
@@ -159,6 +171,16 @@ public class Game {
         Collections.sort(this.highScores);
         saveHighScores();
 
+    }
+
+    public void loseLife() {
+        this.numberOfLives--;
+        if(numberOfLives > 0) {
+            this.getMaze().getPacman().setTile(maze.getRandomTile());
+        }
+        else {
+            this.endGame();
+        }
     }
 
     private void loadHighScores(){

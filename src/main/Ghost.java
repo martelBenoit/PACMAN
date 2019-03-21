@@ -9,13 +9,11 @@ import java.io.IOException;
 public class Ghost extends Character {
 
     private boolean isAlive;
-    private Tile lastTile;
     protected BufferedImage image = null;
 
     public Ghost(Tile tile) {
         super(tile);
         this.tile = tile;
-        this.lastTile = this.tile;
 
         try {
             image = ImageIO.read(new File("lib/ghost.png"));
@@ -30,14 +28,6 @@ public class Ghost extends Character {
     public BufferedImage getImage(){
         return this.image;
 
-    }
-
-    public Tile getLastTile() {
-        return lastTile;
-    }
-
-    public void setLastTile(Tile lastTile) {
-        this.lastTile = lastTile;
     }
 
     public void move(Tile nextTile) {

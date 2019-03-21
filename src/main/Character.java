@@ -9,12 +9,22 @@ public abstract class Character extends Figure{
     protected Tile tile;
     private int destWidth;
     private int destHeight;
+    private Tile lastTile;
 
     public Character(Tile tile){
 
         super(tile.getSize(),tile.getSize(),tile.getX(),tile.getY());
         this.tile = tile;
+        this.lastTile = this.tile;
 
+    }
+
+    public Tile getLastTile() {
+        return lastTile;
+    }
+
+    public void setLastTile(Tile lastTile) {
+        this.lastTile = lastTile;
     }
 
     public abstract void move(Tile nextTile);
