@@ -1,6 +1,5 @@
 package main;
 
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -84,7 +83,7 @@ public class Game {
                 }
 
                 // Eat Pill on the case
-                Pill pillToRemove = null;
+               Pill pillToRemove = null;
                for(Tile t: maze.getTiles()) {
                    if (t == nextTilePacman) {
                        for(Pill p: maze.getPills()) {
@@ -97,6 +96,7 @@ public class Game {
                    }
                }
                if(pillToRemove != null) {
+
                    Tile t = pillToRemove.getTile();
                    pillToRemove.setTile(null);
                    t.draw();

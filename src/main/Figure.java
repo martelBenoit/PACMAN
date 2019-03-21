@@ -2,7 +2,7 @@ package main;
 
 import main.view.GameFrame;
 
-import java.awt.*;
+import java.awt.Color;
 
 public abstract class Figure
 {
@@ -35,17 +35,6 @@ public abstract class Figure
         invariant();
     }
 
-
-    public boolean isInside() {
-        return x >= 0 && x+width < GameFrame.WIDTH && y >= 0 && y+height < GameFrame.HEIGHT;
-    }
-
-
-    public int getX() {
-    return x;
-}
-
-
     protected void centerImage(int newWidth, int newHeight){
 
         int diffY = (this.height-newHeight)/2;
@@ -59,6 +48,11 @@ public abstract class Figure
         this.x = x;
         this.y = y;
     }
+
+
+    public int getX() {
+    return x;
+}
 
 
     public int getY() {
@@ -80,19 +74,6 @@ public abstract class Figure
         return color;
     }
 
-
-    public void move() {
-        invariant();
-    }
-
-
-    public void move(int dx, int dy) {
-        erase();
-        x += dx;
-        y += dy;
-        draw();
-        invariant();
-    }
 
     public void setSize(int width, int height) {
         assert width >= 0 && height >= 0 : "Wrong dimensions";

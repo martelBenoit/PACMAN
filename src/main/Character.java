@@ -53,7 +53,7 @@ public abstract class Character extends Figure{
     }
 
     public Tile getTile() {
-        return tile;
+        return this.tile;
     }
 
     public void setWantedDirection(Direction wantedDirection) {

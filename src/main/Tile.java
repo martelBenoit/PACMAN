@@ -5,8 +5,8 @@ import main.view.GameFrame;
 import java.awt.*;
 
 /**
- * Class main.Tile.
- * This class allows to create tile of main.Maze
+ * Class Tile.
+ * This class allows to create tile of Maze
  */
 public class Tile extends Figure {
 
@@ -39,8 +39,6 @@ public class Tile extends Figure {
             color = Color.BLUE;
         else
             color = Color.BLACK;
-
-
     }
 
     public boolean isWall() {

@@ -1,32 +1,25 @@
 package main;
 
-import java.awt.*;
+import main.view.GameFrame;
 
-public abstract class Pill extends Circle{
+import java.awt.*;
+import java.awt.geom.Ellipse2D;
+
+public abstract class Pill extends Figure{
 
     protected Tile tile;
 
-    protected Figure[] figures;
 
-
-    public Pill(Tile tile, Color color) {
-        super(tile.getSize(),tile.getX(),tile.getY(),color);
-        this.figures = new Figure[2];
-        this.figures[0] = new Square(tile.getSize(), tile.getX(), tile.getY(), Color.black);
-        int sg = tile.getSize()/5;
-        int xg = tile.getX()+(tile.getSize()/2)-(sg/2);
-        int yg = tile.getY()+(tile.getSize()/2)-(sg/2);
-        this.figures[1] = new Circle(sg,xg,yg,color);
+    public Pill(Tile tile, Color color,int factor) {
+        super(tile.getSize()/factor,tile.getSize()/factor,tile.getX()+(tile.getSize()/2)-(tile.getSize()/factor/2),tile.getY()+(tile.getSize()/2)-(tile.getSize()/factor/2),color);
         this.tile = tile;
     }
 
 
     public void draw() {
-        for (Figure f : this.figures) {
-            if (f != null) {
-                f.draw();
-            }
-        }
+        GameFrame gameFrame = GameFrame.getGameFrame();
+        gameFrame.draw(this, getColor(), new Ellipse2D.Double(getX(), getY(), getWidth(), getHeight()));
+
     }
 
 
@@ -36,7 +29,6 @@ public abstract class Pill extends Circle{
     }
 
     public Tile getTile() {
-
         return tile;
     }
 }
