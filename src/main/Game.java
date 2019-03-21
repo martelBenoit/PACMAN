@@ -118,7 +118,7 @@ public class Game {
                 if(pillToRemove != null) {
 
                    Tile t = pillToRemove.getTile();
-                   pillToRemove.setTile(null);
+                   pillToRemove.removeTile();
                    t.draw();
                    if(pillToRemove.getClass().getSimpleName().equals("PowerPill")) {
                         pacman.setHasPower(true);

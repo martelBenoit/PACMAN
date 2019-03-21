@@ -5,8 +5,16 @@ import main.view.GameFrame;
 import java.awt.*;
 
 /**
- * Class Tile.
- * This class allows to create tile of Maze
+ * <HTML>
+ * <BODY>
+ *     Class Tile. <br>
+ *     This class allows to create tile of Maze. <br>
+ *     This class extends the Figure class.
+ * </BODY>
+ * </HTML>
+ * @author Benoît & Yoann
+ * @version 1.0
+ * @see Figure
  */
 public class Tile extends Figure {
 
@@ -71,48 +79,36 @@ public class Tile extends Figure {
             color = Color.BLACK;
     }
 
-    /**
-     *
-     * @return
-     */
+
     public boolean isGhostSpawn() {
         return ghostSpawn;
     }
 
-    /**
-     *
-     * @return
-     */
+
     public boolean isPacmanSpawn() {
         return pacmanSpawn;
     }
 
-    /**
-     *
-     * @param ghostSpawn
-     */
+
     public void setGhostSpawn(boolean ghostSpawn) {
         this.ghostSpawn = ghostSpawn;
     }
 
-    /**
-     *
-     * @param pacmanSpawn
-     */
+
     public void setPacmanSpawn(boolean pacmanSpawn) {
         this.pacmanSpawn = pacmanSpawn;
     }
 
     /**
-     * Getter isWall
-     * @return true if the tile is a wall else false
+     * Getter isWall.
+     * @return true if the tile is a wall else false.
      */
     public boolean isWall() {
         return isWall;
     }
 
     /**
-     * Method that draws the tile on the game frame
+     * Method that draws the tile on the game frame.
      */
     protected void draw() {
         GameFrame gameFrame = GameFrame.getGameFrame();
@@ -120,16 +116,16 @@ public class Tile extends Figure {
     }
 
     /**
-     * Getter color
-     * @return the color of the tile
+     * Getter color.
+     * @return the color of the tile.
      */
     public Color getColor(){
         return this.color;
     }
 
     /**
-     * Getter size
-     * @return the size of the tile
+     * Getter size.
+     * @return the size of the tile.
      */
     public int getSize(){
         return this.size;

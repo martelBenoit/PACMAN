@@ -45,6 +45,7 @@ public class GameFrame{
         frame.setResizable(false);
         frame.setPreferredSize(new Dimension(WIDTH,HEIGHT));
         frame.setContentPane(pan);
+        frame.setIconImage(new ImageIcon("lib/pacman_open.png").getImage());
 
         JPanel panMain = new JPanel();
         panMain.setLayout(new BoxLayout(panMain,BoxLayout.Y_AXIS));
