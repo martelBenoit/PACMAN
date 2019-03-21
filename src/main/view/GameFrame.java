@@ -3,7 +3,6 @@ package main.view;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,8 +12,6 @@ public class GameFrame{
 
     public static final int WIDTH = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth();
     public static final int HEIGHT = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-    //public static final int WIDTH = 1000;
-    //public static final int HEIGHT = 1000;
     private JFrame frame;
     private CanvasPane canvas;
     private Graphics2D graphic;
