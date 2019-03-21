@@ -194,7 +194,6 @@ public class Maze {
         switch(direction) {
             case UP:
                 for(Tile t: tiles) {
-                    System.out.println(t.getX());
                     if(t.getX() == characterTile.getX() && t.getY() == characterTile.getY()-this.tile_size) {
                         return t;
                     }
@@ -239,6 +238,12 @@ public class Maze {
 
         this.getPacman().draw();
 
+    }
+
+    public void drawPills () {
+        for(Pill p: this.pills) {
+            p.draw();
+        }
     }
 
 

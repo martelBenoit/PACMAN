@@ -1,5 +1,6 @@
 package main;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -21,6 +22,7 @@ public class Game {
     public Game(int lives) {
 
         this.initialNumberOfLives = lives;
+        this.numberOfLives = initialNumberOfLives;
         this.gameFrame = GameFrame.getGameFrame();
         this.maze = new Maze(2);
         this.maze.draw();
@@ -48,8 +50,8 @@ public class Game {
         Pacman pacman = maze.getPacman();
 
         // Boucle principale
-		//while (this.getNumberOfLives() > 0 && this.getMaze().getPills().size() > 0) { //(this.maps.getNbGom() > 0) && (this.pacman.getLife() > 0)
-		while(true) {
+		while (this.getNumberOfLives() > 0 && this.getMaze().getPills().size() > 0) { //(this.maps.getNbGom() > 0) && (this.pacman.getLife() > 0)
+		//while(true) {
 			if(gameFrame.hasChangedDirection()) {
 				if (gameFrame.isUpPressed()) {
                     pacman.setWantedDirection(Direction.UP);
@@ -86,6 +88,26 @@ public class Game {
                 }
             }
 
+            // Eat Pill on the case
+            Pill pillToRemove = null;
+           for(Tile t: maze.getTiles()) {
+               if (t == nextTilePacman) {
+                   for(Pill p: maze.getPills()) {
+                       if (p.getTile() == t) {
+                           pillToRemove = p;
+                       }
+                   }
+               }
+           }
+           if(pillToRemove != null) {
+               Tile t = pillToRemove.getTile();
+               pillToRemove.setTile(null);
+               t.draw();
+               if(pillToRemove.getClass().getSimpleName().equals("PowerPill")) {
+                    pacman.setHasPower(true);
+               }
+               maze.getPills().remove(pillToRemove);
+           }
 
             // Move GHOSTS
 			for(Ghost g : maze.getGhosts()) {
@@ -120,6 +142,8 @@ public class Game {
             gameFrame.redraw();
 			gameFrame.wait(100);
 		}
+
+		System.out.println("GAME OVER !");
     }
 
     /**

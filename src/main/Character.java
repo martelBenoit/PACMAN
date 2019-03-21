@@ -44,7 +44,6 @@ public abstract class Character extends Figure{
         this.tile = tile;
         this.changePosition(this.tile.getX(),this.tile.getY());
         centerImage(destWidth,destHeight);
-        System.out.println("oui");
     }
 
     public Tile getTile() {
