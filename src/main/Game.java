@@ -130,7 +130,7 @@ public class Game {
                             g.move(newTile);
                         }
                     }
-
+/*
                     if (changeDirection) {
                         Direction currentDirection = g.getDirection();
                         Direction newDirection = currentDirection;
@@ -139,7 +139,7 @@ public class Game {
                         }
                         nextTile = maze.getTile(g, newDirection);
                         g.move(nextTile);
-                    }
+                    }*/
                 }
 
                 gameFrame.redraw();

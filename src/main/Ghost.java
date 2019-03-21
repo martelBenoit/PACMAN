@@ -42,7 +42,6 @@ public class Ghost extends Character {
 
     public void move(Tile nextTile) {
     	this.setTile(nextTile);
-    	this.draw();
     }
 
     public void setAlive(boolean alive) {

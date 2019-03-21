@@ -277,6 +277,10 @@ public class Maze {
 
         this.getPacman().draw();
 
+        for(Ghost g: this.ghosts){
+            g.draw();
+        }
+
     }
 
 }

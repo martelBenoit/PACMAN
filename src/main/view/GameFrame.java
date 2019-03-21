@@ -272,6 +272,7 @@ public class GameFrame{
     {
         public void paint(Graphics g) {
             g.drawImage(canvasImage, 0, 0, null);
+
             for(Character c: characters) {
                 int x = c.getX();
                 int y = c.getY();
