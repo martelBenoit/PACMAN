@@ -22,11 +22,15 @@ public class Game {
         this.initialNumberOfLives = lives;
         this.numberOfLives = initialNumberOfLives;
         this.gameFrame = GameFrame.getGameFrame();
-        this.maze = new Maze(3);
+        this.maze = new Maze(1);
         this.maze.draw();
         this.gameFrame.redraw();
 
+        this.gameFrame.setHighScore(this.highScores.get(0));
+        this.gameFrame.setLives(lives);
+
     }
+
     
     public int getNumberOfLives() {
 		return this.numberOfLives;
@@ -38,6 +42,7 @@ public class Game {
 
 
     public void startGame() {
+        //this.isLost = false;
         this.level = 1;
         this.score = 0;
         boolean pacmanEaten = false;
@@ -82,6 +87,7 @@ public class Game {
                 if (!moved) {
                     nextTilePacman = maze.getTile(pacman, pacman.getDirection());
                     if (nextTilePacman != null) {
+                        // Checks if the tile isn't a wall
                         if (!nextTilePacman.isWall()) {
                             pacman.setLastTile(pacman.getTile());
                             pacman.move(nextTilePacman);
@@ -100,7 +106,6 @@ public class Game {
                                else
                                    score+=maze.getPillValue();
                                pillToRemove = p;
-                               score+=maze.getPillValue();
                                gameFrame.setScore(score);
                                if(score >= this.highScores.get(0)) {
                                    gameFrame.setHighScore(score);
@@ -161,7 +166,7 @@ public class Game {
 		    for(Ghost g: maze.getGhosts()) {
 		        g.erase();
             }
-		    this.maze = new Maze(3);
+		    this.maze = new Maze(2);
 
 
             this.maze.draw();
@@ -171,15 +176,23 @@ public class Game {
     }
 
     public void endGame() {
-        System.out.println("GAME OVER !");
-        this.highScores.add(score);
+        int sizeHighScores = this.highScores.size();
+        if(score > this.highScores.get(sizeHighScores-1)){
+            if(sizeHighScores < 10)
+                this.highScores.add(score);
+            else
+                this.highScores.add(sizeHighScores-1,score);
+        }
+
         Collections.sort(this.highScores);
+        Collections.reverse(this.highScores);
         saveHighScores();
 
     }
 
     public void loseLife() {
         this.numberOfLives--;
+        gameFrame.setLives(numberOfLives);
         Tile pacmanSpawnTile = null;
         Tile ghostSpawnTile = null;
         for(Tile t: this.getMaze().getTiles()) {
@@ -222,6 +235,7 @@ public class Game {
                 this.highScores.add(0);
             }
             Collections.sort(this.highScores);
+            Collections.reverse(this.highScores);
         }
         catch (Exception e){
             System.out.println(e.toString());

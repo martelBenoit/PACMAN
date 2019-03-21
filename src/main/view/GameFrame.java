@@ -22,10 +22,12 @@ public class GameFrame{
 
     private JPanel pan = new JPanel();
     private JPanel panUp = new JPanel();
+    private JPanel panDown = new JPanel();
 
     private JLabel level;
     private JLabel score;
     private JLabel highScore;
+    private JLabel lives;
 
     private Font font;
 
@@ -40,12 +42,23 @@ public class GameFrame{
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setPreferredSize(new Dimension(WIDTH,HEIGHT));
+        frame.setContentPane(pan);
+        frame.setDefaultLookAndFeelDecorated(true);
+        frame.setExtendedState(Frame.MAXIMIZED_BOTH);
 
+        //pan.setLayout(new BoxLayout(pan,BoxLayout.PAGE_AXIS));
+
+        JPanel panMain = new JPanel();
+        panMain.setLayout(new BoxLayout(panMain,BoxLayout.Y_AXIS));
 
         panUp.setLayout(new GridLayout(1,2));
+        panDown.setLayout(new GridLayout(1,2));
+
         this.level = new JLabel();
         this.score = new JLabel();
         this.highScore = new JLabel();
+        this.lives = new JLabel();
+
 
         try {
            this.font  = Font.createFont(Font.TRUETYPE_FONT, new File("lib/VCR_OSD_MONO_1.001.ttf")).deriveFont(Font.PLAIN, 40);
@@ -57,6 +70,7 @@ public class GameFrame{
         this.level.setFont(this.font);
         this.score.setFont(this.font);
         this.highScore.setFont(this.font);
+        this.lives.setFont(this.font);
 
         this.level.setText("LEVEL 1");
         this.level.setForeground(Color.WHITE);
@@ -69,15 +83,24 @@ public class GameFrame{
         this.highScore.setForeground(Color.WHITE);
         this.highScore.setHorizontalAlignment(SwingConstants.RIGHT);
 
-        panUp.setBackground(Color.BLACK);
+        this.lives.setText("LIVES");
+        this.lives.setForeground(Color.WHITE);
+        this.lives.setHorizontalAlignment(SwingConstants.LEFT);
+
         pan.setBackground(Color.black);
+        panMain.setBackground(Color.black);
+        panUp.setBackground(Color.black);
+        panDown.setBackground(Color.black);
         canvas = new CanvasPane();
         canvas.setPreferredSize(new Dimension(WIDTH,HEIGHT));
-        frame.setContentPane(pan);
+
         panUp.add(this.score);
         panUp.add(this.highScore);
-        pan.add(panUp);
-        pan.add(canvas);
+        panDown.add(this.lives);
+        panMain.add(panUp);
+        panMain.add(canvas);
+        panMain.add(panDown);
+        pan.add(panMain);
         frame.pack();
 
         objects = new ArrayList<>();
@@ -105,6 +128,16 @@ public class GameFrame{
         this.highScore.validate();
     }
 
+    public void setLives(int lives){
+        if (lives > 1)
+            this.lives.setText("LIVES "+lives);
+        else
+            this.lives.setText("LIVE "+lives);
+        this.lives.validate();
+    }
+
+
+
     public static GameFrame getGameFrame()
     {
         if(instance == null) {
@@ -126,13 +159,15 @@ public class GameFrame{
         frame.setVisible(visible);
     }
 
-    public void setDimensionPan(Dimension dim){
-        System.out.println(this.pan.getSize().width);
-        this.pan.setPreferredSize(dim);
-        this.pan.revalidate();
-        this.panUp.setPreferredSize(dim);
+    public void setDimensionPan(int width, int height){
+        this.canvas.setPreferredSize(new Dimension(width,height));
+        this.canvas.revalidate();
+        this.panUp.setPreferredSize(new Dimension(width,40));
         this.panUp.revalidate();
-        System.out.println(this.pan.getSize().width);
+        this.panDown.setPreferredSize(new Dimension(width,40));
+        this.panDown.revalidate();
+        frame.setDefaultLookAndFeelDecorated(true);
+        frame.setExtendedState(Frame.MAXIMIZED_BOTH);
     }
 
     public void drawCharacter(Character c){

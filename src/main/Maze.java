@@ -78,10 +78,10 @@ public class Maze {
 
             // On récupère la taille de la fenêtre pour adapter la taille des cases du tableau
             GameFrame gameFrame = GameFrame.getGameFrame();
-            this.tile_size = (int)((gameFrame.WIDTH-gameFrame.HEIGHT)/1.1/this.nbXTiles);
+            this.tile_size = (int)((gameFrame.WIDTH-gameFrame.HEIGHT)/1.15/this.nbXTiles);
 
-            int deltaX = (gameFrame.WIDTH-this.nbXTiles*this.tile_size)/2;
-            gameFrame.setDimensionPan(new Dimension(this.nbXTiles*this.tile_size,60));
+
+            gameFrame.setDimensionPan(this.nbXTiles*this.tile_size,this.nbYTiles*this.tile_size);
 
 
             int i = 0;
@@ -96,7 +96,7 @@ public class Maze {
 
                 for (String str : param) {
 
-                    tmpx = deltaX+j*this.tile_size;
+                    tmpx = j*this.tile_size;
                     tmpy = i*this.tile_size;
                     Tile newTile;
                     Pill newPill;
@@ -265,7 +265,7 @@ public class Maze {
     public ArrayList<Tile> getTilesAround(Character c) {
 
         Tile characterTile = c.getTile();
-        ArrayList<Tile> ret = new ArrayList<Tile>();
+        ArrayList<Tile> ret = new ArrayList<>();
         for(Tile t: tiles) {
             if(!t.isWall()) {
                 if (t.getX() >= characterTile.getX() - this.tile_size && t.getX() <= characterTile.getX() + this.tile_size) {

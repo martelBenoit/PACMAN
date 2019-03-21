@@ -15,9 +15,10 @@ public class Pacman extends Character {
     private Direction wantedDirection;
     private Direction direction;
 
-    protected BufferedImage image_op = null;
-    protected BufferedImage image_cl = null;
-    protected BufferedImage imageActual = null;
+    private BufferedImage image_op = null;
+    private BufferedImage image_cl = null;
+    private BufferedImage imageActualOp = null;
+    private BufferedImage imageActualCl = null;
 
     public Pacman(Tile tile){
     	super(tile);
@@ -27,7 +28,8 @@ public class Pacman extends Character {
         try {
             image_op = ImageIO.read(new File("lib/pacman_open.png"));
             image_cl = ImageIO.read(new File("lib/pacman_close.png"));
-            imageActual = image_op;
+            imageActualOp = image_op;
+            imageActualCl = image_cl;
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
@@ -43,14 +45,22 @@ public class Pacman extends Character {
 
     public void setDirection(Direction d) {
         this.direction = d;
-        if(this.direction == Direction.UP)
-            this.imageActual = rotateImage(image_op,270);
-        else if(this.direction == Direction.DOWN)
-            this.imageActual = rotateImage(image_op,90);
-        else if(this.direction == Direction.LEFT)
-            this.imageActual = rotateImage(image_op,180);
-        else
-            this.imageActual = image_op;
+        if(this.direction == Direction.UP) {
+            this.imageActualOp = rotateImage(image_op, 270);
+            this.imageActualCl = rotateImage(image_cl, 270);
+        }
+        else if(this.direction == Direction.DOWN) {
+            this.imageActualOp = rotateImage(image_op, 90);
+            this.imageActualCl = rotateImage(image_cl,90);
+        }
+        else if(this.direction == Direction.LEFT) {
+            this.imageActualOp = rotateImage(image_op, 180);
+            this.imageActualCl = rotateImage(image_cl,180);
+        }
+        else {
+            this.imageActualOp = image_op;
+            this.imageActualCl = image_cl;
+        }
     }
 
 
@@ -109,9 +119,9 @@ public class Pacman extends Character {
         BufferedImage ret;
 
         if(isOpenMouth)
-            ret = this.imageActual;
+            ret = this.imageActualOp;
         else
-            ret =  this.image_cl;
+            ret =  this.imageActualCl;
         isOpenMouth = !isOpenMouth;
         return ret;
 
