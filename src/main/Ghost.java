@@ -12,13 +12,13 @@ public class Ghost extends Character {
     private Tile lastTile;
     protected BufferedImage image = null;
 
-    public Ghost(Tile tile,String nameImage) {
+    public Ghost(Tile tile) {
         super(tile);
         this.tile = tile;
         this.lastTile = this.tile;
 
         try {
-            image = ImageIO.read(new File("lib/" + nameImage + ".png"));
+            image = ImageIO.read(new File("lib/ghost.png"));
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }

@@ -35,10 +35,9 @@ public class Maze {
         this.pills = new ArrayList<>();
         this.ghosts = new ArrayList<>();
         this.createMaze();
-        Tile tile = getRandomTile();
-        this.pacman = new Pacman(getRandomTile(),"pacman");
+        this.pacman = new Pacman(getRandomTile());
         for (int i = 0; i < 4 ; i++) {
-            Ghost g = new Ghost(getRandomTile(), "ghost");
+            Ghost g = new Ghost(getRandomTile());
             this.ghosts.add(g);
         }
     }

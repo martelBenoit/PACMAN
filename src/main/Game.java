@@ -27,7 +27,6 @@ public class Game {
         this.gameFrame.redraw();
 
     }
-
     
     public int getNumberOfLives() {
 		return this.numberOfLives;
@@ -39,14 +38,18 @@ public class Game {
 
 
     public void startGame() {
-        //this.isLost = false;
         this.level = 1;
         this.score = 0;
-        Pacman pacman = maze.getPacman();
+
         // Boucle principale
 		while (this.getNumberOfLives() > 0) {
+
+            Maze maze = this.getMaze();
+            Pacman pacman = maze.getPacman();
+
 		    while(maze.getPills().size() > 0) {
-                pacman = maze.getPacman();
+
+		        // Change Pacman direction
                 if (gameFrame.hasChangedDirection()) {
                     if (gameFrame.isUpPressed()) {
                         pacman.setWantedDirection(Direction.UP);
@@ -76,7 +79,6 @@ public class Game {
                 if (!moved) {
                     nextTilePacman = maze.getTile(pacman, pacman.getDirection());
                     if (nextTilePacman != null) {
-                        // Checks if the tile isn't a wall
                         if (!nextTilePacman.isWall()) {
                             pacman.move(nextTilePacman);
                         }
@@ -86,7 +88,7 @@ public class Game {
                 // Eat Pill on the case
                 Pill pillToRemove = null;
                 for(Tile t: maze.getTiles()) {
-                   if (t == nextTilePacman) {
+                   if (t == pacman.getTile()) {
                        for(Pill p: maze.getPills()) {
                            if (p.getTile() == t) {
                                if( p instanceof FruitPill)
@@ -130,18 +132,7 @@ public class Game {
                             g.move(newTile);
                         }
                     }
-/*
-                    if (changeDirection) {
-                        Direction currentDirection = g.getDirection();
-                        Direction newDirection = currentDirection;
-                        while (newDirection == currentDirection) {
-                            newDirection = getRandomDirection();
-                        }
-                        nextTile = maze.getTile(g, newDirection);
-                        g.move(nextTile);
-                    }*/
                 }
-
                 gameFrame.redraw();
                 gameFrame.wait(100);
             }
@@ -159,45 +150,11 @@ public class Game {
             this.maze.draw();
             gameFrame.redraw();
 		}
-
-		System.out.println("GAME OVER !");
 		this.endGame();
     }
 
-
-    public Direction inverseDirection(Direction d) {
-        Direction ret = null;
-        switch(d) {
-            case UP:
-                ret = Direction.DOWN;
-                break;
-            case DOWN:
-                ret = Direction.UP;
-                break;
-            case LEFT:
-                ret = Direction.RIGHT;
-                break;
-            case RIGHT:
-                ret = Direction.LEFT;
-                break;
-        }
-        return ret;
-    }
-
-    /**
-     * Gets a random direction
-     *
-     * @return A random direction
-     */
-    public Direction getRandomDirection() {
-        Random rd = new Random();
-        int x = rd.nextInt(Direction.values().length);
-        return Direction.values()[x];
-    }
-
     public void endGame() {
-        //this.isLost = true;
-
+        System.out.println("GAME OVER !");
         this.highScores.add(score);
         Collections.sort(this.highScores);
         saveHighScores();

@@ -19,14 +19,14 @@ public class Pacman extends Character {
     protected BufferedImage image_cl = null;
     protected BufferedImage imageActual = null;
 
-    public Pacman(Tile tile, String nameImage){
+    public Pacman(Tile tile){
     	super(tile);
         this.tile = tile;
         isOpenMouth = true;
 
         try {
-            image_op = ImageIO.read(new File("lib/" + nameImage + "_open.png"));
-            image_cl = ImageIO.read(new File("lib/" + nameImage + "_close.png"));
+            image_op = ImageIO.read(new File("lib/pacman_open.png"));
+            image_cl = ImageIO.read(new File("lib/pacman_close.png"));
             imageActual = image_op;
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
@@ -89,14 +89,6 @@ public class Pacman extends Character {
 
     public void setWantedDirection(Direction wantedDirection) {
         this.wantedDirection = wantedDirection;
-    }
-
-    public boolean eatPill(){
-        return false;
-    }
-
-    public boolean eatGhost(){
-        return false;
     }
 
     @Override

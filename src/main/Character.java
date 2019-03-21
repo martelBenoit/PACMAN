@@ -24,8 +24,6 @@ public abstract class Character extends Figure{
         if(tile != null) {
             this.changePosition(this.tile.getX(), this.tile.getY());
             centerImage(destWidth, destHeight);
-
-
         }
     }
 
