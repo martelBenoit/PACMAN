@@ -42,7 +42,6 @@ public abstract class Character extends Figure{
         this.changePosition(this.tile.getX(),this.tile.getY());
         centerImage(destWidth,destHeight);
         System.out.println("oui");
-
     }
     
     public void setDirection(Direction d) {

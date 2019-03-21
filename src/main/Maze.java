@@ -189,19 +189,38 @@ public class Maze {
 		return this.pacman;
 	}
 
-    // TODO
     public Tile getTile(Character c, Direction direction){
         switch(direction) {
             case UP:
+                for(Tile t: tiles) {
+                    if(t.getX() == c.getX() && t.getY() == c.getY()-1) {
+                        return t;
+                    }
+                }
                 break;
             case DOWN:
+                for(Tile t: tiles) {
+                    if(t.getX() == c.getX() && t.getY() == c.getY()+1) {
+                        return t;
+                    }
+                }
                 break;
             case LEFT:
+                for(Tile t: tiles) {
+                    if(t.getX() == c.getX()-1 && t.getY() == c.getY()) {
+                        return t;
+                    }
+                }
                 break;
             case RIGHT:
+                for(Tile t: tiles) {
+                    if(t.getX() == c.getX()+1 && t.getY() == c.getY()) {
+                        return t;
+                    }
+                }
                 break;
             default:
-                break;
+                return null;
         }
         return null;
     }

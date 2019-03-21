@@ -45,27 +45,28 @@ public class Game {
         //this.level = 1;
         this.score = 0;
 
-        
+        Pacman pacman = maze.getPacman();
+
         // Boucle principale
 		//while (this.getNumberOfLives() > 0 && this.getMaze().getPills().size() > 0) { //(this.maps.getNbGom() > 0) && (this.pacman.getLife() > 0)
 		while(true) {
 			if(gameFrame.hasChangedDirection()) {
 				if (gameFrame.isUpPressed()) {
-                    this.getMaze().getPacman().setDirection(Direction.UP);
+                    pacman.setDirection(Direction.UP);
 				} else if (gameFrame.isDownPressed()) {
-                    this.getMaze().getPacman().setDirection(Direction.DOWN);
+                    pacman.setDirection(Direction.DOWN);
 				} else if (gameFrame.isLeftPressed()) {
-                    this.getMaze().getPacman().setDirection(Direction.LEFT);
+                    pacman.setDirection(Direction.LEFT);
 				} else if (gameFrame.isRightPressed()) {
-                    this.getMaze().getPacman().setDirection(Direction.RIGHT);
+                    pacman.setDirection(Direction.RIGHT);
 				}
 				gameFrame.resetMove();
 			}
 
 
 			// Move PACMAN
-            Pacman pacman = maze.getPacman();
 			Tile nextTilePacman = maze.getTile(pacman,pacman.getDirection());
+			System.out.println(nextTilePacman);
             // Checks if the tile exists (not out of the maze)
             if(nextTilePacman != null) {
                 // Checks if the tile isn't a wall
@@ -105,6 +106,7 @@ public class Game {
                     g.move(nextTile);
                 }
             }
+			gameFrame.wait(300);
 		}
     }
 

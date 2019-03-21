@@ -28,7 +28,6 @@ public class GameFrame{
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setPreferredSize(new Dimension(750,900));
-        frame.addKeyListener(new KeyboardListener());
 
         JPanel pan = new JPanel();
         pan.setBackground(Color.black);
@@ -44,6 +43,8 @@ public class GameFrame{
 
         canvas.setFocusable(true);
         this.setVisible(true);
+
+        canvas.addKeyListener(new KeyboardListener());
     }
     
     public static GameFrame getGameFrame()
@@ -181,7 +182,6 @@ public class GameFrame{
         	    case KeyEvent.VK_UP:
 					upPressed = true;
 					directionChanged = true;
-					System.out.println("UP");
 					break;
         	    case KeyEvent.VK_DOWN:
 					downPressed = true;
