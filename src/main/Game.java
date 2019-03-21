@@ -66,7 +66,6 @@ public class Game {
 
 			// Move PACMAN
 			Tile nextTilePacman = maze.getTile(pacman,pacman.getDirection());
-			System.out.println(nextTilePacman);
             // Checks if the tile exists (not out of the maze)
             if(nextTilePacman != null) {
                 // Checks if the tile isn't a wall

@@ -190,31 +190,35 @@ public class Maze {
 	}
 
     public Tile getTile(Character c, Direction direction){
+        Tile characterTile = c.getTile();
+        System.out.println(characterTile.getX());
         switch(direction) {
             case UP:
                 for(Tile t: tiles) {
-                    if(t.getX() == c.getX() && t.getY() == c.getY()-1) {
+                    System.out.println(t.getX());
+                    if(t.getX() == characterTile.getX() && t.getY() == characterTile.getY()-this.tile_size) {
                         return t;
                     }
                 }
                 break;
             case DOWN:
                 for(Tile t: tiles) {
-                    if(t.getX() == c.getX() && t.getY() == c.getY()+1) {
+                    if(t.getX() == characterTile.getX() && t.getY() == characterTile.getY()+this.tile_size) {
                         return t;
                     }
                 }
                 break;
             case LEFT:
                 for(Tile t: tiles) {
-                    if(t.getX() == c.getX()-1 && t.getY() == c.getY()) {
+                    System.out.println(t.getX());
+                    if(t.getX() == characterTile.getX()-this.tile_size && t.getY() == characterTile.getY()) {
                         return t;
                     }
                 }
                 break;
             case RIGHT:
                 for(Tile t: tiles) {
-                    if(t.getX() == c.getX()+1 && t.getY() == c.getY()) {
+                    if(t.getX() == characterTile.getX()+this.tile_size && t.getY() == characterTile.getY()) {
                         return t;
                     }
                 }

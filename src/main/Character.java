@@ -43,7 +43,11 @@ public abstract class Character extends Figure{
         centerImage(destWidth,destHeight);
         System.out.println("oui");
     }
-    
+
+    public Tile getTile() {
+        return tile;
+    }
+
     public void setDirection(Direction d) {
 		this.direction = d;
 		if(this.direction == Direction.UP)
