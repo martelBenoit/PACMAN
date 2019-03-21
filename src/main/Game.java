@@ -1,6 +1,6 @@
 package main;
 
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -10,8 +10,6 @@ public class Game {
 
     private int score;
     private ArrayList<Integer> highScores;
-    //private int level;
-    //private boolean isLost;
     private int initialNumberOfLives;
     private int numberOfLives;
     private Maze maze;

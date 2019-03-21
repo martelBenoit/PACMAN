@@ -45,8 +45,10 @@ public abstract class Character extends Figure{
     public void setTile(Tile tile) {
         this.tile = tile;
         if(tile != null) {
-            this.changePosition(this.tile.getX(), this.tile.getY());
-            centerImage(destWidth, destHeight);
+            if(this instanceof Pacman) {
+                this.changePosition(this.tile.getX(), this.tile.getY());
+                centerImage(destWidth, destHeight);
+            }
         }
     }
 

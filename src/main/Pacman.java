@@ -1,18 +1,18 @@
 package main;
 
 
+import java.awt.image.BufferedImage;
+
 public class Pacman extends Character {
 
     private boolean hasPower;
-
     private boolean isOpenMouth;
-
 
     public Pacman(Tile tile, String nameImage){
     	super(tile,nameImage);
         this.tile = tile;
         this.setDirection(Direction.LEFT);
-        this.isOpenMouth = true;
+        isOpenMouth = true;
     }
 
     public boolean eatPill(){
@@ -25,14 +25,7 @@ public class Pacman extends Character {
 
     @Override
     public void move(Tile nextTile) {
-
 		this.setTile(nextTile);
-        if(isOpenMouth)
-            imageActual = image_op;
-        else
-            imageActual = image_cl;
-        isOpenMouth = !isOpenMouth;
-		this.draw();
 	}
 
 
@@ -44,6 +37,18 @@ public class Pacman extends Character {
         return this.hasPower;
     }
 
+    @Override
+    public BufferedImage getImage(){
+        BufferedImage ret;
+
+        if(isOpenMouth)
+            ret = this.imageActual;
+        else
+            ret =  this.image_cl;
+        isOpenMouth = !isOpenMouth;
+        return ret;
+
+    }
 
 
 
