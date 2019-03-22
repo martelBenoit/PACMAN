@@ -179,16 +179,14 @@ public class Game {
                 for (Ghost g : maze.getGhosts()) {
                     g.erase();
                 }
+
             }
-
+            if(numberOfLives > 0) {
+                this.maze = new Maze(3);
+                this.maze.draw();
+                gameFrame.redraw();
+            }
 		}
-
-		if(numberOfLives > 0) {
-            this.maze = new Maze(3);
-            this.maze.draw();
-            gameFrame.redraw();
-        }
-
     }
 
     public void endGame() {
