@@ -13,6 +13,7 @@ public class Ghost extends Character {
     public Ghost(Tile tile, int nbGhost) {
         super(tile);
         this.tile = tile;
+        this.isAlive = true;
 
         try {
            image = ImageIO.read(new File("lib/ghost"+nbGhost+".png"));

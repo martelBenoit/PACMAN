@@ -177,18 +177,20 @@ public class Game {
 
                 // Move GHOSTS
                 for (Ghost g : maze.getGhosts()) {
-                    ArrayList<Tile> tilesAround = maze.getTilesAround(g);
-                    if(g.getLastTile() != null) {
-                        if (tilesAround.size() == 1) {
-                            g.setLastTile(g.getTile());
-                            g.move(tilesAround.get(0));
-                        } else {
-                            tilesAround.remove(g.getLastTile());
-                            Random rd = new Random();
-                            int x = rd.nextInt(tilesAround.size());
-                            Tile newTile = tilesAround.get(x);
-                            g.setLastTile(g.getTile());
-                            g.move(newTile);
+                    if(g.isAlive()) {
+                        ArrayList<Tile> tilesAround = maze.getTilesAround(g);
+                        if (g.getLastTile() != null) {
+                            if (tilesAround.size() == 1) {
+                                g.setLastTile(g.getTile());
+                                g.move(tilesAround.get(0));
+                            } else {
+                                tilesAround.remove(g.getLastTile());
+                                Random rd = new Random();
+                                int x = rd.nextInt(tilesAround.size());
+                                Tile newTile = tilesAround.get(x);
+                                g.setLastTile(g.getTile());
+                                g.move(newTile);
+                            }
                         }
                     }
                 }
@@ -204,6 +206,16 @@ public class Game {
                             score += 200;
                             Tile ghostSpawnTile = maze.getGhostSpawnTile();
                             g.setTile(ghostSpawnTile == null ? maze.getRandomTile() : ghostSpawnTile);
+
+                            // Schedule the respawn of the ghost
+                            Timer timer = new Timer();
+                            timer.schedule(new TimerTask() {
+                                @Override
+                                public void run() {
+                                    g.setAlive(true);
+                                }
+                            }, maze.getRegenerationTime()*1000);
+
                         }
                         else {
                             this.loseLife();
