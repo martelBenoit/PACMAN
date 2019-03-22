@@ -59,6 +59,8 @@ public class Game {
         this.gameFrame.setHighScore(this.highScores.get(0));
         this.gameFrame.setLives(lives);
 
+        preGame();
+
     }
 
     /**
@@ -77,6 +79,18 @@ public class Game {
 		return this.maze;
 	}
 
+	// CEST DEGUEULASSE MAIS JE SAIS PAS COMMENT FAIRE AUTREMENT DIS MOI SI TU SAIS
+	public void preGame(){
+	    Boolean lance = false;
+	    while(!lance){
+	        if(gameFrame.isStartGame()){
+	            lance = true;
+	            startGame();
+            }
+	        else
+	            System.out.println();
+        }
+    }
 
     public void startGame() { // TODO : Créer méthodes pour clarifier celle-ci
         //this.isLost = false;
@@ -85,13 +99,13 @@ public class Game {
         boolean pacmanEaten;
 
         // Boucle principale
-		while (this.getNumberOfLives() > 0) {
+        while (this.getNumberOfLives() > 0) {
 
             Maze maze = this.getMaze();
             Pacman pacman = maze.getPacman();
 
-		    while(maze.getPills().size() > 0 && this.getNumberOfLives() > 0) {
-		        // Change Pacman direction
+            while (maze.getPills().size() > 0 && this.getNumberOfLives() > 0) {
+                // Change Pacman direction
                 if (gameFrame.hasChangedDirection()) {
                     if (gameFrame.isUpPressed()) {
                         pacman.setWantedDirection(Direction.UP);
@@ -132,51 +146,50 @@ public class Game {
 
                 // Eat Pill on the case
                 Pill pillToRemove = null;
-                for(Tile t: maze.getTiles()) {
-                   if (t == pacman.getTile()) {
-                       for(Pill p: maze.getPills()) {
-                           if (p.getTile() == t) {
-                               if( p instanceof FruitPill)
-                                   score+=maze.getFruitValue();
-                               else if (p instanceof PowerPill) {
-                                   pacman.setHasPower(true);
-                                   score += maze.getPillValue();
+                for (Tile t : maze.getTiles()) {
+                    if (t == pacman.getTile()) {
+                        for (Pill p : maze.getPills()) {
+                            if (p.getTile() == t) {
+                                if (p instanceof FruitPill)
+                                    score += maze.getFruitValue();
+                                else if (p instanceof PowerPill) {
+                                    pacman.setHasPower(true);
+                                    score += maze.getPillValue();
 
-                                   // Schedule the removal of power effect
-                                   Timer timer = new Timer();
-                                   timer.schedule(new TimerTask() {
-                                       @Override
-                                       public void run() {
-                                           pacman.setHasPower(false);
-                                       }
-                                   }, maze.getPowerTime()*1000);
+                                    // Schedule the removal of power effect
+                                    Timer timer = new Timer();
+                                    timer.schedule(new TimerTask() {
+                                        @Override
+                                        public void run() {
+                                            pacman.setHasPower(false);
+                                        }
+                                    }, maze.getPowerTime() * 1000);
 
-                               }
-                               else
-                                   score+=maze.getPillValue();
-                               pillToRemove = p;
-                               gameFrame.setScore(score);
-                               if(score >= this.highScores.get(0)) {
-                                   gameFrame.setHighScore(score);
-                               }
-                           }
-                       }
-                   }
+                                } else
+                                    score += maze.getPillValue();
+                                pillToRemove = p;
+                                gameFrame.setScore(score);
+                                if (score >= this.highScores.get(0)) {
+                                    gameFrame.setHighScore(score);
+                                }
+                            }
+                        }
+                    }
                 }
-                if(pillToRemove != null) {
+                if (pillToRemove != null) {
 
-                   Tile t = pillToRemove.getTile();
-                   pillToRemove.removeTile();
-                   t.draw();
-                   if(pillToRemove.getClass().getSimpleName().equals("PowerPill")) {
+                    Tile t = pillToRemove.getTile();
+                    pillToRemove.removeTile();
+                    t.draw();
+                    if (pillToRemove.getClass().getSimpleName().equals("PowerPill")) {
                         pacman.setHasPower(true);
-                   }
-                   maze.getPills().remove(pillToRemove);
+                    }
+                    maze.getPills().remove(pillToRemove);
                 }
 
                 // Move GHOSTS
                 for (Ghost g : maze.getGhosts()) {
-                    if(g.isAlive()) {
+                    if (g.isAlive()) {
                         ArrayList<Tile> tilesAround = maze.getTilesAround(g);
                         if (g.getLastTile() != null) {
                             if (tilesAround.size() == 1) {
@@ -198,9 +211,9 @@ public class Game {
 
                 pacmanEaten = false;
 
-                for(Ghost g: maze.getGhosts()) {
+                for (Ghost g : maze.getGhosts()) {
                     if (g.getTile() == pacman.getTile() || (g.getLastTile() == pacman.getTile() && g.getTile() == pacman.getLastTile())) {
-                        if(pacman.getHasPower()) {
+                        if (pacman.getHasPower()) {
                             g.setAlive(false);
                             score += 200;
                             Tile ghostSpawnTile = maze.getGhostSpawnTile();
@@ -213,25 +226,23 @@ public class Game {
                                 public void run() {
                                     g.setAlive(true);
                                 }
-                            }, maze.getRegenerationTime()*1000);
+                            }, maze.getRegenerationTime() * 1000);
 
-                        }
-                        else {
+                        } else {
                             this.loseLife();
                             pacmanEaten = true;
                         }
                     }
                 }
                 gameFrame.redraw();
-                if(pacmanEaten) {
+                if (pacmanEaten) {
                     gameFrame.wait(2000);
-                }
-                else {
+                } else {
                     gameFrame.wait(100);
                 }
             }
 
-		    if(numberOfLives > 0) {
+            if (numberOfLives > 0) {
                 this.level += 1;
                 gameFrame.setLevel(this.level);
                 pacman.erase();
@@ -242,13 +253,13 @@ public class Game {
                 this.maze.draw();
                 gameFrame.redraw();
             }
-		}
+        }
+
 		endGame();
     }
 
     public void endGame() {
         int sizeHighScores = this.highScores.size();
-        gameFrame.drawGameOver();
 
         Collections.sort(this.highScores);
         Collections.reverse(this.highScores);
@@ -256,20 +267,16 @@ public class Game {
         // Si il reste de la place dans le tableau
         if(sizeHighScores < 10){
             this.highScores.add(score);
-            System.out.println(score);
         }
         else if(score > this.highScores.get(sizeHighScores-1)){
-            if(sizeHighScores < 10) {
-                this.highScores.add(score);
-            }
-            else
-                this.highScores.add(sizeHighScores-1,score);
+            this.highScores.set(sizeHighScores-1,score);
         }
 
         Collections.sort(this.highScores);
         Collections.reverse(this.highScores);
-        System.out.println(this.highScores.toString());
         saveHighScores();
+
+        gameFrame.showEndFrame(this.highScores);
 
     }
 
