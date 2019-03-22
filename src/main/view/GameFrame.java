@@ -30,6 +30,7 @@ public class GameFrame{
     private JLabel lives;
 
     private Font font;
+    private Font fontGameOver;
 
     private Boolean gameOver = false;
 
@@ -42,7 +43,7 @@ public class GameFrame{
         frame = new JFrame();
         frame.setTitle("Pacman");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setResizable(false);
+        //frame.setResizable(false);
         frame.setPreferredSize(new Dimension(WIDTH,HEIGHT));
         frame.setContentPane(pan);
         frame.setIconImage(new ImageIcon("lib/pacman_open.png").getImage());
@@ -61,6 +62,7 @@ public class GameFrame{
 
         try {
            this.font  = Font.createFont(Font.TRUETYPE_FONT, new File("lib/VCR_OSD_MONO_1.001.ttf")).deriveFont(Font.PLAIN, 40);
+           this.fontGameOver = Font.createFont(Font.TRUETYPE_FONT, new File("lib/PAC-FONT.ttf")).deriveFont(Font.PLAIN, 40);
         }
         catch(Exception e){
             System.out.println(e.getMessage());
@@ -321,8 +323,10 @@ public class GameFrame{
 
             if(gameOver){
                 g.setColor(Color.RED);
-                g.setFont(font.deriveFont(Font.PLAIN,100));
-                int x = canvas.getWidth()/2 - (int) g.getFontMetrics().getStringBounds("GAME OVER",g).getWidth()/2;
+                g.setFont(fontGameOver.deriveFont(Font.PLAIN,70));
+                int x = canvas.getWidth()/2 - (int) g.getFontMetrics().getStringBounds("game over",g).getWidth()/2;
+                g.drawString("game over",x,(canvas.getHeight()/2));
+                g.setColor(Color.WHITE);
                 g.drawString("GAME OVER",x,(canvas.getHeight()/2));
             }
         }

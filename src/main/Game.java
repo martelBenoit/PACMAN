@@ -182,15 +182,26 @@ public class Game {
     public void endGame() {
         int sizeHighScores = this.highScores.size();
         gameFrame.drawGameOver();
-        if(score > this.highScores.get(sizeHighScores-1)){
-            if(sizeHighScores < 10)
+
+        Collections.sort(this.highScores);
+        Collections.reverse(this.highScores);
+
+        // Si il reste de la place dans le tableau
+        if(sizeHighScores < 10){
+            this.highScores.add(score);
+            System.out.println(score);
+        }
+        else if(score > this.highScores.get(sizeHighScores-1)){
+            if(sizeHighScores < 10) {
                 this.highScores.add(score);
+            }
             else
                 this.highScores.add(sizeHighScores-1,score);
         }
 
         Collections.sort(this.highScores);
         Collections.reverse(this.highScores);
+        System.out.println(this.highScores.toString());
         saveHighScores();
 
     }
@@ -256,7 +267,7 @@ public class Game {
 
             String highScores = ""+this.highScores.get(0);
 
-            for(int i = 1; i<this.highScores.size()-1; i++){
+            for(int i = 1; i<this.highScores.size(); i++){
                 highScores = highScores+","+this.highScores.get(i);
             }
             writer.print(highScores);
