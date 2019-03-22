@@ -142,6 +142,16 @@ public class Game {
                                else if (p instanceof PowerPill) {
                                    pacman.setHasPower(true);
                                    score += maze.getPillValue();
+
+                                   // Schedule the removal of power effect
+                                   Timer timer = new Timer();
+                                   timer.schedule(new TimerTask() {
+                                       @Override
+                                       public void run() {
+                                           pacman.setHasPower(false);
+                                       }
+                                   }, maze.getPowerTime()*1000);
+
                                }
                                else
                                    score+=maze.getPillValue();
