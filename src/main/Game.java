@@ -197,6 +197,7 @@ public class Game {
                                 g.move(tilesAround.get(0));
                             } else {
                                 tilesAround.remove(g.getLastTile());
+                                System.out.println(g.getLastTile().getX());
                                 Random rd = new Random();
                                 int x = rd.nextInt(tilesAround.size());
                                 Tile newTile = tilesAround.get(x);

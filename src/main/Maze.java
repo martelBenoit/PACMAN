@@ -306,7 +306,7 @@ public class Maze {
             if(!t.isWall()) {
                 if (t.getX() >= characterTile.getX() - this.tile_size && t.getX() <= characterTile.getX() + this.tile_size) {
                     if(t.getX() == characterTile.getX()) {
-                        if(t.getY() >= characterTile.getY()-this.tile_size && t.getY() <= characterTile.getY()+this.tile_size) {
+                        if((t.getY() >= characterTile.getY()-this.tile_size && t.getY() <= characterTile.getY()+this.tile_size) || t.getY() == characterTile.getY()-this.tile_size+((this.nbYTiles-1)*this.tile_size) || t.getY() == characterTile.getY()-((this.nbYTiles-1)*this.tile_size)) {
                             if(t.getY() != characterTile.getY()) {
                                 ret.add(t);
                             }
@@ -317,6 +317,22 @@ public class Maze {
                             ret.add(t);
                         }
                     }
+                }
+                else {
+                     if (characterTile.getX() == 0) {
+                         if(t.getX() == (this.nbXTiles-1)*this.tile_size) {
+                             if(t.getY() == characterTile.getY()) {
+                                 ret.add(t);
+                             }
+                         }
+                     }
+                     else if (characterTile.getX() == (this.nbXTiles-1)*this.tile_size) {
+                         if(t.getX() == 0) {
+                             if(t.getY() == characterTile.getY()) {
+                                 ret.add(t);
+                             }
+                         }
+                     }
                 }
             }
         }
