@@ -43,9 +43,7 @@ public class GameFrame{
         frame = new JFrame();
         frame.setTitle("Pacman");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        //frame.setResizable(false);
-       // frame.setPreferredSize(new Dimension(WIDTH,HEIGHT));
-        //frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
 
         frame.setContentPane(pan);
         frame.setIconImage(new ImageIcon("lib/pacman_open.png").getImage());
@@ -56,6 +54,7 @@ public class GameFrame{
         panUp.setLayout(new GridLayout(1,2));
         panDown.setLayout(new GridLayout(1,2));
 
+        // Pour le panMain
         this.level = new JLabel();
         this.score = new JLabel();
         this.highScore = new JLabel();

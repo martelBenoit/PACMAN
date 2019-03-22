@@ -41,7 +41,7 @@ public class Maze {
 
         this.pacman = new Pacman(pacmanSpawnTile == null ? getRandomTile() : pacmanSpawnTile);
         for (int i = 0; i < 4 ; i++) {
-            Ghost g = new Ghost(ghostSpawnTile == null ? getRandomTile() : ghostSpawnTile);
+            Ghost g = new Ghost(ghostSpawnTile == null ? getRandomTile() : ghostSpawnTile,i+1);
             this.ghosts.add(g);
         }
     }

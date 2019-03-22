@@ -10,12 +10,13 @@ public class Ghost extends Character {
     private boolean isAlive;
     protected BufferedImage image = null;
 
-    public Ghost(Tile tile) {
+    public Ghost(Tile tile, int nbGhost) {
         super(tile);
         this.tile = tile;
 
         try {
-            image = ImageIO.read(new File("lib/ghost.png"));
+           image = ImageIO.read(new File("lib/ghost"+nbGhost+".png"));
+
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }

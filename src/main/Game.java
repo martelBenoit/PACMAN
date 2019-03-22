@@ -5,24 +5,54 @@ import java.util.*;
 
 import main.view.GameFrame;
 
+/**
+ *
+ * @author Benoît & Yoann
+ * @version 1.0
+ */
 public class Game {
 
+    /**
+     * The score of the game.
+     */
     private int score;
+
+    /**
+     * The level of the game.
+     */
     private int level;
+
+    /**
+     * The list of highscores.
+     */
     private ArrayList<Integer> highScores;
-    private int initialNumberOfLives;
+
+    /**
+     * The actual number of lives.
+     */
     private int numberOfLives;
+
+    /**
+     * The maze of level.
+     */
     private Maze maze;
 
+    /**
+     * The game frame.
+     */
     private GameFrame gameFrame;
 
+    /**
+     * The constructor of the class Game.
+     * @param lives the initial number of lives.
+     */
     public Game(int lives) {
 
         loadHighScores();
-        this.initialNumberOfLives = lives;
-        this.numberOfLives = initialNumberOfLives;
+
+        this.numberOfLives = lives;
         this.gameFrame = GameFrame.getGameFrame();
-        this.maze = new Maze(3);
+        this.maze = new Maze(2);
         this.maze.draw();
         this.gameFrame.redraw();
 
@@ -31,11 +61,18 @@ public class Game {
 
     }
 
-    
+    /**
+     * Getter number of lives.
+     * @return the number of lives.
+     */
     public int getNumberOfLives() {
 		return this.numberOfLives;
 	}
-	
+
+    /**
+     * Getter maze.
+     * @return the actual maze of the maze.
+     */
 	public Maze getMaze() {
 		return this.maze;
 	}
@@ -180,7 +217,7 @@ public class Game {
                 for (Ghost g : maze.getGhosts()) {
                     g.erase();
                 }
-                this.maze = new Maze(3);
+                this.maze = new Maze(2);
                 this.maze.draw();
                 gameFrame.redraw();
             }
@@ -277,7 +314,5 @@ public class Game {
             System.out.println(e.getMessage());
         }
     }
-
-
 
 }
