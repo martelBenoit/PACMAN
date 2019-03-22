@@ -45,7 +45,7 @@ public class Game {
         //this.isLost = false;
         this.level = 1;
         this.score = 0;
-        boolean pacmanEaten = false;
+        boolean pacmanEaten;
 
         // Boucle principale
 		while (this.getNumberOfLives() > 0) {
@@ -54,8 +54,6 @@ public class Game {
             Pacman pacman = maze.getPacman();
 
 		    while(maze.getPills().size() > 0 && this.getNumberOfLives() > 0) {
-
-		        pacmanEaten = false;
 
 		        // Change Pacman direction
                 if (gameFrame.hasChangedDirection()) {
@@ -149,6 +147,9 @@ public class Game {
                 }
 
                 // Check if pacman is eaten by a ghost (or a ghost is eaten by pacman)
+
+                pacmanEaten = false;
+
                 for(Ghost g: maze.getGhosts()) {
                     if (g.getTile() == pacman.getTile() || (g.getLastTile() == pacman.getTile() && g.getTile() == pacman.getLastTile())) {
                         if(pacman.getHasPower()) {
@@ -184,6 +185,7 @@ public class Game {
                 gameFrame.redraw();
             }
 		}
+		endGame();
     }
 
     public void endGame() {
