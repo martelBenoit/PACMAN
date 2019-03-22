@@ -44,7 +44,9 @@ public class GameFrame{
         frame.setTitle("Pacman");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         //frame.setResizable(false);
-        frame.setPreferredSize(new Dimension(WIDTH,HEIGHT));
+       // frame.setPreferredSize(new Dimension(WIDTH,HEIGHT));
+        //frame.setLocationRelativeTo(null);
+
         frame.setContentPane(pan);
         frame.setIconImage(new ImageIcon("lib/pacman_open.png").getImage());
 
@@ -167,7 +169,9 @@ public class GameFrame{
         this.panUp.revalidate();
         this.panDown.setPreferredSize(new Dimension(width,40));
         this.panDown.revalidate();
-        frame.setExtendedState(Frame.MAXIMIZED_BOTH);
+        //frame.setExtendedState(Frame.MAXIMIZED_BOTH);
+        frame.setPreferredSize(new Dimension((int)(width*1.2),(int)((height+80)*1.1)));
+        frame.pack();
     }
 
     public void drawCharacter(Character c){
