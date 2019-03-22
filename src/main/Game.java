@@ -91,7 +91,6 @@ public class Game {
             Pacman pacman = maze.getPacman();
 
 		    while(maze.getPills().size() > 0 && this.getNumberOfLives() > 0) {
-
 		        // Change Pacman direction
                 if (gameFrame.hasChangedDirection()) {
                     if (gameFrame.isUpPressed()) {

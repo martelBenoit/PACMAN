@@ -242,29 +242,53 @@ public class Maze {
         switch(direction) {
             case UP:
                 for(Tile t: tiles) {
-                    if(t.getX() == characterTile.getX() && t.getY() == characterTile.getY()-this.tile_size) {
-                        return t;
+                    if(characterTile.getY() != 0) {
+                        if (t.getX() == characterTile.getX() && t.getY() == characterTile.getY() - this.tile_size) {
+                            return t;
+                        }
+                    } else {
+                        if (t.getX() == characterTile.getX() && t.getY() == (this.nbYTiles-1)*this.tile_size) {
+                            return t;
+                        }
                     }
                 }
                 break;
             case DOWN:
                 for(Tile t: tiles) {
-                    if(t.getX() == characterTile.getX() && t.getY() == characterTile.getY()+this.tile_size) {
-                        return t;
+                    if(characterTile.getY() != this.tile_size*(this.nbYTiles-1)) {
+                        if (t.getX() == characterTile.getX() && t.getY() == characterTile.getY() + this.tile_size) {
+                            return t;
+                        }
+                    } else {
+                        if (t.getX() == characterTile.getX() && t.getY() == 0) {
+                            return t;
+                        }
                     }
                 }
                 break;
             case LEFT:
                 for(Tile t: tiles) {
-                    if(t.getX() == characterTile.getX()-this.tile_size && t.getY() == characterTile.getY()) {
-                        return t;
+                    if(characterTile.getX() != 0) {
+                        if (t.getX() == characterTile.getX() - this.tile_size && t.getY() == characterTile.getY()) {
+                            return t;
+                        }
+                    } else {
+                        if (t.getX() == (this.nbXTiles-1)* this.tile_size && t.getY() == characterTile.getY()) {
+                            return t;
+                        }
                     }
                 }
                 break;
             case RIGHT:
                 for(Tile t: tiles) {
-                    if(t.getX() == characterTile.getX()+this.tile_size && t.getY() == characterTile.getY()) {
-                        return t;
+                    if(characterTile.getX() != this.tile_size*(this.nbXTiles-1)) {
+                        if (t.getX() == characterTile.getX() + this.tile_size && t.getY() == characterTile.getY()) {
+                            return t;
+                        }
+                    } else {
+                        if (t.getX() == 0 && t.getY() == characterTile.getY()) {
+                            return t;
+                        }
                     }
                 }
                 break;
