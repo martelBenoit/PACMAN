@@ -164,7 +164,7 @@ public class Pacman extends Character {
      * @param power true, pacman becomes powerful, otherwise becomes normal again
      */
     public void setHasPower(Boolean power){
-        power = this.hasPower;
+        this.hasPower = power;
     }
 
 

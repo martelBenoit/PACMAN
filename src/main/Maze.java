@@ -36,22 +36,34 @@ public class Maze {
         this.ghosts = new ArrayList<>();
         this.createMaze();
 
-        Tile pacmanSpawnTile = null;
-        Tile ghostSpawnTile = null;
+        Tile pacmanSpawnTile = this.getPacmanSpawnTile();
+        Tile ghostSpawnTile = this.getGhostSpawnTile();
 
-        for(Tile t: tiles) {
-            if (t.isGhostSpawn()) {
-                ghostSpawnTile = t;
-            }
-            else if (t.isPacmanSpawn()) {
-                pacmanSpawnTile = t;
-            }
-        }
         this.pacman = new Pacman(pacmanSpawnTile == null ? getRandomTile() : pacmanSpawnTile);
         for (int i = 0; i < 4 ; i++) {
             Ghost g = new Ghost(ghostSpawnTile == null ? getRandomTile() : ghostSpawnTile);
             this.ghosts.add(g);
         }
+    }
+
+    public Tile getPacmanSpawnTile() {
+        Tile pacmanSpawnTile = null;
+        for(Tile t: tiles) {
+            if (t.isPacmanSpawn()) {
+                pacmanSpawnTile = t;
+            }
+        }
+        return pacmanSpawnTile;
+    }
+
+    public Tile getGhostSpawnTile() {
+        Tile ghostSpawnTile = null;
+        for(Tile t: tiles) {
+            if (t.isGhostSpawn()) {
+                ghostSpawnTile = t;
+            }
+        }
+        return ghostSpawnTile;
     }
 
     private void createMaze(){

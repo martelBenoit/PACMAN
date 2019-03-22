@@ -22,7 +22,7 @@ public class Game {
         this.initialNumberOfLives = lives;
         this.numberOfLives = initialNumberOfLives;
         this.gameFrame = GameFrame.getGameFrame();
-        this.maze = new Maze(1);
+        this.maze = new Maze(3);
         this.maze.draw();
         this.gameFrame.redraw();
 
@@ -41,7 +41,7 @@ public class Game {
 	}
 
 
-    public void startGame() {
+    public void startGame() { // TODO : Créer méthodes pour clarifier celle-ci
         //this.isLost = false;
         this.level = 1;
         this.score = 0;
@@ -104,6 +104,10 @@ public class Game {
                            if (p.getTile() == t) {
                                if( p instanceof FruitPill)
                                    score+=maze.getFruitValue();
+                               else if (p instanceof PowerPill) {
+                                   pacman.setHasPower(true);
+                                   score += maze.getPillValue();
+                               }
                                else
                                    score+=maze.getPillValue();
                                pillToRemove = p;
@@ -144,11 +148,19 @@ public class Game {
                     }
                 }
 
-                // Check if pacman is eaten by a ghost
+                // Check if pacman is eaten by a ghost (or a ghost is eaten by pacman)
                 for(Ghost g: maze.getGhosts()) {
                     if (g.getTile() == pacman.getTile() || (g.getLastTile() == pacman.getTile() && g.getTile() == pacman.getLastTile())) {
-                        this.loseLife();
-                        pacmanEaten = true;
+                        if(pacman.getHasPower()) {
+                            g.setAlive(false);
+                            score += 200;
+                            Tile ghostSpawnTile = maze.getGhostSpawnTile();
+                            g.setTile(ghostSpawnTile == null ? maze.getRandomTile() : ghostSpawnTile);
+                        }
+                        else {
+                            this.loseLife();
+                            pacmanEaten = true;
+                        }
                     }
                 }
                 gameFrame.redraw();
@@ -172,7 +184,7 @@ public class Game {
 		}
 
 		if(numberOfLives > 0) {
-            this.maze = new Maze(2);
+            this.maze = new Maze(3);
             this.maze.draw();
             gameFrame.redraw();
         }
@@ -209,16 +221,8 @@ public class Game {
     public void loseLife() {
         this.numberOfLives--;
         gameFrame.setLives(numberOfLives);
-        Tile pacmanSpawnTile = null;
-        Tile ghostSpawnTile = null;
-        for(Tile t: this.getMaze().getTiles()) {
-            if (t.isPacmanSpawn()) {
-                pacmanSpawnTile = t;
-            }
-            else if(t.isGhostSpawn()) {
-                ghostSpawnTile = t;
-            }
-        }
+        Tile pacmanSpawnTile = this.getMaze().getPacmanSpawnTile();
+        Tile ghostSpawnTile = this.getMaze().getGhostSpawnTile();
         if(numberOfLives > 0) {
             this.getMaze().getPacman().setTile(pacmanSpawnTile == null ? maze.getRandomTile() : pacmanSpawnTile);
             this.getMaze().getPacman().setDirection(Direction.LEFT);
@@ -226,9 +230,6 @@ public class Game {
             for(Ghost g : this.getMaze().getGhosts()) {
                 g.setTile(ghostSpawnTile == null ? maze.getRandomTile() : ghostSpawnTile);
             }
-        }
-        else {
-            this.endGame();
         }
     }
 
