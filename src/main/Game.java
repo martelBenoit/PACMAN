@@ -98,6 +98,8 @@ public class Game {
         this.score = 0;
         boolean pacmanEaten;
 
+        gameFrame.wait(1000);
+
         // Boucle principale
         while (this.getNumberOfLives() > 0) {
 
@@ -197,7 +199,6 @@ public class Game {
                                 g.move(tilesAround.get(0));
                             } else {
                                 tilesAround.remove(g.getLastTile());
-                                System.out.println(g.getLastTile().getX());
                                 Random rd = new Random();
                                 int x = rd.nextInt(tilesAround.size());
                                 Tile newTile = tilesAround.get(x);
@@ -209,7 +210,6 @@ public class Game {
                 }
 
                 // Check if pacman is eaten by a ghost (or a ghost is eaten by pacman)
-
                 pacmanEaten = false;
 
                 for (Ghost g : maze.getGhosts()) {
@@ -277,7 +277,7 @@ public class Game {
         Collections.reverse(this.highScores);
         saveHighScores();
 
-        gameFrame.showEndFrame(this.highScores);
+        gameFrame.showEndFrame(this.highScores,score);
 
     }
 

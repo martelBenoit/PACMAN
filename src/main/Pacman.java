@@ -52,6 +52,16 @@ public class Pacman extends Character {
     private BufferedImage image_cl = null;
 
     /**
+     * The power image of pacman with open mouth.
+     */
+    private BufferedImage image_p_op = null;
+
+    /**
+     * The power image of pacman with closed mouth.
+     */
+    private BufferedImage image_p_cl = null;
+
+    /**
      * Modified image of pacman with open mouth.
      */
     private BufferedImage imageActualOp = null;
@@ -81,6 +91,8 @@ public class Pacman extends Character {
         try {
             image_op = ImageIO.read(new File("lib/pacman_open.png"));
             image_cl = ImageIO.read(new File("lib/pacman_close.png"));
+            image_p_op = ImageIO.read(new File("lib/pacman_power_open.png"));
+            image_p_cl = ImageIO.read(new File("lib/pacman_power_close.png"));
             imageActualOp = image_op;
             imageActualCl = image_cl;
         } catch (IOException ex) {
@@ -109,21 +121,32 @@ public class Pacman extends Character {
     public void setDirection(Direction d) {
 
         this.direction = d;
+
+        BufferedImage tmp_image_op, tmp_image_cl;
+
+        if(this.hasPower){
+            tmp_image_op =image_p_op;
+            tmp_image_cl = image_p_cl;
+        }
+        else{
+            tmp_image_op = image_op;
+            tmp_image_cl = image_cl;
+        }
         if(this.direction == Direction.UP) {
-            this.imageActualOp = rotateImage(image_op, 270);
-            this.imageActualCl = rotateImage(image_cl, 270);
+            this.imageActualOp = rotateImage(tmp_image_op, 270);
+            this.imageActualCl = rotateImage(tmp_image_cl, 270);
         }
         else if(this.direction == Direction.DOWN) {
-            this.imageActualOp = rotateImage(image_op, 90);
-            this.imageActualCl = rotateImage(image_cl,90);
+            this.imageActualOp = rotateImage(tmp_image_op, 90);
+            this.imageActualCl = rotateImage(tmp_image_cl,90);
         }
         else if(this.direction == Direction.LEFT) {
-            this.imageActualOp = rotateImage(image_op, 180);
-            this.imageActualCl = rotateImage(image_cl,180);
+            this.imageActualOp = rotateImage(tmp_image_op, 180);
+            this.imageActualCl = rotateImage(tmp_image_cl,180);
         }
         else {
-            this.imageActualOp = image_op;
-            this.imageActualCl = image_cl;
+            this.imageActualOp = tmp_image_op;
+            this.imageActualCl = tmp_image_cl;
         }
     }
 

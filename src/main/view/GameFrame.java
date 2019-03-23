@@ -8,11 +8,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import main.Character;
+import main.Game;
 
 public class GameFrame{
 
-    public static final int WIDTH = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-    public static final int HEIGHT = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+    public static final int WIDTH = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth()-50;
+    public static final int HEIGHT = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight()-50;
 
 
     private static GameFrame instance;
@@ -44,8 +45,6 @@ public class GameFrame{
     private JButton button_Quit1;
 
     private Font font;
-    private Font fontTitle;
-    private Font fontGameOver;
 
     private Graphics2D graphic;
     private Image canvasImage;
@@ -53,8 +52,6 @@ public class GameFrame{
     private ArrayList<Object> objects;
     private HashMap<Object, ShapeDescription> shapes;
     private ArrayList<Character> characters;
-
-    private Boolean gameOver = false;
 
 	private boolean upPressed, downPressed, leftPressed, rightPressed, directionChanged = false;
 
@@ -88,16 +85,11 @@ public class GameFrame{
         this.panEnd = new JPanel();
         this.panEnd.setLayout(new BoxLayout(this.panEnd,BoxLayout.Y_AXIS));
 
-
-
         this.frame.setTitle("Pacman");
         this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.frame.setResizable(false);
 
-      // this.frame.setContentPane(this.panGame);
         this.frame.setIconImage(new ImageIcon("lib/pacman_open.png").getImage());
-
-
 
         this.panMain = new JPanel();
         panMain.setLayout(new BoxLayout(panMain,BoxLayout.Y_AXIS));
@@ -111,11 +103,14 @@ public class GameFrame{
         this.highScore = new JLabel();
         this.lives = new JLabel();
 
+        Font fontTitle = null;
+        Font fontGameOver;
+
 
         try {
             this.font  = Font.createFont(Font.TRUETYPE_FONT, new File("lib/VCR_OSD_MONO_1.001.ttf")).deriveFont(Font.PLAIN, 40);
-            this.fontGameOver = Font.createFont(Font.TRUETYPE_FONT, new File("lib/PAC-FONT.ttf")).deriveFont(Font.PLAIN, 40);
-            this.fontTitle = fontGameOver.deriveFont(Font.PLAIN, 80);
+            fontGameOver = Font.createFont(Font.TRUETYPE_FONT, new File("lib/PAC-FONT.ttf")).deriveFont(Font.PLAIN, 40);
+            fontTitle = fontGameOver.deriveFont(Font.PLAIN, 75);
         }
         catch(Exception e){
             System.out.println(e.getMessage());
@@ -212,7 +207,7 @@ public class GameFrame{
         this.canvas.setPreferredSize(new Dimension(WIDTH,HEIGHT));
 
         panStart.add(title);
-        panStart.add(Box.createRigidArea(new Dimension(0,80)));
+        panStart.add(Box.createRigidArea(new Dimension(0,70)));
         panStart.add(button_Start);
         panStart.add(Box.createRigidArea(new Dimension(0,20)));
         panStart.add(button_Quit);
@@ -235,6 +230,10 @@ public class GameFrame{
         JPanel lastPan = new JPanel();
         lastPan.setBackground(Color.BLACK);
 
+        JPanel test = new JPanel();
+        test.setBackground(Color.BLACK);
+
+        test.add(tableHigh);
 
         firstPan.setLayout(new GridBagLayout());
         lastPan.setLayout(new GridBagLayout());
@@ -244,7 +243,7 @@ public class GameFrame{
 
         this.panEnd.add(title_game_over);
         this.panEnd.add(Box.createRigidArea(new Dimension(0,60)));
-        this.panEnd.add(tableHigh);
+        this.panEnd.add(test);
         this.panEnd.add(Box.createRigidArea(new Dimension(0,20)));
         this.panEnd.add(button_restart);
         this.panEnd.add(Box.createRigidArea(new Dimension(0,20)));
@@ -261,20 +260,23 @@ public class GameFrame{
 
     }
 
-    public void showEndFrame(ArrayList<Integer> highScores){
+    public void showEndFrame(ArrayList<Integer> highScores,int scoreActual){
         this.tableHigh.removeAll();
         this.tableHigh.setBackground(Color.BLACK);
-        this.tableHigh.setLayout(new BoxLayout(tableHigh,BoxLayout.Y_AXIS));
+        this.tableHigh.setLayout(new GridLayout(11,1,5,0));
+        //this.tableHigh.setBorder(BorderFactory.createLineBorder(Color.YELLOW,2,true));
         JLabel text = new JLabel("HIGH SCORES");
         text.setForeground(Color.YELLOW);
-        text.setFont(font.deriveFont(Font.PLAIN,30));
+        text.setFont(font.deriveFont(Font.PLAIN,55));
         text.setHorizontalAlignment(SwingConstants.CENTER);
         this.tableHigh.add(text);
-        for(int i = 0; i < highScores.size(); i++){
-            String score = highScores.get(i)+"";
-            text = new JLabel(score);
-            text.setForeground(Color.WHITE);
-            text.setFont(font.deriveFont(Font.PLAIN,20));
+        for(int score : highScores){
+            text = new JLabel(score+"");
+            if(score == scoreActual)
+                text.setForeground(Color.red);
+            else
+                text.setForeground(Color.WHITE);
+            text.setFont(font.deriveFont(Font.PLAIN,40));
             text.setHorizontalAlignment(SwingConstants.CENTER);
             this.tableHigh.add(text);
         }
@@ -486,7 +488,6 @@ public class GameFrame{
             }
             else if(e.getSource() == button_restart){
                 card.show(c,"panGame");
-                // TODO : Trouver une manière pour relancer une partie
             }
 
         }
@@ -516,12 +517,12 @@ public class GameFrame{
         private Shape shape;
         private Color color;
 
-        public ShapeDescription(Shape shape, Color color) {
+        private ShapeDescription(Shape shape, Color color) {
             this.shape = shape;
             this.color = color;
         }
 
-        public void draw(Graphics2D graphic) {
+        private void draw(Graphics2D graphic) {
             graphic.setColor(color);
             graphic.fill(shape);
         }
