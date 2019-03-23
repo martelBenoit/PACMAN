@@ -492,13 +492,13 @@ public class GameFrame{
         public void actionPerformed(ActionEvent e) {
             if(e.getSource() == button_Quit || e.getSource() == button_Quit1){
                 frame.dispose();
+                System.exit(0);
             }
             else if(e.getSource() == button_Start){
                 card.show(c,"panGame");
                 canvas.setFocusable(true);
                 canvas.requestFocus();
                 startGame = true;
-
             }
             else if(e.getSource() == button_restart){
                 card.show(c,"panGame");

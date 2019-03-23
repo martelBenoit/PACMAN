@@ -107,6 +107,9 @@ public class Pacman extends Character {
         this.setWantedDirection(Direction.LEFT);
     }
 
+    public void setOpenMouth(boolean openMouth) {
+        isOpenMouth = openMouth;
+    }
 
     @Override
     public void move(Tile nextTile) {

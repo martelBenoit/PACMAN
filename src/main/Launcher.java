@@ -11,6 +11,6 @@ public class Launcher {
      * @param args nothing to put
      */
     public static void main(String[] args){
-        Game game = new Game(1);
+        new Game(3);
     }
 }

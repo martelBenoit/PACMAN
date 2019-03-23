@@ -33,6 +33,11 @@ public class Game {
     private int numberOfLives;
 
     /**
+     * The initial number of lives.
+     */
+    private int initialNumberOfLives;
+
+    /**
      * The maze of level.
      */
     private Maze maze;
@@ -54,7 +59,7 @@ public class Game {
         // Load score of previous games
         loadHighScores();
 
-        this.numberOfLives = lives;
+        this.numberOfLives = this.initialNumberOfLives = lives;
         this.gameFrame = GameFrame.getGameFrame();
 
         this.maze = new Maze(2);
@@ -71,7 +76,7 @@ public class Game {
         this.pacman = this.maze.getPacman();
 
         // Wait before the game start
-        preGame();
+        waitStart();
 
     }
 
@@ -91,21 +96,23 @@ public class Game {
 		return this.maze;
 	}
 
-	// TODO : CEST DEGUEULASSE MAIS JE SAIS PAS COMMENT FAIRE AUTREMENT DIS MOI SI TU SAIS
-	public void preGame(){
-	    Boolean lance = false;
-	    while(!lance){
+    /**
+     * Checks every 0.1 seconds if the user started the game
+     */
+	private void waitStart(){
+	    boolean start = false;
+	    while(!start){
 	        if(gameFrame.isStartGame()){
-	            lance = true;
+	            start = true;
 	            startGame();
             }
-	        else
-	            System.out.println();
+	        else{
+	           gameFrame.wait(100);
+            }
         }
     }
 
-    // TODO : Créer méthodes pour clarifier celle-ci
-    public void startGame() {
+    private void startGame() {
 
         this.level = 1;
         this.score = 0;
@@ -118,7 +125,7 @@ public class Game {
         // Main loop
         while (this.getNumberOfLives() > 0) {
 
-            this.pacman = this.getMaze().getPacman();
+            this.pacman = maze.getPacman();
 
             while (maze.getPills().size() > 0 && this.getNumberOfLives() > 0) {
 
@@ -137,15 +144,21 @@ public class Game {
                 }
 
 
-                // Move PACMAN
+                // Move Pacman
                 this.movePacman();
 
+                // Eat pill on the tile (if there is a pill)
                 this.eatPill();
 
-                pacmanEaten = this.moveGhost(pacmanEaten);
+                // Move every ghosts
+                this.moveGhosts();
+
+                // Check if pacman eat a ghost, or a ghost eat pacman
+                pacmanEaten = this.checkEaten();
 
 
                 gameFrame.redraw();
+                // If pacman was eaten, wait 2 seconds before resume game
                 if (pacmanEaten) {
                     gameFrame.wait(2000);
                 } else {
@@ -156,13 +169,11 @@ public class Game {
             if (numberOfLives > 0) {
                 this.level += 1;
                 gameFrame.setLevel(this.level);
-                pacman.erase();
-                for (Ghost g : maze.getGhosts()) {
-                    g.erase();
-                }
+                gameFrame.eraseCharacter();
                 this.maze = new Maze(2);
                 this.maze.draw();
                 gameFrame.redraw();
+                gameFrame.wait(2000);
             }
         }
 
@@ -247,7 +258,7 @@ public class Game {
         }
     }
 
-    private boolean moveGhost(Boolean pacmanEaten){
+    private void moveGhosts() {
 
         for (Ghost g : maze.getGhosts()) {
             if (g.isAlive()) {
@@ -267,9 +278,11 @@ public class Game {
                 }
             }
         }
+    }
 
-        // Check if pacman is eaten by a ghost (or a ghost is eaten by pacman)
-        pacmanEaten = false;
+    // Check if pacman is eaten by a ghost (or a ghost is eaten by pacman)
+    private boolean checkEaten() {
+        boolean pacmanEaten = false;
 
         for (Ghost g : maze.getGhosts()) {
             if (g.getTile() == pacman.getTile() || (g.getLastTile() == pacman.getTile() && g.getTile() == pacman.getLastTile())) {
@@ -318,27 +331,23 @@ public class Game {
 
         gameFrame.showEndFrame(this.highScores,score);
 
-        restartGame();
+        waitRestart();
 
 
     }
 
-    // TODO : CODE AVEC LE CUL BIEN SALE
-    public void restartGame(){
+    public void waitRestart(){
 
-        Boolean lance = false;
-        while(!lance){
+        boolean restart = false;
+        while(!restart){
             if(gameFrame.isRestartGame()){
-                lance = true;
-                this.numberOfLives = 3;
-                this.gameFrame = GameFrame.getGameFrame();
+                restart = true;
+                this.numberOfLives = this.initialNumberOfLives;
+                gameFrame.eraseCharacter();
 
-                this.gameFrame.eraseCharacter();
                 this.maze = new Maze(2);
                 // Draw the maze
                 this.maze.draw();
-
-                System.out.println("MAZE RESTART"+this.maze);
 
                 // Draw the frame of the game
                 this.gameFrame.redraw();
@@ -346,14 +355,14 @@ public class Game {
 
 
                 this.gameFrame.setHighScore(this.highScores.get(0));
-                this.gameFrame.setLives(3);
+                this.gameFrame.setLives(this.numberOfLives);
 
 
 
                 startGame();
             }
             else
-                System.out.println();
+                gameFrame.wait(100);
         }
 
     }

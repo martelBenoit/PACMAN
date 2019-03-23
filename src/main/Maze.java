@@ -338,6 +338,7 @@ public class Maze {
         }
         return ret;
     }
+
     public void draw () {
 
         for(Tile t: this.tiles) {
