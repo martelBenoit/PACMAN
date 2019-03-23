@@ -118,6 +118,4 @@ public class Tile extends Figure {
     int getSize(){
         return this.size;
     }
-
-
 }

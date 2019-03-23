@@ -31,5 +31,4 @@ class FruitPill extends Pill{
         super(tile,color,3);
     }
 
-
 }

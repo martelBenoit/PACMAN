@@ -33,5 +33,4 @@ class PowerPill extends Pill {
         super(tile,color,3);
 
     }
-
 }

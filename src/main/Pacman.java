@@ -238,5 +238,4 @@ public class Pacman extends Character {
 
         return rotated;
     }
-
 }

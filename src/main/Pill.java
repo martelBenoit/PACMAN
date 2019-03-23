@@ -25,7 +25,6 @@ public abstract class Pill extends Figure{
      */
     protected Tile tile;
 
-
     /**
      * <BODY>
      * <HTML>
