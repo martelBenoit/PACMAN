@@ -145,7 +145,7 @@ public class GameFrame{
         title_game_over.setAlignmentX(Component.CENTER_ALIGNMENT);
         title_game_over.setText("game over");
         title_game_over.setForeground(Color.RED);
-        title_game_over.setFont(fontTitle);
+        title_game_over.setFont(fontTitle.deriveFont(Font.PLAIN,55));
 
         button_Start =new JButton("START");
         button_Start.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -241,11 +241,11 @@ public class GameFrame{
         lastPan.add(panEnd,gbc);
 
         this.panEnd.add(title_game_over);
-        this.panEnd.add(Box.createRigidArea(new Dimension(0,40)));
+        this.panEnd.add(Box.createRigidArea(new Dimension(0,30)));
         this.panEnd.add(test);
-        this.panEnd.add(Box.createRigidArea(new Dimension(0,20)));
+        this.panEnd.add(Box.createRigidArea(new Dimension(0,10)));
         this.panEnd.add(button_restart);
-        this.panEnd.add(Box.createRigidArea(new Dimension(0,20)));
+        this.panEnd.add(Box.createRigidArea(new Dimension(0,10)));
         this.panEnd.add(button_Quit1);
 
         c.add("panStart",firstPan);
@@ -262,10 +262,10 @@ public class GameFrame{
     public void showEndFrame(ArrayList<Integer> highScores,int scoreActual){
         this.tableHigh.removeAll();
         this.tableHigh.setBackground(Color.BLACK);
-        this.tableHigh.setLayout(new GridLayout(11,1,5,0));
+        this.tableHigh.setLayout(new GridLayout(11,1,2,0));
         JLabel text = new JLabel("HIGH SCORES");
         text.setForeground(Color.YELLOW);
-        text.setFont(font.deriveFont(Font.PLAIN,55));
+        text.setFont(font.deriveFont(Font.PLAIN,40));
         text.setHorizontalAlignment(SwingConstants.CENTER);
         this.tableHigh.add(text);
         boolean boDone = false;
@@ -277,7 +277,7 @@ public class GameFrame{
             }
             else
                 text.setForeground(Color.WHITE);
-            text.setFont(font.deriveFont(Font.PLAIN,40));
+            text.setFont(font.deriveFont(Font.PLAIN,30));
             text.setHorizontalAlignment(SwingConstants.CENTER);
             this.tableHigh.add(text);
         }
