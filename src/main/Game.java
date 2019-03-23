@@ -118,8 +118,7 @@ public class Game {
         // Main loop
         while (this.getNumberOfLives() > 0) {
 
-            Maze maze = this.getMaze();
-            this.pacman = maze.getPacman();
+            this.pacman = this.getMaze().getPacman();
 
             while (maze.getPills().size() > 0 && this.getNumberOfLives() > 0) {
 
@@ -173,7 +172,7 @@ public class Game {
     private void movePacman(){
 
 
-	    Tile nextTilePacman = maze.getTile(this.pacman, this.pacman.getWantedDirection());
+	    Tile nextTilePacman = this.maze.getTile(this.pacman, this.pacman.getWantedDirection());
         boolean moved = false;
         // Checks if the tile exists (not out of the maze)
         if (nextTilePacman != null) {
@@ -186,7 +185,7 @@ public class Game {
             }
         }
         if (!moved) {
-            nextTilePacman = maze.getTile(pacman, pacman.getDirection());
+            nextTilePacman = this.maze.getTile(pacman, pacman.getDirection());
             if (nextTilePacman != null) {
                 // Checks if the tile isn't a wall
                 if (!nextTilePacman.isWall()) {
@@ -318,6 +317,44 @@ public class Game {
         saveHighScores();
 
         gameFrame.showEndFrame(this.highScores,score);
+
+        restartGame();
+
+
+    }
+
+    // TODO : CODE AVEC LE CUL BIEN SALE
+    public void restartGame(){
+
+        Boolean lance = false;
+        while(!lance){
+            if(gameFrame.isRestartGame()){
+                lance = true;
+                this.numberOfLives = 3;
+                this.gameFrame = GameFrame.getGameFrame();
+
+                this.gameFrame.eraseCharacter();
+                this.maze = new Maze(2);
+                // Draw the maze
+                this.maze.draw();
+
+                System.out.println("MAZE RESTART"+this.maze);
+
+                // Draw the frame of the game
+                this.gameFrame.redraw();
+                this.gameFrame.setRestartGame(false);
+
+
+                this.gameFrame.setHighScore(this.highScores.get(0));
+                this.gameFrame.setLives(3);
+
+
+
+                startGame();
+            }
+            else
+                System.out.println();
+        }
 
     }
 

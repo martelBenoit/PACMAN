@@ -54,7 +54,7 @@ public class GameFrame{
 
 	private boolean upPressed, downPressed, leftPressed, rightPressed, directionChanged = false;
 
-	private boolean startGame = false;
+	private boolean startGame, restartGame = false;
 
 
     private GameFrame(){
@@ -307,8 +307,6 @@ public class GameFrame{
         this.lives.validate();
     }
 
-
-
     public static GameFrame getGameFrame()
     {
         if(instance == null) {
@@ -391,6 +389,10 @@ public class GameFrame{
 
     }
 
+    public void eraseCharacter()
+    {
+        characters = new ArrayList<>();
+    }
 
     private void erase()
     {
@@ -448,6 +450,10 @@ public class GameFrame{
 
     public boolean isStartGame(){return startGame;}
 
+    public boolean isRestartGame(){return restartGame;}
+
+    public void setRestartGame(boolean restartGame){this.restartGame = restartGame;}
+
     public void resetMove(){
 		rightPressed = false;
 		leftPressed = false;
@@ -496,6 +502,9 @@ public class GameFrame{
             }
             else if(e.getSource() == button_restart){
                 card.show(c,"panGame");
+                canvas.setFocusable(true);
+                canvas.requestFocus();
+                restartGame = true;
             }
 
         }
