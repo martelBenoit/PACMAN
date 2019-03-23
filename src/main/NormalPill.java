@@ -13,7 +13,7 @@ import java.awt.Color;
  * @version 1.0
  * @see Pill
  */
-public class NormalPill extends Pill{
+class NormalPill extends Pill{
 
     /**
      * <BODY>
@@ -25,7 +25,7 @@ public class NormalPill extends Pill{
      * </HTML>
      * @param tile the tile on which is the NormalPill.
      */
-    public NormalPill(Tile tile) {
+    NormalPill(Tile tile) {
 
         super(tile,Color.WHITE,7);
     }

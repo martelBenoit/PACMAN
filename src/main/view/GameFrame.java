@@ -19,14 +19,9 @@ public class GameFrame{
 
     private JFrame frame;
 
-    private JPanel panStart;
-    private JPanel panGame;
-    private JPanel panMain;
     private CanvasPane canvas;
     private JPanel panUp = new JPanel();
     private JPanel panDown = new JPanel();
-
-    private JPanel panEnd;
 
     private CardLayout card;
     private Container c;
@@ -78,11 +73,13 @@ public class GameFrame{
         card = new CardLayout();
         c.setLayout(card);
 
-        this.panStart = new JPanel();
-        this.panStart.setLayout(new BoxLayout(this.panStart,BoxLayout.Y_AXIS));
-        this.panGame = new JPanel();
-        this.panEnd = new JPanel();
-        this.panEnd.setLayout(new BoxLayout(this.panEnd,BoxLayout.Y_AXIS));
+        JPanel panStart = new JPanel();
+        panStart.setLayout(new BoxLayout(panStart,BoxLayout.Y_AXIS));
+
+        JPanel panGame = new JPanel();
+
+        JPanel panEnd = new JPanel();
+        panEnd.setLayout(new BoxLayout(panEnd,BoxLayout.Y_AXIS));
 
         this.frame.setTitle("Pacman");
         this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -90,7 +87,7 @@ public class GameFrame{
 
         this.frame.setIconImage(new ImageIcon("lib/pacman_open.png").getImage());
 
-        this.panMain = new JPanel();
+        JPanel panMain = new JPanel();
         panMain.setLayout(new BoxLayout(panMain,BoxLayout.Y_AXIS));
 
         panUp.setLayout(new GridLayout(1,2));
@@ -196,10 +193,10 @@ public class GameFrame{
         button_Quit1.setFocusable(false);
 
 
-        this.panStart.setBackground(Color.black);
-        this.panGame.setBackground(Color.black);
-        this.panEnd.setBackground(Color.black);
-        this.panMain.setBackground(Color.black);
+        panStart.setBackground(Color.black);
+        panGame.setBackground(Color.black);
+        panEnd.setBackground(Color.black);
+        panMain.setBackground(Color.black);
         this.panUp.setBackground(Color.black);
         this.panDown.setBackground(Color.black);
         this.canvas = new CanvasPane();
@@ -217,11 +214,11 @@ public class GameFrame{
 
         this.panDown.add(this.lives);
 
-        this.panMain.add(panUp);
-        this.panMain.add(canvas);
-        this.panMain.add(panDown);
+        panMain.add(panUp);
+        panMain.add(canvas);
+        panMain.add(panDown);
 
-        this.panGame.add(panMain);
+        panGame.add(panMain);
 
         JPanel firstPan = new JPanel();
         firstPan.setBackground(Color.BLACK);
@@ -240,13 +237,13 @@ public class GameFrame{
         firstPan.add(panStart,gbc);
         lastPan.add(panEnd,gbc);
 
-        this.panEnd.add(title_game_over);
-        this.panEnd.add(Box.createRigidArea(new Dimension(0,30)));
-        this.panEnd.add(test);
-        this.panEnd.add(Box.createRigidArea(new Dimension(0,10)));
-        this.panEnd.add(button_restart);
-        this.panEnd.add(Box.createRigidArea(new Dimension(0,10)));
-        this.panEnd.add(button_Quit1);
+        panEnd.add(title_game_over);
+        panEnd.add(Box.createRigidArea(new Dimension(0,30)));
+        panEnd.add(test);
+        panEnd.add(Box.createRigidArea(new Dimension(0,10)));
+        panEnd.add(button_restart);
+        panEnd.add(Box.createRigidArea(new Dimension(0,10)));
+        panEnd.add(button_Quit1);
 
         c.add("panStart",firstPan);
         c.add("panGame",panGame);

@@ -82,7 +82,7 @@ public class Pacman extends Character {
      * </HTML>
      * @param tile the tile on which Pacman is located when it's created.
      */
-    public Pacman(Tile tile){
+    Pacman(Tile tile){
 
         // Appelle au constructeur de Character
     	super(tile);
@@ -107,10 +107,6 @@ public class Pacman extends Character {
         this.setWantedDirection(Direction.LEFT);
     }
 
-    public void setOpenMouth(boolean openMouth) {
-        isOpenMouth = openMouth;
-    }
-
     @Override
     public void move(Tile nextTile) {
         this.setTile(nextTile);
@@ -121,7 +117,7 @@ public class Pacman extends Character {
      * Depending on the direction, Pacman's mouth changes direction.
      * @param d the new pacman direction.
      */
-    public void setDirection(Direction d) {
+    void setDirection(Direction d) {
 
         this.direction = d;
 
@@ -157,7 +153,7 @@ public class Pacman extends Character {
      * This method retrieves the direction in which is pacman.
      * @return the direction in which is pacman.
      */
-    public Direction getDirection() {
+    Direction getDirection() {
         return this.direction;
     }
 
@@ -165,7 +161,7 @@ public class Pacman extends Character {
      * This method allows you to change the wanted direction of Pacman's move.
      * @param wantedDirection the wanted direction
      */
-    public void setWantedDirection(Direction wantedDirection) {
+    void setWantedDirection(Direction wantedDirection) {
         this.wantedDirection = wantedDirection;
     }
 
@@ -173,7 +169,7 @@ public class Pacman extends Character {
      * This method retrieves the wanted direction in which is pacman.
      * @return the wanted direction.
      */
-    public Direction getWantedDirection() {
+    Direction getWantedDirection() {
         return wantedDirection;
     }
 
@@ -181,7 +177,7 @@ public class Pacman extends Character {
      * This method allows to know if pacman is powerful or not.
      * @return true if pacman is powerful, false otherwise
      */
-    public boolean getHasPower(){
+    boolean getHasPower(){
         return this.hasPower;
     }
 
@@ -189,7 +185,7 @@ public class Pacman extends Character {
      * This method allows to put pacman powerful or not.
      * @param power true, pacman becomes powerful, otherwise becomes normal again
      */
-    public void setHasPower(Boolean power){
+    void setHasPower(Boolean power){
         this.hasPower = power;
     }
 
@@ -230,7 +226,7 @@ public class Pacman extends Character {
         BufferedImage rotated = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = rotated.createGraphics();
         AffineTransform at = new AffineTransform();
-        at.translate( (newWidth - w) / 2, (newHeight - h) / 2);
+        at.translate( (float) ((newWidth - w) / 2), (float) ((newHeight - h) / 2));
 
         int x = w / 2;
         int y = h / 2;

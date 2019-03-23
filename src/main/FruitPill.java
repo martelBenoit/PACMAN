@@ -13,7 +13,7 @@ import java.awt.Color;
  * @version 1.0
  * @see Pill
  */
-public class FruitPill extends Pill{
+class FruitPill extends Pill{
 
     /**
      * <BODY>
@@ -26,7 +26,7 @@ public class FruitPill extends Pill{
      * @param tile the tile on which is the FruitPill.
      * @param color the color of the FruitPill.
      */
-    public FruitPill(Tile tile, Color color) {
+    FruitPill(Tile tile, Color color) {
 
         super(tile,color,3);
     }

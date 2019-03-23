@@ -10,7 +10,7 @@ public abstract class Character extends Figure{
     private int destHeight;
     private Tile lastTile;
 
-    public Character(Tile tile){
+    Character(Tile tile){
 
         super(tile.getSize(),tile.getSize(),tile.getX(),tile.getY());
         this.tile = tile;
@@ -18,11 +18,11 @@ public abstract class Character extends Figure{
 
     }
 
-    public Tile getLastTile() {
+    Tile getLastTile() {
         return lastTile;
     }
 
-    public void setLastTile(Tile lastTile) {
+    void setLastTile(Tile lastTile) {
         this.lastTile = lastTile;
     }
 
@@ -55,11 +55,11 @@ public abstract class Character extends Figure{
         gameFrame.drawCharacter(this);
     }
 
-    public void setDestHeight(int destHeight) {
+    void setDestHeight(int destHeight) {
         this.destHeight = destHeight;
     }
 
-    public void setDestWidth(int destWidth) {
+    void setDestWidth(int destWidth) {
         this.destWidth = destWidth;
     }
 }

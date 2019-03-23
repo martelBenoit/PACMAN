@@ -12,7 +12,7 @@ public class Ghost extends Character {
     private BufferedImage image = null;
     private BufferedImage image_eatable = null;
 
-    public Ghost(Tile tile, int nbGhost) {
+    Ghost(Tile tile, int nbGhost) {
         super(tile);
         this.tile = tile;
         this.isAlive = true;
@@ -41,15 +41,15 @@ public class Ghost extends Character {
     	this.setTile(nextTile);
     }
 
-    public void setAlive(boolean alive) {
+    void setAlive(boolean alive) {
         isAlive = alive;
     }
 
-    public boolean isAlive() {
+    boolean isAlive() {
         return isAlive;
     }
 
-    public void setEatable(boolean eatable) {
+    void setEatable(boolean eatable) {
         isEatable = eatable;
     }
 

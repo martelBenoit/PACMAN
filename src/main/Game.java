@@ -10,17 +10,12 @@ import main.view.GameFrame;
  * @author Benoît & Yoann
  * @version 1.0
  */
-public class Game {
+class Game {
 
     /**
      * The score of the game.
      */
     private int score;
-
-    /**
-     * The level of the game.
-     */
-    private int level;
 
     /**
      * The list of highscores.
@@ -54,7 +49,7 @@ public class Game {
      * The constructor of the class Game.
      * @param lives the initial number of lives.
      */
-    public Game(int lives) {
+    Game(int lives) {
 
         // Load score of previous games
         loadHighScores();
@@ -81,22 +76,6 @@ public class Game {
     }
 
     /**
-     * Getter number of lives.
-     * @return the number of lives.
-     */
-    public int getNumberOfLives() {
-		return this.numberOfLives;
-	}
-
-    /**
-     * Getter maze.
-     * @return the actual maze of the maze.
-     */
-	public Maze getMaze() {
-		return this.maze;
-	}
-
-    /**
      * Checks every 0.1 seconds if the user started the game
      */
 	private void waitStart(){
@@ -114,20 +93,20 @@ public class Game {
 
     private void startGame() {
 
-        this.level = 1;
+        int level = 1;
         this.score = 0;
 
-        boolean pacmanEaten = false;
+        boolean pacmanEaten;
 
         // Wait 1 second before the game start
         gameFrame.wait(1000);
 
         // Main loop
-        while (this.getNumberOfLives() > 0) {
+        while (this.numberOfLives > 0) {
 
             this.pacman = maze.getPacman();
 
-            while (maze.getPills().size() > 0 && this.getNumberOfLives() > 0) {
+            while (maze.getPills().size() > 0 && this.numberOfLives > 0) {
 
                 // Change Pacman direction
                 if (gameFrame.hasChangedDirection()) {
@@ -167,8 +146,8 @@ public class Game {
             }
 
             if (numberOfLives > 0) {
-                this.level += 1;
-                gameFrame.setLevel(this.level);
+                level += 1;
+                gameFrame.setLevel(level);
                 gameFrame.eraseCharacter();
                 this.maze = new Maze(2);
                 this.maze.draw();
@@ -311,13 +290,13 @@ public class Game {
         return pacmanEaten;
     }
 
-    public void endGame() {
+    private void endGame() {
         int sizeHighScores = this.highScores.size();
 
         Collections.sort(this.highScores);
         Collections.reverse(this.highScores);
 
-        // Si il reste de la place dans le tableau
+        // S'il reste de la place dans le tableau
         if(sizeHighScores < 10){
             this.highScores.add(score);
         }
@@ -336,7 +315,7 @@ public class Game {
 
     }
 
-    public void waitRestart(){
+    private void waitRestart(){
 
         boolean restart = false;
         while(!restart){
@@ -367,16 +346,16 @@ public class Game {
 
     }
 
-    public void loseLife() {
+    private void loseLife() {
         this.numberOfLives--;
         gameFrame.setLives(numberOfLives);
-        Tile pacmanSpawnTile = this.getMaze().getPacmanSpawnTile();
-        Tile ghostSpawnTile = this.getMaze().getGhostSpawnTile();
+        Tile pacmanSpawnTile = this.maze.getPacmanSpawnTile();
+        Tile ghostSpawnTile = this.maze.getGhostSpawnTile();
         if(numberOfLives > 0) {
-            this.getMaze().getPacman().setTile(pacmanSpawnTile == null ? maze.getRandomTile() : pacmanSpawnTile);
-            this.getMaze().getPacman().setDirection(Direction.LEFT);
-            this.getMaze().getPacman().setWantedDirection(Direction.LEFT);
-            for(Ghost g : this.getMaze().getGhosts()) {
+            this.maze.getPacman().setTile(pacmanSpawnTile == null ? maze.getRandomTile() : pacmanSpawnTile);
+            this.maze.getPacman().setDirection(Direction.LEFT);
+            this.maze.getPacman().setWantedDirection(Direction.LEFT);
+            for(Ghost g : this.maze.getGhosts()) {
                 g.setTile(ghostSpawnTile == null ? maze.getRandomTile() : ghostSpawnTile);
             }
         }
@@ -413,10 +392,11 @@ public class Game {
         try{
             PrintWriter writer = new PrintWriter("lib/highscores.pac");
 
-            String highScores = ""+this.highScores.get(0);
+            StringBuffer highScores = new StringBuffer(110);
+            highScores.append(this.highScores.get(0));
 
             for(int i = 1; i<this.highScores.size(); i++){
-                highScores = highScores+","+this.highScores.get(i);
+                highScores.append(",").append(this.highScores.get(i));
             }
             writer.print(highScores);
             writer.close();

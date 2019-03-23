@@ -19,16 +19,6 @@ import java.awt.*;
 public class Tile extends Figure {
 
     /**
-     * The x position of the tile
-     */
-    private int x;
-
-    /**
-     * The y position of the tile
-     */
-    private int y;
-
-    /**
      * The size of the tile
      */
     private int size;
@@ -66,8 +56,6 @@ public class Tile extends Figure {
         super(size,size,x,y);
 
         this.size = size;
-        this.x = x;
-        this.y = y;
         this.isWall = wall;
         this.pacmanSpawn = false;
         this.ghostSpawn = false;
@@ -80,30 +68,30 @@ public class Tile extends Figure {
     }
 
 
-    public boolean isGhostSpawn() {
+    boolean isGhostSpawn() {
         return ghostSpawn;
     }
 
 
-    public boolean isPacmanSpawn() {
+    boolean isPacmanSpawn() {
         return pacmanSpawn;
     }
 
 
-    public void setGhostSpawn(boolean ghostSpawn) {
-        this.ghostSpawn = ghostSpawn;
+    void setGhostSpawn() {
+        this.ghostSpawn = true;
     }
 
 
-    public void setPacmanSpawn(boolean pacmanSpawn) {
-        this.pacmanSpawn = pacmanSpawn;
+    void setPacmanSpawn() {
+        this.pacmanSpawn = true;
     }
 
     /**
      * Getter isWall.
      * @return true if the tile is a wall else false.
      */
-    public boolean isWall() {
+    boolean isWall() {
         return isWall;
     }
 
@@ -127,7 +115,7 @@ public class Tile extends Figure {
      * Getter size.
      * @return the size of the tile.
      */
-    public int getSize(){
+    int getSize(){
         return this.size;
     }
 

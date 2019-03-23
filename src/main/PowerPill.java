@@ -1,9 +1,6 @@
 package main;
 
-import main.view.GameFrame;
-
 import java.awt.Color;
-import java.awt.geom.Ellipse2D;
 
 /**
  * <BODY>
@@ -16,9 +13,7 @@ import java.awt.geom.Ellipse2D;
  * @version 1.0
  * @see Pill
  */
-public class PowerPill extends Pill {
-
-    private boolean boBig = false;
+class PowerPill extends Pill {
 
     /**
      * <BODY>
@@ -31,7 +26,7 @@ public class PowerPill extends Pill {
      * @param tile the tile on which is the PowerPill.
      * @param color the color of the PowerPill.
      */
-    public PowerPill(Tile tile, Color color) {
+     PowerPill(Tile tile, Color color) {
 
         // on appelle le constructeur de la classe Pill en spécifiant en plus dans les paramètres, le facteur taille
         // de la PowerPill

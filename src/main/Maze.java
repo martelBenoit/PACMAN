@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Maze {
+class Maze {
 
     private String pathMaze;
     private int nbXTiles, nbYTiles;
@@ -20,7 +20,6 @@ public class Maze {
     private int fruitValue;
     private int pillValue;
     private int regenerationTime;
-    private int ghostSpeed;
     
     private Pacman pacman;
 
@@ -28,7 +27,7 @@ public class Maze {
     private ArrayList<Ghost> ghosts;
     private ArrayList<Pill> pills;
 
-    public Maze(int mazeNumber){
+    Maze(int mazeNumber){
 
         this.pathMaze = "lib/"+mazeNumber+".maze";
         this.tiles = new ArrayList<>();
@@ -46,7 +45,7 @@ public class Maze {
         }
     }
 
-    public Tile getPacmanSpawnTile() {
+    Tile getPacmanSpawnTile() {
         Tile pacmanSpawnTile = null;
         for(Tile t: tiles) {
             if (t.isPacmanSpawn()) {
@@ -56,7 +55,7 @@ public class Maze {
         return pacmanSpawnTile;
     }
 
-    public Tile getGhostSpawnTile() {
+    Tile getGhostSpawnTile() {
         Tile ghostSpawnTile = null;
         for(Tile t: tiles) {
             if (t.isGhostSpawn()) {
@@ -86,11 +85,10 @@ public class Maze {
             this.fruitValue = Integer.parseInt(param[1]);
             this.powerTime = Integer.parseInt(param[2]);
             this.regenerationTime = Integer.parseInt(param[3]);
-            this.ghostSpeed = Integer.parseInt(param[4]);
 
             // On récupère la taille de la fenêtre pour adapter la taille des cases du tableau
             GameFrame gameFrame = GameFrame.getGameFrame();
-            this.tile_size = (int)((gameFrame.WIDTH-gameFrame.HEIGHT)/1.15/this.nbXTiles);
+            this.tile_size = (int)((GameFrame.WIDTH-GameFrame.HEIGHT)/1.15/this.nbXTiles);
 
 
             gameFrame.setDimensionPan(this.nbXTiles*this.tile_size,this.nbYTiles*this.tile_size);
@@ -101,8 +99,8 @@ public class Maze {
             while ((line=br.readLine())!=null){
 
                 int j = 0;                   // La colonne de la map
-                int tmpx = 0;               // Variable utilisée pour stocké la position en x d'une figure
-                int tmpy = 0;                // Variable utilisée pour stocké la position en y d'une figure
+                int tmpx;               // Variable utilisée pour stocké la position en x d'une figure
+                int tmpy;                // Variable utilisée pour stocké la position en y d'une figure
 
                 param = line.split(",");
 
@@ -131,12 +129,12 @@ public class Maze {
                             break;
                         case "S" :  // Si c'est le spawn de Pacman
                             newTile = new Tile(this.tile_size, tmpx, tmpy, false);
-                            newTile.setPacmanSpawn(true);
+                            newTile.setPacmanSpawn();
                             this.tiles.add(newTile);
                             break;
                         case "G" :  // Si c'est le spawn des fantomes
                             newTile = new Tile(this.tile_size, tmpx, tmpy, false);
-                            newTile.setGhostSpawn(true);
+                            newTile.setGhostSpawn();
                             this.tiles.add(newTile);
                             break;
                         case "#" :  // Si c'est un mur
@@ -167,7 +165,7 @@ public class Maze {
      * Get a random tile which isn't a wall in the maze and doesn't contain a powerPill
      * @return A random tile, which isn't a wall and doesn't contain a powerPill
      */
-    public Tile getRandomTile() {
+    Tile getRandomTile() {
         ArrayList<Tile> tilesAvailable = new ArrayList<>();
         ArrayList<Pill> pills = new ArrayList<>();
         for(Pill p : this.pills) {
@@ -196,48 +194,38 @@ public class Maze {
     }
 
 
-    public int getFruitValue() {
+    int getFruitValue() {
         return fruitValue;
     }
 
 
-    public int getPillValue() {
+    int getPillValue() {
         return pillValue;
     }
 
 
-    public int getRegenerationTime() {
+    int getRegenerationTime() {
         return regenerationTime;
     }
 
 
-    public int getGhostSpeed() {
-        return ghostSpeed;
-    }
-
-
-    public ArrayList<Tile> getTiles() {
-        return tiles;
-    }
-
-
-    public int getPowerTime() {
+    int getPowerTime() {
         return powerTime;
     }
 
-    public ArrayList<Pill> getPills() {
+    ArrayList<Pill> getPills() {
         return pills;
     }
 
-    public ArrayList<Ghost> getGhosts() {
+    ArrayList<Ghost> getGhosts() {
         return ghosts;
     }
     
-    public Pacman getPacman() {
+    Pacman getPacman() {
 		return this.pacman;
 	}
 
-    public Tile getTile(Character c, Direction direction){
+    Tile getTile(Character c, Direction direction){
         Tile characterTile = c.getTile();
         switch(direction) {
             case UP:
@@ -298,7 +286,7 @@ public class Maze {
         return null;
     }
 
-    public ArrayList<Tile> getTilesAround(Character c) {
+    ArrayList<Tile> getTilesAround(Character c) {
 
         Tile characterTile = c.getTile();
         ArrayList<Tile> ret = new ArrayList<>();
@@ -339,7 +327,7 @@ public class Maze {
         return ret;
     }
 
-    public void draw () {
+    void draw () {
 
         for(Tile t: this.tiles) {
             t.draw();

@@ -25,8 +25,6 @@ public abstract class Pill extends Figure{
      */
     protected Tile tile;
 
-    protected int factor;
-
 
     /**
      * <BODY>
@@ -42,7 +40,7 @@ public abstract class Pill extends Figure{
      * @param color the color of the Pill.
      * @param factor the size factor of the Pill.
      */
-    protected Pill(Tile tile, Color color,int factor) {
+    Pill(Tile tile, Color color,int factor) {
         super(tile.getSize()/factor,tile.getSize()/factor,tile.getX()+(tile.getSize()/2)-(tile.getSize()/factor/2),tile.getY()+(tile.getSize()/2)-(tile.getSize()/factor/2),color);
         this.tile = tile;
     }
@@ -60,7 +58,7 @@ public abstract class Pill extends Figure{
     /**
      * A method that removes the link from the pill to a tile. This method is used especially when the pill is eaten.
      */
-    public void removeTile(){
+    void removeTile(){
         this.tile = null;
     }
 
