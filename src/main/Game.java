@@ -42,23 +42,35 @@ public class Game {
      */
     private GameFrame gameFrame;
 
+    private Pacman pacman;
+
+
     /**
      * The constructor of the class Game.
      * @param lives the initial number of lives.
      */
     public Game(int lives) {
 
+        // Load score of previous games
         loadHighScores();
 
         this.numberOfLives = lives;
         this.gameFrame = GameFrame.getGameFrame();
+
         this.maze = new Maze(2);
+
+        // Draw the maze
         this.maze.draw();
+
+        // Draw the frame of the game
         this.gameFrame.redraw();
 
         this.gameFrame.setHighScore(this.highScores.get(0));
         this.gameFrame.setLives(lives);
 
+        this.pacman = this.maze.getPacman();
+
+        // Wait before the game start
         preGame();
 
     }
@@ -79,7 +91,7 @@ public class Game {
 		return this.maze;
 	}
 
-	// CEST DEGUEULASSE MAIS JE SAIS PAS COMMENT FAIRE AUTREMENT DIS MOI SI TU SAIS
+	// TODO : CEST DEGUEULASSE MAIS JE SAIS PAS COMMENT FAIRE AUTREMENT DIS MOI SI TU SAIS
 	public void preGame(){
 	    Boolean lance = false;
 	    while(!lance){
@@ -92,155 +104,48 @@ public class Game {
         }
     }
 
-    public void startGame() { // TODO : Créer méthodes pour clarifier celle-ci
-        //this.isLost = false;
+    // TODO : Créer méthodes pour clarifier celle-ci
+    public void startGame() {
+
         this.level = 1;
         this.score = 0;
-        boolean pacmanEaten;
 
+        boolean pacmanEaten = false;
+
+        // Wait 1 second before the game start
         gameFrame.wait(1000);
 
-        // Boucle principale
+        // Main loop
         while (this.getNumberOfLives() > 0) {
 
             Maze maze = this.getMaze();
-            Pacman pacman = maze.getPacman();
+            this.pacman = maze.getPacman();
 
             while (maze.getPills().size() > 0 && this.getNumberOfLives() > 0) {
+
                 // Change Pacman direction
                 if (gameFrame.hasChangedDirection()) {
                     if (gameFrame.isUpPressed()) {
-                        pacman.setWantedDirection(Direction.UP);
+                        this.pacman.setWantedDirection(Direction.UP);
                     } else if (gameFrame.isDownPressed()) {
-                        pacman.setWantedDirection(Direction.DOWN);
+                        this.pacman.setWantedDirection(Direction.DOWN);
                     } else if (gameFrame.isLeftPressed()) {
-                        pacman.setWantedDirection(Direction.LEFT);
+                        this.pacman.setWantedDirection(Direction.LEFT);
                     } else if (gameFrame.isRightPressed()) {
-                        pacman.setWantedDirection(Direction.RIGHT);
+                        this.pacman.setWantedDirection(Direction.RIGHT);
                     }
                     gameFrame.resetMove();
                 }
 
 
                 // Move PACMAN
-                Tile nextTilePacman = maze.getTile(pacman, pacman.getWantedDirection());
-                boolean moved = false;
-                // Checks if the tile exists (not out of the maze)
-                if (nextTilePacman != null) {
-                    // Checks if the tile isn't a wall
-                    if (!nextTilePacman.isWall()) {
-                        pacman.setLastTile(pacman.getTile());
-                        pacman.move(nextTilePacman);
-                        moved = true;
-                        pacman.setDirection(pacman.getWantedDirection());
-                    }
-                }
-                if (!moved) {
-                    nextTilePacman = maze.getTile(pacman, pacman.getDirection());
-                    if (nextTilePacman != null) {
-                        // Checks if the tile isn't a wall
-                        if (!nextTilePacman.isWall()) {
-                            pacman.setLastTile(pacman.getTile());
-                            pacman.move(nextTilePacman);
-                        }
-                    }
-                }
+                this.movePacman();
 
-                // Eat Pill on the case
-                Pill pillToRemove = null;
-                for (Tile t : maze.getTiles()) {
-                    if (t == pacman.getTile()) {
-                        for (Pill p : maze.getPills()) {
-                            if (p.getTile() == t) {
-                                if (p instanceof FruitPill)
-                                    score += maze.getFruitValue();
-                                else if (p instanceof PowerPill) {
-                                    pacman.setHasPower(true);
-                                    for(Ghost g : maze.getGhosts()){
-                                        g.setEatable(true);
-                                    }
-                                    score += maze.getPillValue();
+                this.eatPill();
 
-                                    // Schedule the removal of power effect
-                                    Timer timer = new Timer();
-                                    timer.schedule(new TimerTask() {
-                                        @Override
-                                        public void run() {
-                                            pacman.setHasPower(false);
-                                            for(Ghost g : maze.getGhosts()){
-                                                g.setEatable(false);
-                                            }
-                                        }
-                                    }, maze.getPowerTime() * 1000);
+                pacmanEaten = this.moveGhost(pacmanEaten);
 
-                                } else
-                                    score += maze.getPillValue();
-                                pillToRemove = p;
-                                gameFrame.setScore(score);
-                                if (score >= this.highScores.get(0)) {
-                                    gameFrame.setHighScore(score);
-                                }
-                            }
-                        }
-                    }
-                }
-                if (pillToRemove != null) {
 
-                    Tile t = pillToRemove.getTile();
-                    pillToRemove.removeTile();
-                    t.draw();
-                    if (pillToRemove.getClass().getSimpleName().equals("PowerPill")) {
-                        pacman.setHasPower(true);
-                    }
-                    maze.getPills().remove(pillToRemove);
-                }
-
-                // Move GHOSTS
-                for (Ghost g : maze.getGhosts()) {
-                    if (g.isAlive()) {
-                        ArrayList<Tile> tilesAround = maze.getTilesAround(g);
-                        if (g.getLastTile() != null) {
-                            if (tilesAround.size() == 1) {
-                                g.setLastTile(g.getTile());
-                                g.move(tilesAround.get(0));
-                            } else {
-                                tilesAround.remove(g.getLastTile());
-                                Random rd = new Random();
-                                int x = rd.nextInt(tilesAround.size());
-                                Tile newTile = tilesAround.get(x);
-                                g.setLastTile(g.getTile());
-                                g.move(newTile);
-                            }
-                        }
-                    }
-                }
-
-                // Check if pacman is eaten by a ghost (or a ghost is eaten by pacman)
-                pacmanEaten = false;
-
-                for (Ghost g : maze.getGhosts()) {
-                    if (g.getTile() == pacman.getTile() || (g.getLastTile() == pacman.getTile() && g.getTile() == pacman.getLastTile())) {
-                        if (pacman.getHasPower()) {
-                            g.setAlive(false);
-                            score += 200;
-                            Tile ghostSpawnTile = maze.getGhostSpawnTile();
-                            g.setTile(ghostSpawnTile == null ? maze.getRandomTile() : ghostSpawnTile);
-
-                            // Schedule the respawn of the ghost
-                            Timer timer = new Timer();
-                            timer.schedule(new TimerTask() {
-                                @Override
-                                public void run() {
-                                    g.setAlive(true);
-                                }
-                            }, maze.getRegenerationTime() * 1000);
-
-                        } else {
-                            this.loseLife();
-                            pacmanEaten = true;
-                        }
-                    }
-                }
                 gameFrame.redraw();
                 if (pacmanEaten) {
                     gameFrame.wait(2000);
@@ -263,6 +168,135 @@ public class Game {
         }
 
 		endGame();
+    }
+
+    private void movePacman(){
+
+
+	    Tile nextTilePacman = maze.getTile(this.pacman, this.pacman.getWantedDirection());
+        boolean moved = false;
+        // Checks if the tile exists (not out of the maze)
+        if (nextTilePacman != null) {
+            // Checks if the tile isn't a wall
+            if (!nextTilePacman.isWall()) {
+                this.pacman.setLastTile(this.pacman.getTile());
+                this.pacman.move(nextTilePacman);
+                moved = true;
+                this.pacman.setDirection(this.pacman.getWantedDirection());
+            }
+        }
+        if (!moved) {
+            nextTilePacman = maze.getTile(pacman, pacman.getDirection());
+            if (nextTilePacman != null) {
+                // Checks if the tile isn't a wall
+                if (!nextTilePacman.isWall()) {
+                    this.pacman.setLastTile(pacman.getTile());
+                    this.pacman.move(nextTilePacman);
+                }
+            }
+        }
+
+    }
+
+    private void eatPill(){
+        // Eat Pill on the tile
+        Pill pillToRemove = null;
+
+        // Tile of pacman
+        Tile pacmanTile = pacman.getTile();
+
+        for(Pill p : maze.getPills()){
+            if(p.getTile() == pacmanTile){
+                pillToRemove = p;
+                if (p instanceof FruitPill)
+                    score += maze.getFruitValue();
+                else if (p instanceof PowerPill) {
+                    pacman.setHasPower(true);
+                    for(Ghost g : maze.getGhosts()){
+                        g.setEatable(true);
+                    }
+                    score += maze.getPillValue();
+
+                    // Schedule the removal of power effect
+                    Timer timer = new Timer();
+                    timer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            pacman.setHasPower(false);
+                            for(Ghost g : maze.getGhosts()){
+                                g.setEatable(false);
+                            }
+                        }
+                    }, maze.getPowerTime() * 1000);
+
+                } else
+                    score += maze.getPillValue();
+
+                gameFrame.setScore(score);
+                if (score >= this.highScores.get(0)) {
+                    gameFrame.setHighScore(score);
+                }
+            }
+        }
+
+        if (pillToRemove != null) {
+
+            Tile t = pillToRemove.getTile();
+            pillToRemove.removeTile();
+            t.draw();
+            maze.getPills().remove(pillToRemove);
+        }
+    }
+
+    private boolean moveGhost(Boolean pacmanEaten){
+
+        for (Ghost g : maze.getGhosts()) {
+            if (g.isAlive()) {
+                ArrayList<Tile> tilesAround = maze.getTilesAround(g);
+                if (g.getLastTile() != null) {
+                    if (tilesAround.size() == 1) {
+                        g.setLastTile(g.getTile());
+                        g.move(tilesAround.get(0));
+                    } else {
+                        tilesAround.remove(g.getLastTile());
+                        Random rd = new Random();
+                        int x = rd.nextInt(tilesAround.size());
+                        Tile newTile = tilesAround.get(x);
+                        g.setLastTile(g.getTile());
+                        g.move(newTile);
+                    }
+                }
+            }
+        }
+
+        // Check if pacman is eaten by a ghost (or a ghost is eaten by pacman)
+        pacmanEaten = false;
+
+        for (Ghost g : maze.getGhosts()) {
+            if (g.getTile() == pacman.getTile() || (g.getLastTile() == pacman.getTile() && g.getTile() == pacman.getLastTile())) {
+                if (pacman.getHasPower()) {
+                    g.setAlive(false);
+                    score += 200;
+                    Tile ghostSpawnTile = maze.getGhostSpawnTile();
+                    g.setTile(ghostSpawnTile == null ? maze.getRandomTile() : ghostSpawnTile);
+
+                    // Schedule the respawn of the ghost
+                    Timer timer = new Timer();
+                    timer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            g.setAlive(true);
+                        }
+                    }, maze.getRegenerationTime() * 1000);
+
+                } else {
+                    this.loseLife();
+                    pacmanEaten = true;
+                }
+            }
+        }
+
+        return pacmanEaten;
     }
 
     public void endGame() {
@@ -326,8 +360,6 @@ public class Game {
         catch (Exception e){
             System.out.println(e.toString());
         }
-
-
 
     }
 
