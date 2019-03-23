@@ -156,6 +156,9 @@ public class Game {
                                     score += maze.getFruitValue();
                                 else if (p instanceof PowerPill) {
                                     pacman.setHasPower(true);
+                                    for(Ghost g : maze.getGhosts()){
+                                        g.setEatable(true);
+                                    }
                                     score += maze.getPillValue();
 
                                     // Schedule the removal of power effect
@@ -164,6 +167,9 @@ public class Game {
                                         @Override
                                         public void run() {
                                             pacman.setHasPower(false);
+                                            for(Ghost g : maze.getGhosts()){
+                                                g.setEatable(false);
+                                            }
                                         }
                                     }, maze.getPowerTime() * 1000);
 

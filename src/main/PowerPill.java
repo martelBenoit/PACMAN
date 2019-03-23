@@ -1,6 +1,9 @@
 package main;
 
+import main.view.GameFrame;
+
 import java.awt.Color;
+import java.awt.geom.Ellipse2D;
 
 /**
  * <BODY>
@@ -14,6 +17,8 @@ import java.awt.Color;
  * @see Pill
  */
 public class PowerPill extends Pill {
+
+    private boolean boBig = false;
 
     /**
      * <BODY>
@@ -33,4 +38,5 @@ public class PowerPill extends Pill {
         super(tile,color,3);
 
     }
+
 }

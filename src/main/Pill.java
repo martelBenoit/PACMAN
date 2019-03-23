@@ -25,6 +25,8 @@ public abstract class Pill extends Figure{
      */
     protected Tile tile;
 
+    protected int factor;
+
 
     /**
      * <BODY>
@@ -48,6 +50,7 @@ public abstract class Pill extends Figure{
     /**
      * Method that draws the Pill on the game frame.
      */
+
     public void draw() {
         GameFrame gameFrame = GameFrame.getGameFrame();
         gameFrame.draw(this, getColor(), new Ellipse2D.Double(getX(), getY(), getWidth(), getHeight()));

@@ -29,4 +29,6 @@ public class NormalPill extends Pill{
 
         super(tile,Color.WHITE,7);
     }
+
+
 }

@@ -8,7 +8,9 @@ import java.io.IOException;
 public class Ghost extends Character {
 
     private boolean isAlive;
-    protected BufferedImage image = null;
+    private boolean isEatable;
+    private BufferedImage image = null;
+    private BufferedImage image_eatable = null;
 
     public Ghost(Tile tile, int nbGhost) {
         super(tile);
@@ -17,6 +19,7 @@ public class Ghost extends Character {
 
         try {
            image = ImageIO.read(new File("lib/ghost"+nbGhost+".png"));
+           image_eatable = ImageIO.read(new File("lib/ghost_eatable.png"));
 
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
@@ -27,7 +30,10 @@ public class Ghost extends Character {
 	}
 
     public BufferedImage getImage(){
-        return this.image;
+        if(isEatable)
+            return this.image_eatable;
+        else
+            return this.image;
 
     }
 
@@ -42,5 +48,10 @@ public class Ghost extends Character {
     public boolean isAlive() {
         return isAlive;
     }
+
+    public void setEatable(boolean eatable) {
+        isEatable = eatable;
+    }
+
 
 }
