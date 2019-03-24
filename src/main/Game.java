@@ -8,7 +8,8 @@ import javax.sound.sampled.Clip;
 import main.view.GameFrame;
 
 /**
- *
+ * Game class
+ * This class allows you to start the game, move pacman and ghosts. This class also manages scores and game levels.
  * @author Benoît & Yoann
  * @version 1.0
  */
