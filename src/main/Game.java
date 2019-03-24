@@ -2,6 +2,8 @@ package main;
 
 import java.io.*;
 import java.util.*;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 import main.view.GameFrame;
 
@@ -98,11 +100,36 @@ class Game {
 
         boolean pacmanEaten;
 
-        // Wait 1 second before the game start
-        gameFrame.wait(1000);
+        try {
+            Clip clip = AudioSystem.getClip();
+            clip.open(AudioSystem.getAudioInputStream(new File("lib/start.wav")));
+            clip.setMicrosecondPosition(10_000);
+            clip.start();
+            while (!clip.isRunning())
+                gameFrame.wait(10);
+            while (clip.isRunning())
+                gameFrame.wait(10);
+            clip.close();
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
 
         // Main loop
         while (this.numberOfLives > 0) {
+
+            Clip clip = null;
+
+            try {
+                clip = AudioSystem.getClip();
+                clip.open(AudioSystem.getAudioInputStream(new File("lib/chomp.wav")));
+                clip.setLoopPoints(1_700, 14_700);
+                clip.loop(Clip.LOOP_CONTINUOUSLY);
+                clip.start();
+            }
+            catch(Exception e){
+                System.out.println(e.getMessage());
+            }
 
             this.pacman = maze.getPacman();
 
@@ -139,13 +166,32 @@ class Game {
                 gameFrame.redraw();
                 // If pacman was eaten, wait 2 seconds before resume game
                 if (pacmanEaten) {
-                    gameFrame.wait(2000);
+                    try {
+                        clip.stop();
+                        Clip death = AudioSystem.getClip();
+                        death.open(AudioSystem.getAudioInputStream(new File("lib/death.wav")));
+                        death.start();
+                        while (!death.isRunning())
+                            gameFrame.wait(10);
+                        while (death.isRunning())
+                            gameFrame.wait(10);
+                        death.close();
+                    }
+                    catch(Exception e){
+                        System.out.println(e.getMessage());
+                    }
+                    gameFrame.wait(1000);
+
+                    clip.setMicrosecondPosition(1_000);
+                    clip.loop(Clip.LOOP_CONTINUOUSLY);
+                    clip.start();
                 } else {
                     gameFrame.wait(100);
                 }
             }
 
             if (numberOfLives > 0) {
+                clip.stop();
                 level += 1;
                 gameFrame.setLevel(level);
                 gameFrame.eraseCharacter();
@@ -153,7 +199,11 @@ class Game {
                 this.maze.draw();
                 gameFrame.redraw();
                 gameFrame.wait(2000);
+                clip.start();
             }
+
+
+            clip.stop();
         }
 
 		endGame();
