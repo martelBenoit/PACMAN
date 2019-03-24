@@ -109,7 +109,14 @@ public class Pacman extends Character {
 
     @Override
     public void move(Tile nextTile) {
+        Tile prevTile = this.getTile();
         this.setTile(nextTile);
+        Tile newTile = this.getTile();
+
+        // Check if Pacman moved only 1 case, except when he move from left to right of the board
+        if(prevTile.getX() != 0 && prevTile.getX() != 450) {
+            assert (newTile.getX() >= prevTile.getX() - newTile.getSize() && newTile.getX() <= prevTile.getX() + newTile.getSize() && newTile.getY() >= prevTile.getY() - newTile.getSize() && newTile.getY() <= prevTile.getY() + newTile.getSize()) : "Pacman can't move more than 1 case";
+        }
     }
 
     /**

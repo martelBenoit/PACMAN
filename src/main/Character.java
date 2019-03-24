@@ -35,6 +35,11 @@ public abstract class Character extends Figure{
      */
     private int destHeight;
 
+    public void invariant() {
+        if(this.tile != null) {
+            assert !this.tile.isWall() : "The character can't be in a wall";
+        }
+    }
     /**
      * Constructor of the class Character.
      * This constructor is called when creating a "pacman" or "ghost" object. It allows to define on which tile is the
@@ -45,6 +50,8 @@ public abstract class Character extends Figure{
         super(tile.getSize(),tile.getSize(),tile.getX(),tile.getY());
         this.tile = tile;
         this.lastTile = this.tile;
+
+        invariant();
     }
 
 

@@ -32,7 +32,7 @@ class Game {
     /**
      * The initial number of lives.
      */
-    private int initialNumberOfLives;
+    private final int INITIALNUMBEROFLIVES;
 
     /**
      * The maze of level.
@@ -46,7 +46,10 @@ class Game {
 
     private Pacman pacman;
 
-
+    public void invariant() {
+        assert this.score >= 0 : "The score can't be negative";
+        assert this.numberOfLives >= 0 : "The number of lives can't be negative";
+    }
     /**
      * The constructor of the class Game.
      * @param lives the initial number of lives.
@@ -56,7 +59,7 @@ class Game {
         // Load score of previous games
         loadHighScores();
 
-        this.numberOfLives = this.initialNumberOfLives = lives;
+        this.numberOfLives = this.INITIALNUMBEROFLIVES = lives;
         this.gameFrame = GameFrame.getGameFrame();
 
         this.maze = new Maze(2);
@@ -71,6 +74,8 @@ class Game {
         this.gameFrame.setLives(lives);
 
         this.pacman = this.maze.getPacman();
+
+        invariant();
 
         // Wait before the game start
         waitStart();
@@ -188,9 +193,16 @@ class Game {
                 } else {
                     gameFrame.wait(100);
                 }
+
+
+                invariant();
+
             }
 
             if (numberOfLives > 0) {
+                int prevNbLives = this.numberOfLives;
+                int prevScore = this.score;
+
                 clip.stop();
                 level += 1;
                 gameFrame.setLevel(level);
@@ -200,6 +212,9 @@ class Game {
                 gameFrame.redraw();
                 gameFrame.wait(2000);
                 clip.start();
+
+                assert(this.score == prevScore) : "Le score a été modifié durant le changement de niveau";
+                assert(this.numberOfLives == prevNbLives) : "Le nombre de vies a été modifié durant le changement de niveau";
             }
 
 
@@ -235,9 +250,14 @@ class Game {
             }
         }
 
+        invariant();
+
     }
 
     private void eatPill(){
+
+	    int prevScore = this.score;
+
         // Eat Pill on the tile
         Pill pillToRemove = null;
 
@@ -284,7 +304,12 @@ class Game {
             pillToRemove.removeTile();
             t.draw();
             maze.getPills().remove(pillToRemove);
+
+            assert(pillToRemove.getTile() != maze.getPacman().getTile()) : "Pacman doit manger les pills se trouvant sur la même case que lui";
+            assert(pillToRemove instanceof FruitPill ? score == prevScore + maze.getFruitValue() : score == prevScore + maze.getPillValue()) : "Le score n'a pas été correctement augmenté";
         }
+
+        invariant();
     }
 
     private void moveGhosts() {
@@ -307,6 +332,8 @@ class Game {
                 }
             }
         }
+
+        invariant();
     }
 
     // Check if pacman is eaten by a ghost (or a ghost is eaten by pacman)
@@ -331,12 +358,18 @@ class Game {
                     }, maze.getRegenerationTime() * 1000);
 
                 } else {
+                    int prevNbLives = this.numberOfLives;
                     this.loseLife();
                     pacmanEaten = true;
+                    int newNbLives = this.numberOfLives;
+
+                    assert (newNbLives == prevNbLives-1) : "Pacman doit perdre une vie s'il est sur la même case qu'un fantôme et qu'il na pas de pouvoir.";
                 }
             }
         }
 
+
+        invariant();
         return pacmanEaten;
     }
 
@@ -360,6 +393,9 @@ class Game {
 
         gameFrame.showEndFrame(this.highScores,score);
 
+
+        invariant();
+
         waitRestart();
 
 
@@ -371,7 +407,7 @@ class Game {
         while(!restart){
             if(gameFrame.isRestartGame()){
                 restart = true;
-                this.numberOfLives = this.initialNumberOfLives;
+                this.numberOfLives = this.INITIALNUMBEROFLIVES;
                 gameFrame.eraseCharacter();
 
                 this.maze = new Maze(2);
@@ -409,6 +445,8 @@ class Game {
                 g.setTile(ghostSpawnTile == null ? maze.getRandomTile() : ghostSpawnTile);
             }
         }
+
+        invariant();
     }
 
     private void loadHighScores(){
@@ -436,6 +474,8 @@ class Game {
             System.out.println(e.toString());
         }
 
+        invariant();
+
     }
 
     private void saveHighScores(){
@@ -456,6 +496,8 @@ class Game {
             System.out.println("High scores not save !");
             System.out.println(e.getMessage());
         }
+
+        invariant();
     }
 
 }
