@@ -13,7 +13,8 @@ import main.Character;
  * Class GameFrame.
  * Class that creates the Pacman game window. It groups the panels for the menu,
  * the canvas and the panels for the pacman and the panels for the highscores.
- * @author Benoît & Yoann
+ * @author Benoît Martel
+ * @author Yoann Le Dréan
  * @version 1.0
  */
 public class GameFrame{

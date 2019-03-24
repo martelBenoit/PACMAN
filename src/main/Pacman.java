@@ -8,14 +8,11 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * <BODY>
- * <HTML>
- *     Pacman class. <br>
- *     Pacman class extends the Character class. <br>
- *     This class is used to manage the Pacman character in the game. <br>
- * </BODY>
- * </HTML>
- * @author Benoît & Yoann
+ * Pacman class. <br>
+ * Pacman class extends the Character class. <br>
+ * This class is used to manage the Pacman character in the game. <br>
+ * @author Benoît Martel
+ * @author Yoann Le Dréan
  * @version 1.0
  * @see Character
  */
@@ -73,13 +70,9 @@ public class Pacman extends Character {
 
 
     /**
-     * <BODY>
-     * <HTML>
-     *     Constructor of the class Pacman. <br>
-     *     Create a Pacman object. <br>
-     *     As a parameter of the constructor, the tile on which Pacman is located when it's created.
-     * </BODY>
-     * </HTML>
+     * Constructor of the class Pacman. <br>
+     * Create a Pacman object. <br>
+     * As a parameter of the constructor, the tile on which Pacman is located when it's created.
      * @param tile the tile on which Pacman is located when it's created.
      */
     Pacman(Tile tile){

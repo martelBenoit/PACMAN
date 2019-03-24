@@ -10,7 +10,8 @@ import main.view.GameFrame;
 /**
  * Game class
  * This class allows you to start the game, move pacman and ghosts. This class also manages scores and game levels.
- * @author Benoît & Yoann
+ * @author Benoît Martel
+ * @author Yoann Le Dréan
  * @version 1.0
  */
 class Game {
