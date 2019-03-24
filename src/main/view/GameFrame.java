@@ -9,12 +9,29 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import main.Character;
 
+/**
+ * Class GameFrame.
+ * Class that creates the Pacman game window. It groups the panels for the menu,
+ * the canvas and the panels for the pacman and the panels for the highscores.
+ * @author Benoît & Yoann
+ * @version 1.0
+ */
 public class GameFrame{
 
+    /**
+     * The width of the windows.
+     */
     public static final int WIDTH = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth()-50;
+
+    /**
+     * The height of the windows.
+     */
     public static final int HEIGHT = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 
 
+    /**
+     * The instance of the GameFrame class.
+     */
     private static GameFrame instance;
 
     private JFrame frame;
@@ -52,9 +69,12 @@ public class GameFrame{
 	private boolean startGame, restartGame = false;
 
 
+    /**
+     * The constructor of the class GameFrame.
+     */
     private GameFrame(){
 
-        createAndShowHUI();
+        createAndShowGUI();
 
         objects = new ArrayList<>();
         shapes = new HashMap<>();
@@ -64,8 +84,10 @@ public class GameFrame{
         canvas.setFocusable(true);
     }
 
-
-    private void createAndShowHUI(){
+    /**
+     * Create the different panels and canvas useful in the window of the game.
+     */
+    private void createAndShowGUI(){
 
         this.frame = new JFrame();
 
@@ -224,6 +246,10 @@ public class GameFrame{
 
     }
 
+    /**
+     * Designs the menu buttons.
+     * @param button the button to designs.
+     */
     private void designButtonFirstPanel(JButton button) {
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.setForeground(Color.WHITE);
@@ -236,6 +262,10 @@ public class GameFrame{
         button.setFocusable(false);
     }
 
+    /**
+     * Designs the end panel buttons.
+     * @param button the button to designs.
+     */
     private void designButtonEndPanel(JButton button) {
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.setForeground(Color.WHITE);
@@ -248,6 +278,11 @@ public class GameFrame{
         button.setFocusable(false);
     }
 
+    /**
+     * Sets and displays the end of game window.
+     * @param highScores the highscores of the game.
+     * @param scoreActual the score of the game that just ended.
+     */
     public void showEndFrame(ArrayList<Integer> highScores,int scoreActual){
         this.tableHigh.removeAll();
         this.tableHigh.setBackground(Color.BLACK);
@@ -273,21 +308,37 @@ public class GameFrame{
         card.show(c,"panEnd");
     }
 
+    /**
+     * Set level in the game.
+     * @param level the level.
+     */
     public void setLevel(int level){
         this.level.setText("LEVEL "+level);
         this.level.validate();
     }
 
+    /**
+     * Set score in the game.
+     * @param score the score.
+     */
     public void setScore(int score){
         this.score.setText(""+score);
         this.score.validate();
     }
 
+    /**
+     * Set highscore in the game.
+     * @param highScore the highscore.
+     */
     public void setHighScore(int highScore){
         this.highScore.setText("HIGH "+highScore);
         this.highScore.validate();
     }
 
+    /**
+     * Set lives in the game.
+     * @param lives lives in the game.
+     */
     public void setLives(int lives){
         if (lives > 1)
             this.lives.setText("LIVES "+lives);
@@ -296,6 +347,10 @@ public class GameFrame{
         this.lives.validate();
     }
 
+    /**
+     * Get the instance of the game frame
+     * @return the game frame
+     */
     public static GameFrame getGameFrame()
     {
         if(instance == null) {
@@ -305,6 +360,9 @@ public class GameFrame{
         return instance;
     }
 
+    /**
+     * Set visible the frame
+     */
     private void setVisible()
     {
         if(graphic == null) {
@@ -317,6 +375,11 @@ public class GameFrame{
         frame.setVisible(true);
     }
 
+    /**
+     * Set the dimension of the panel of the game
+     * @param width the width of the maze in the game
+     * @param height the height of the maze in the game
+     */
     public void setDimensionPan(int width, int height){
         this.canvas.setPreferredSize(new Dimension(width,height));
         this.canvas.setMaximumSize(new Dimension(width,height));
@@ -329,18 +392,34 @@ public class GameFrame{
         frame.pack();
     }
 
+    /**
+     * Add character to the game frame.
+     * @param c the character to add.
+     */
     public void drawCharacter(Character c){
         characters.remove(c);
         characters.add(c);
     }
 
+    /**
+     * Draw a given shape onto the canvas.
+     * @param  referenceObject an object to define identity for this shape.
+     * @param  color the color of the shape.
+     * @param  shape the shape object to be drawn on the canvas.
+     */
     public void draw(Object referenceObject, Color color, Shape shape)
     {
-        objects.remove(referenceObject);   // just in case it was already there
-        objects.add(referenceObject);      // add at the end
+        objects.remove(referenceObject);
+        objects.add(referenceObject);
         shapes.put(referenceObject, new ShapeDescription(shape,color));
     }
 
+    /**
+     * Wait for a specified number of milliseconds before finishing.
+     * This provides an easy way to specify a small delay which can be
+     * used when producing animations.
+     * @param  milliseconds  the number
+     */
     public void wait(int milliseconds)
     {
         try {
@@ -351,6 +430,9 @@ public class GameFrame{
         }
     }
 
+    /**
+     * Redraw all shapes currently on the Canvas.
+     */
     public void redraw()
     {
         SwingUtilities.invokeLater(() -> {
@@ -366,11 +448,17 @@ public class GameFrame{
 
     }
 
+    /**
+     * Erase the characters.
+     */
     public void eraseCharacter()
     {
         characters = new ArrayList<>();
     }
 
+    /**
+     * Erase the whole canvas.
+     */
     private void erase()
     {
         Color original = graphic.getColor();
@@ -425,12 +513,27 @@ public class GameFrame{
 		return rightPressed;
     }
 
+    /**
+     * Gets whether to start the game or not.
+     * @return true if you have to start.
+     */
     public boolean isStartGame(){return startGame;}
 
+    /**
+     * Gets whether to restart the game or not.
+     * @return true if you have to restart.
+     */
     public boolean isRestartGame(){return restartGame;}
 
+    /**
+     * Set if the game needs to start again or not.
+     * @param restartGame true if the game has to start again.
+     */
     public void setRestartGame(boolean restartGame){this.restartGame = restartGame;}
 
+    /**
+     * Reset the move.
+     */
     public void resetMove(){
 		rightPressed = false;
 		leftPressed = false;
@@ -438,7 +541,11 @@ public class GameFrame{
 		downPressed = false;
 		directionChanged = false;
 	}
-    
+
+    /**
+     * Inner class KeyboardListener extends KeyAdapter.
+     * Listens for the UP, DOWN, RIGHT, LEFT keys.
+     */
 	private class KeyboardListener extends KeyAdapter {
 
         @Override
@@ -464,8 +571,13 @@ public class GameFrame{
         }
 	}
 
-	private class ButtonListener implements ActionListener{
+    /**
+     * Inner class ButtonListener extends ActionListener.
+     * Allows you to manage the action performed when clicking on the buttons.
+     */
+	private class ButtonListener implements ActionListener {
 
+	    @Override
         public void actionPerformed(ActionEvent e) {
             if(e.getSource() == button_Quit || e.getSource() == button_Quit1){
                 frame.dispose();
@@ -486,8 +598,14 @@ public class GameFrame{
         }
     }
 
-    private class CanvasPane extends JPanel
-    {
+    /**
+     * Inner class CanvasPane.
+     * The actual canvas component contained in the Canvas frame. This is essentially a JPanel with
+     * added capability to refresh the image drawn on it.
+     */
+    private class CanvasPane extends JPanel {
+
+        @Override
         public void paint(Graphics g) {
             Graphics2D g2d = (Graphics2D)g;
             g2d.drawImage(canvasImage, 0, 0, null);
@@ -503,8 +621,11 @@ public class GameFrame{
         }
     }
 
-    private class ShapeDescription
-    {
+    /**
+     * Inner class ShapeDescription.
+     */
+    private class ShapeDescription {
+
         private Shape shape;
         private Color color;
 

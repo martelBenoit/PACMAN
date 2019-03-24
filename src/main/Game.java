@@ -8,7 +8,8 @@ import javax.sound.sampled.Clip;
 import main.view.GameFrame;
 
 /**
- *
+ * Game class
+ * This class allows you to start the game, move pacman and ghosts. This class also manages scores and game levels.
  * @author Benoît & Yoann
  * @version 1.0
  */
@@ -44,12 +45,11 @@ class Game {
      */
     private GameFrame gameFrame;
 
+    /**
+     * The pacman of the game.
+     */
     private Pacman pacman;
 
-    public void invariant() {
-        assert this.score >= 0 : "The score can't be negative";
-        assert this.numberOfLives >= 0 : "The number of lives can't be negative";
-    }
     /**
      * The constructor of the class Game.
      * @param lives the initial number of lives.
@@ -98,6 +98,9 @@ class Game {
         }
     }
 
+    /**
+     * Start the game
+     */
     private void startGame() {
 
         int level = 1;
@@ -224,6 +227,9 @@ class Game {
 		endGame();
     }
 
+    /**
+     * Move pacman
+     */
     private void movePacman(){
 
 
@@ -254,6 +260,9 @@ class Game {
 
     }
 
+    /**
+     * Eat pill
+     */
     private void eatPill(){
 
 	    int prevScore = this.score;
@@ -312,6 +321,9 @@ class Game {
         invariant();
     }
 
+    /**
+     * Move ghosts
+     */
     private void moveGhosts() {
 
         for (Ghost g : maze.getGhosts()) {
@@ -336,7 +348,10 @@ class Game {
         invariant();
     }
 
-    // Check if pacman is eaten by a ghost (or a ghost is eaten by pacman)
+    /**
+     * Check if pacman is eaten by a ghost (or a ghost is eaten by pacman).
+     * @return true if pacman is eaten.
+     */
     private boolean checkEaten() {
         boolean pacmanEaten = false;
 
@@ -373,6 +388,9 @@ class Game {
         return pacmanEaten;
     }
 
+    /**
+     * Method called for the end of the game.
+     */
     private void endGame() {
         int sizeHighScores = this.highScores.size();
 
@@ -401,6 +419,9 @@ class Game {
 
     }
 
+    /**
+     * This method is called to wait for a start of a new game.
+     */
     private void waitRestart(){
 
         boolean restart = false;
@@ -432,6 +453,9 @@ class Game {
 
     }
 
+    /**
+     * Method executed when pacman loses a life.
+     */
     private void loseLife() {
         this.numberOfLives--;
         gameFrame.setLives(numberOfLives);
@@ -449,6 +473,9 @@ class Game {
         invariant();
     }
 
+    /**
+     * Method that loads the high scores of the game
+     */
     private void loadHighScores(){
         this.highScores = new ArrayList<>();
         try{
@@ -478,6 +505,9 @@ class Game {
 
     }
 
+    /**
+     * Method to save the high scores of the game.
+     */
     private void saveHighScores(){
         try{
             PrintWriter writer = new PrintWriter("lib/highscores.pac");
@@ -498,6 +528,11 @@ class Game {
         }
 
         invariant();
+    }
+
+    public void invariant() {
+        assert this.score >= 0 : "The score can't be negative";
+        assert this.numberOfLives >= 0 : "The number of lives can't be negative";
     }
 
 }
