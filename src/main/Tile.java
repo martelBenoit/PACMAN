@@ -19,37 +19,37 @@ import java.awt.*;
 public class Tile extends Figure {
 
     /**
-     * The size of the tile
+     * The size of the tile.
      */
     private int size;
 
     /**
-     * The color of the tile
+     * The color of the tile.
      */
     private Color color;
 
     /**
-     *
+     * Tile pacman spawn.
      */
     private boolean pacmanSpawn;
 
     /**
-     *
+     * Tile pacman ghost.
      */
     private boolean ghostSpawn;
 
     /**
-     * Tile is wall
+     * Tile is wall.
      */
     private boolean isWall;
 
     /**
      * Constructor of the Tile class. This constructor allows you to create a tile
      * by specifying its x and y positions, size and defining it as a wall or not.
-     * @param size the size of the tile
-     * @param x x position of the tile
-     * @param y y position of the tile
-     * @param wall tile is wall or not
+     * @param size the size of the tile.
+     * @param x x position of the tile.
+     * @param y y position of the tile.
+     * @param wall tile is wall or not.
      */
     public Tile(int size, int x, int y, boolean wall){
 
@@ -67,23 +67,33 @@ public class Tile extends Figure {
             color = Color.BLACK;
     }
 
-
+    /**
+     * The method allows to get if this tile is the spawn of ghost
+     * @return true if the tile where ghost spawn
+     */
     boolean isGhostSpawn() {
         return ghostSpawn;
     }
 
-
+    /**
+     * The method allows to get if this tile is the spawn of pacman
+     * @return true if the tile where pacman spawn
+     */
     boolean isPacmanSpawn() {
         return pacmanSpawn;
     }
 
-
-    void setGhostSpawn() {
+    /**
+     * The method allows to define if this tile is the spawn of ghost
+     */
+    public void setGhostSpawn() {
         this.ghostSpawn = true;
     }
 
-
-    void setPacmanSpawn() {
+    /**
+     * The method allows to define if this tile is the spawn of pacman
+     */
+    public void setPacmanSpawn() {
         this.pacmanSpawn = true;
     }
 
@@ -91,7 +101,7 @@ public class Tile extends Figure {
      * Getter isWall.
      * @return true if the tile is a wall else false.
      */
-    boolean isWall() {
+    public boolean isWall() {
         return isWall;
     }
 
@@ -115,7 +125,7 @@ public class Tile extends Figure {
      * Getter size.
      * @return the size of the tile.
      */
-    int getSize(){
+    public int getSize(){
         return this.size;
     }
 }

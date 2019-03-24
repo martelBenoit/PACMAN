@@ -119,6 +119,7 @@ public class GameFrame{
 
         this.level.setText("LEVEL 1");
         this.level.setForeground(Color.WHITE);
+        this.level.setHorizontalAlignment(SwingConstants.RIGHT);
 
         this.score.setText("0");
         this.score.setForeground(Color.WHITE);
@@ -145,60 +146,28 @@ public class GameFrame{
         title_game_over.setFont(fontTitle.deriveFont(Font.PLAIN,55));
 
         button_Start =new JButton("START");
-        button_Start.setAlignmentX(Component.CENTER_ALIGNMENT);
-        button_Start.setForeground(Color.WHITE);
-        button_Start.addActionListener(new ButtonListener());
-        button_Start.setFont(font.deriveFont(Font.PLAIN,50));
-        button_Start.setPreferredSize(new Dimension(300,80));
-        button_Start.setMaximumSize(new Dimension(300,80));
-        button_Start.setContentAreaFilled(false);
-        button_Start.setBorder(new LineBorder(Color.YELLOW));
-        button_Start.setFocusable(false);
+        designButtonFirstPanel(button_Start);
 
 
         button_Quit =new JButton("QUIT");
-        button_Quit.setAlignmentX(Component.CENTER_ALIGNMENT);
-        button_Quit.setForeground(Color.WHITE);
-        button_Quit.addActionListener(new ButtonListener());
-        button_Quit.setFont(font.deriveFont(Font.PLAIN,50));
-        button_Quit.setPreferredSize(new Dimension(300,80));
-        button_Quit.setMaximumSize(new Dimension(300,80));
-        button_Quit.setContentAreaFilled(false);
-        button_Quit.setBorder(new LineBorder(Color.YELLOW));
-        button_Quit.setFocusable(false);
+        designButtonFirstPanel(button_Quit);
 
 
         tableHigh = new JPanel();
 
         button_restart =new JButton("RESTART");
-        button_restart.setAlignmentX(Component.CENTER_ALIGNMENT);
-        button_restart.setForeground(Color.WHITE);
-        button_restart.addActionListener(new ButtonListener());
-        button_restart.setFont(font.deriveFont(Font.PLAIN,40));
-        button_restart.setPreferredSize(new Dimension(270,70));
-        button_restart.setMaximumSize(new Dimension(270,70));
-        button_restart.setContentAreaFilled(false);
-        button_restart.setBorder(new LineBorder(Color.YELLOW));
-        button_restart.setFocusable(false);
+        designButtonEndPanel(button_restart);
 
         button_Quit1 =new JButton("QUIT");
-        button_Quit1.setAlignmentX(Component.CENTER_ALIGNMENT);
-        button_Quit1.setForeground(Color.WHITE);
-        button_Quit1.addActionListener(new ButtonListener());
-        button_Quit1.setFont(font.deriveFont(Font.PLAIN,40));
-        button_Quit1.setPreferredSize(new Dimension(270,70));
-        button_Quit1.setMaximumSize(new Dimension(270,70));
-        button_Quit1.setContentAreaFilled(false);
-        button_Quit1.setBorder(new LineBorder(Color.YELLOW));
-        button_Quit1.setFocusable(false);
+        designButtonEndPanel(button_Quit1);
 
 
         panStart.setBackground(Color.black);
         panGame.setBackground(Color.black);
         panEnd.setBackground(Color.black);
-        panMain.setBackground(Color.black);
         this.panUp.setBackground(Color.black);
-        this.panDown.setBackground(Color.black);
+        this.panDown.setBackground(Color.red);
+
         this.canvas = new CanvasPane();
         this.canvas.setPreferredSize(new Dimension(WIDTH,HEIGHT));
 
@@ -213,6 +182,7 @@ public class GameFrame{
         this.panUp.add(this.highScore);
 
         this.panDown.add(this.lives);
+        this.panDown.add(this.level);
 
         panMain.add(panUp);
         panMain.add(canvas);
@@ -226,10 +196,10 @@ public class GameFrame{
         JPanel lastPan = new JPanel();
         lastPan.setBackground(Color.BLACK);
 
-        JPanel test = new JPanel();
-        test.setBackground(Color.BLACK);
+        JPanel panHighScore = new JPanel();
+        panHighScore.setBackground(Color.BLACK);
 
-        test.add(tableHigh);
+        panHighScore.add(tableHigh);
 
         firstPan.setLayout(new GridBagLayout());
         lastPan.setLayout(new GridBagLayout());
@@ -239,7 +209,7 @@ public class GameFrame{
 
         panEnd.add(title_game_over);
         panEnd.add(Box.createRigidArea(new Dimension(0,30)));
-        panEnd.add(test);
+        panEnd.add(panHighScore);
         panEnd.add(Box.createRigidArea(new Dimension(0,10)));
         panEnd.add(button_restart);
         panEnd.add(Box.createRigidArea(new Dimension(0,10)));
@@ -250,10 +220,32 @@ public class GameFrame{
         c.add("panEnd",lastPan);
 
         this.frame.pack();
-
-        //canvas.setFocusable(true);
         this.setVisible();
 
+    }
+
+    private void designButtonFirstPanel(JButton button) {
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
+        button.setForeground(Color.WHITE);
+        button.addActionListener(new ButtonListener());
+        button.setFont(font.deriveFont(Font.PLAIN,50));
+        button.setPreferredSize(new Dimension(300,80));
+        button.setMaximumSize(new Dimension(300,80));
+        button.setContentAreaFilled(false);
+        button.setBorder(new LineBorder(Color.YELLOW));
+        button.setFocusable(false);
+    }
+
+    private void designButtonEndPanel(JButton button) {
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
+        button.setForeground(Color.WHITE);
+        button.addActionListener(new ButtonListener());
+        button.setFont(font.deriveFont(Font.PLAIN,40));
+        button.setPreferredSize(new Dimension(270,70));
+        button.setMaximumSize(new Dimension(270,70));
+        button.setContentAreaFilled(false);
+        button.setBorder(new LineBorder(Color.YELLOW));
+        button.setFocusable(false);
     }
 
     public void showEndFrame(ArrayList<Integer> highScores,int scoreActual){
@@ -327,6 +319,7 @@ public class GameFrame{
 
     public void setDimensionPan(int width, int height){
         this.canvas.setPreferredSize(new Dimension(width,height));
+        this.canvas.setMaximumSize(new Dimension(width,height));
         this.canvas.revalidate();
         this.panUp.setPreferredSize(new Dimension(width,40));
         this.panUp.revalidate();
@@ -341,22 +334,12 @@ public class GameFrame{
         characters.add(c);
     }
 
-
     public void draw(Object referenceObject, Color color, Shape shape)
     {
         objects.remove(referenceObject);   // just in case it was already there
         objects.add(referenceObject);      // add at the end
         shapes.put(referenceObject, new ShapeDescription(shape,color));
     }
-
-
-    public void erase(Object referenceObject)
-    {
-        objects.remove(referenceObject);   // just in case it was already there
-        shapes.remove(referenceObject);
-        characters.remove(referenceObject);
-    }
-
 
     public void wait(int milliseconds)
     {
@@ -370,16 +353,13 @@ public class GameFrame{
 
     public void redraw()
     {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                erase();
-                for(Object shape : objects) {
-                    shapes.get(shape).draw(graphic);
-                }
-
-                canvas.repaint();
+        SwingUtilities.invokeLater(() -> {
+            erase();
+            for(Object shape : objects) {
+                shapes.get(shape).draw(graphic);
             }
+
+            canvas.repaint();
         });
         wait(120);
 
@@ -503,9 +483,7 @@ public class GameFrame{
                 canvas.requestFocus();
                 restartGame = true;
             }
-
         }
-
     }
 
     private class CanvasPane extends JPanel
@@ -522,7 +500,6 @@ public class GameFrame{
                 g2d.drawImage(c.getImage(), x, y, width, height,null);
 
             }
-
         }
     }
 
@@ -541,5 +518,4 @@ public class GameFrame{
             graphic.fill(shape);
         }
     }
-
 }

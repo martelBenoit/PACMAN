@@ -51,10 +51,12 @@ public abstract class Figure
      * @param x the x position of the figure.
      * @param y the y position of the figure.
      * @param color the color of the figure.
+     *
      */
     protected Figure(int width, int height, int x, int y, Color color)
     {
         assert width >= 0 && height >= 0 : "Wrong dimensions";
+        assert color != null : "Wrong color";
 
         this.width = width;
         this.height = height;
@@ -90,11 +92,13 @@ public abstract class Figure
      */
     protected void centerImage(int newWidth, int newHeight){
 
+        assert newWidth >= 0 && newHeight >= 0 : "Wrong dimensions";
+
         int diffY = (this.height-newHeight)/2;
         int diffX = (this.width-newWidth)/2;
 
-        this.x = this.x+diffX;
-        this.y = this.y+diffY;
+        changePosition(this.x+diffX,this.y+diffY);
+
     }
 
     /**
@@ -103,6 +107,9 @@ public abstract class Figure
      * @param y the new y position of the figure.
      */
     protected void changePosition(int x, int y){
+
+        assert x >= 0 && y >= 0 : "Wrong dimensions";
+
         this.x = x;
         this.y = y;
     }
