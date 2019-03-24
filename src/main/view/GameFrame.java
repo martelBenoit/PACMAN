@@ -13,7 +13,8 @@ import main.Character;
  * Class GameFrame.
  * Class that creates the Pacman game window. It groups the panels for the menu,
  * the canvas and the panels for the pacman and the panels for the highscores.
- * @author Benoît & Yoann
+ * @author Benoît Martel
+ * @author Yoann Le Dréan
  * @version 1.0
  */
 public class GameFrame{
@@ -164,7 +165,7 @@ public class GameFrame{
         JLabel title_game_over = new JLabel();
         title_game_over.setAlignmentX(Component.CENTER_ALIGNMENT);
         title_game_over.setText("game over");
-        title_game_over.setForeground(Color.RED);
+        title_game_over.setForeground(Color.red);
         title_game_over.setFont(fontTitle.deriveFont(Font.PLAIN,55));
 
         button_Start =new JButton("START");
@@ -188,7 +189,7 @@ public class GameFrame{
         panGame.setBackground(Color.black);
         panEnd.setBackground(Color.black);
         this.panUp.setBackground(Color.black);
-        this.panDown.setBackground(Color.red);
+        this.panDown.setBackground(Color.black);
 
         this.canvas = new CanvasPane();
         this.canvas.setPreferredSize(new Dimension(WIDTH,HEIGHT));

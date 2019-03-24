@@ -2,7 +2,8 @@ package main;
 
 /**
  * Launcher class of game Pacman
- * @author Benoît & Yoann
+ * @author Benoît Martel
+ * @author Yoann Le Dréan
  * @version 1.0
  */
 public class Launcher {

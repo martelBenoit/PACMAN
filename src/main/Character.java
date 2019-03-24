@@ -7,7 +7,8 @@ import java.awt.image.BufferedImage;
  * Abstract class Character
  * This abstract class will eventually create "pacman" objects and "ghosts".
  * This class extends the Figure class.
- * @author Benoît & Yoann
+ * @author Benoît Martel
+ * @author Yoann Le Dréan
  * @version 1.0
  * @see Figure
  * @see Pacman

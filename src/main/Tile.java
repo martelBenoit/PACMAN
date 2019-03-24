@@ -5,14 +5,11 @@ import main.view.GameFrame;
 import java.awt.*;
 
 /**
- * <HTML>
- * <BODY>
- *     Class Tile. <br>
- *     This class allows to create tile of Maze. <br>
- *     This class extends the Figure class.
- * </BODY>
- * </HTML>
- * @author Benoît & Yoann
+ * Class Tile. <br>
+ * This class allows to create tile of Maze. <br>
+ * This class extends the Figure class.
+ * @author Benoît Martel
+ * @author Yoann Le Dréan
  * @version 1.0
  * @see Figure
  */

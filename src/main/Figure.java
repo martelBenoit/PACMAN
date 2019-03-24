@@ -3,14 +3,11 @@ package main;
 import java.awt.Color;
 
 /**
- * <HTML>
- * <BODY>
  * Abstract class Figure. <br>
  * This class is the super class of "Character" but also of "Pill" and "Tile". It allows among other things to
  * define the positions, sizes and colors of the elements of pacman game.
- * </BODY>
- * </HTML>
- * @author Benoît & Yoann
+ * @author Benoît Martel
+ * @author Yoann Le Dréan
  * @version 1.0
  * @see Character
  * @see Pill

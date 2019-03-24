@@ -14,7 +14,8 @@ import java.util.Random;
  * Class Maze.
  * This class can generate a maze entirely from a ".maze" file. It is possible to determine the number of tiles
  * in the maze, where are the different pills, etc.
- * @author Benoît & Yoann
+ * @author Benoît Martel
+ * @author Yoann Le Dréan
  * @version 1.0
  */
 class Maze {

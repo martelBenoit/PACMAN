@@ -6,14 +6,11 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * <BODY>
- * <HTML>
- *     Ghost class. <br>
- *     Ghost class extends the Character class. <br>
- *     This class is used to manage the Ghost character in the game. <br>
- * </BODY>
- * </HTML>
- * @author Benoît & Yoann
+ * Ghost class. <br>
+ * Ghost class extends the Character class. <br>
+ * This class is used to manage the Ghost character in the game. <br>
+ * @author Benoît Martel
+ * @author Yoann Le Dréan
  * @version 1.0
  * @see Character
  */

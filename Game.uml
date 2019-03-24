@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>main.Game</OriginalElement>
+  <nodes>
+    <node x="1252.5" y="0.0">main.view.GameFrame</node>
+    <node x="249.4675925925926" y="323.0">main.Character</node>
+    <node x="338.0" y="1230.0">main.Game</node>
+    <node x="808.5" y="433.5">main.Pill</node>
+    <node x="782.5" y="0.0">main.Figure</node>
+    <node x="622.0" y="923.5">main.FruitPill</node>
+    <node x="998.5" y="356.0">main.Tile</node>
+    <node x="816.0" y="923.5">main.NormalPill</node>
+    <node x="363.0" y="823.0">main.Ghost</node>
+    <node x="753.0" y="1230.0">main.Launcher</node>
+    <node x="612.0" y="1230.0">main.Direction</node>
+    <node x="0.0" y="1230.0">main.Maze</node>
+    <node x="991.0" y="923.5">main.PowerPill</node>
+    <node x="0.0" y="713.0">main.Pacman</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="main.Pacman" target="main.Character">
+      <point x="0.0" y="-236.0" />
+      <point x="171.5" y="688.0" />
+      <point x="297.2175925925926" y="688.0" />
+      <point x="-47.75" y="170.0" />
+    </edge>
+    <edge source="main.Tile" target="main.Figure">
+      <point x="0.0" y="-137.0" />
+      <point x="1103.0" y="298.0" />
+      <point x="967.5" y="298.0" />
+      <point x="74.0" y="136.5" />
+    </edge>
+    <edge source="main.Ghost" target="main.Character">
+      <point x="0.0" y="-126.0" />
+      <point x="482.5" y="688.0" />
+      <point x="392.7175925925926" y="688.0" />
+      <point x="47.75" y="170.0" />
+    </edge>
+    <edge source="main.Character" target="main.Figure">
+      <point x="0.0" y="-170.0" />
+      <point x="344.9675925925926" y="298.0" />
+      <point x="819.5" y="298.0" />
+      <point x="-74.0" y="136.5" />
+    </edge>
+    <edge source="main.PowerPill" target="main.Pill">
+      <point x="0.0" y="-25.5" />
+      <point x="1082.5" y="688.0" />
+      <point x="950.1666666666666" y="688.0" />
+      <point x="56.66666666666663" y="59.5" />
+    </edge>
+    <edge source="main.FruitPill" target="main.Pill">
+      <point x="0.0" y="-25.5" />
+      <point x="709.0" y="688.0" />
+      <point x="836.8333333333334" y="688.0" />
+      <point x="-56.66666666666663" y="59.5" />
+    </edge>
+    <edge source="main.NormalPill" target="main.Pill">
+      <point x="0.0" y="-25.5" />
+      <point x="0.0" y="59.5" />
+    </edge>
+    <edge source="main.Pill" target="main.Figure">
+      <point x="0.0" y="-59.5" />
+      <point x="0.0" y="136.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="862.5" y="341.0" />
+  <SelectedNodes>
+    <node>main.Game</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

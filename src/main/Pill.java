@@ -6,13 +6,10 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
 /**
- * <BODY>
- * <HTML>
- *     Abstract class Pill. <br>
- *     Pill makes it possible to create pills on the maze. Each pills is placed on a tiles belonging to the maze.
- * </BODY>
- * </HTML>
- * @author Benoît & Yoann
+ * Abstract class Pill. <br>
+ * Pill makes it possible to create pills on the maze. Each pills is placed on a tiles belonging to the maze.
+ * @author Benoît Martel
+ * @author Yoann Le Dréan
  * @version 1.0
  * @see PowerPill
  * @see NormalPill
@@ -26,15 +23,11 @@ public abstract class Pill extends Figure{
     protected Tile tile;
 
     /**
-     * <BODY>
-     * <HTML>
-     *     Constructor of the Pill class. <br>
-     *     The class being abstract it is not possible to create a "Pill" object, it's necessary to go through the
-     *     sub objects "NormalPill, FruitPill, PowerPill". <br>
-     *     This constructor is called from the subclasses. It allows
-     *     to select on which tile is the pill, the color of the pill and its size factor on the maze.
-     * </BODY>
-     * </HTML>
+     * Constructor of the Pill class. <br>
+     * The class being abstract it is not possible to create a "Pill" object, it's necessary to go through the
+     * sub objects "NormalPill, FruitPill, PowerPill". <br>
+     * This constructor is called from the subclasses. It allows
+     * to select on which tile is the pill, the color of the pill and its size factor on the maze.
      * @param tile the tile on which is the Pill.
      * @param color the color of the Pill.
      * @param factor the size factor of the Pill.
