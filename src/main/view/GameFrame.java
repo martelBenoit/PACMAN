@@ -85,7 +85,7 @@ public class GameFrame{
     }
 
     /**
-     * Create the different panels and canvas useful in the window of the game.
+     * Creates the different panels and canvas used in the window of the game.
      */
     private void createAndShowGUI(){
 
@@ -361,7 +361,7 @@ public class GameFrame{
     }
 
     /**
-     * Set visible the frame
+     * Set the frame visible
      */
     private void setVisible()
     {
@@ -376,7 +376,7 @@ public class GameFrame{
     }
 
     /**
-     * Set the dimension of the panel of the game
+     * Sets the dimension of the panel of the game
      * @param width the width of the maze in the game
      * @param height the height of the maze in the game
      */
@@ -393,7 +393,7 @@ public class GameFrame{
     }
 
     /**
-     * Add character to the game frame.
+     * Adds a character to the game frame.
      * @param c the character to add.
      */
     public void drawCharacter(Character c){
@@ -402,7 +402,7 @@ public class GameFrame{
     }
 
     /**
-     * Draw a given shape onto the canvas.
+     * Draws a given shape onto the canvas.
      * @param  referenceObject an object to define identity for this shape.
      * @param  color the color of the shape.
      * @param  shape the shape object to be drawn on the canvas.

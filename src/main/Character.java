@@ -41,7 +41,7 @@ public abstract class Character extends Figure{
      * character.
      * @param tile the tile where the character is.
      */
-    public Character(Tile tile){
+    Character(Tile tile){
         super(tile.getSize(),tile.getSize(),tile.getX(),tile.getY());
         this.tile = tile;
         this.lastTile = this.tile;
@@ -82,6 +82,8 @@ public abstract class Character extends Figure{
             this.changePosition(this.tile.getX(), this.tile.getY());
             centerImage(destWidth, destHeight);
         }
+
+        invariant();
     }
 
     /**
